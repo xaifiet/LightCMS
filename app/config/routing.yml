@@ -1,3 +1,7 @@
+light_cms_core:
+    resource: "@LightCMSCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

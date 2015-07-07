@@ -1,0 +1,4 @@
+services:
+#    light_cms_core.example:
+#        class: LightCMS\CoreBundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
