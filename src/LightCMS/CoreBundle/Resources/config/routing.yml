@@ -1,3 +1,9 @@
-light_cms_core_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: LightCMSCoreBundle:Default:index }
+light_cms_core_home:
+    path:     /
+    defaults: { _controller: LightCMSCoreBundle:Page:view }
+
+light_cms_core_page:
+    path:     /page/{path}
+    defaults: { _controller: LightCMSCoreBundle:Page:view }
+    requirements:
+        path: ".+"
