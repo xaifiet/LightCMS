@@ -1,9 +1,9 @@
 light_cms_core_home:
     path:     /
-    defaults: { _controller: LightCMSCoreBundle:Page:view }
+    defaults: { _controller: LightCMSCoreBundle:Node:view }
 
 light_cms_core_page:
-    path:     /page/{path}
-    defaults: { _controller: LightCMSCoreBundle:Page:view }
+    path:     /node/{path}
+    defaults: { _controller: LightCMSCoreBundle:Node:view }
     requirements:
         path: ".+"

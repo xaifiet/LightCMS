@@ -44,10 +44,10 @@ class Site
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Page")
-     * @ORM\JoinColumn(referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Node")
+     * @ORM\JoinColumn(referencedColumnName="salt")
      **/
-    private $home;
+    private $node;
 
     /**
      * @ORM\Column(type="datetime")
@@ -74,7 +74,7 @@ class Site
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -97,7 +97,7 @@ class Site
     /**
      * Get host
      *
-     * @return string 
+     * @return string
      */
     public function getHost()
     {
@@ -120,7 +120,7 @@ class Site
     /**
      * Get priority
      *
-     * @return integer 
+     * @return integer
      */
     public function getPriority()
     {
@@ -143,7 +143,7 @@ class Site
     /**
      * Get layout
      *
-     * @return string 
+     * @return string
      */
     public function getLayout()
     {
@@ -166,7 +166,7 @@ class Site
     /**
      * Get title
      *
-     * @return string 
+     * @return string
      */
     public function getTitle()
     {
@@ -189,7 +189,7 @@ class Site
     /**
      * Get created
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getCreated()
     {
@@ -212,7 +212,7 @@ class Site
     /**
      * Get updated
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getUpdated()
     {
@@ -222,12 +222,12 @@ class Site
     /**
      * Set home
      *
-     * @param \LightCMS\CoreBundle\Entity\Page $home
+     * @param \LightCMS\CoreBundle\Entity\Node $home
      * @return Site
      */
-    public function setHome(\LightCMS\CoreBundle\Entity\Page $home = null)
+    public function setNode(\LightCMS\CoreBundle\Entity\Node $node = null)
     {
-        $this->home = $home;
+        $this->node = $node;
 
         return $this;
     }
@@ -235,10 +235,10 @@ class Site
     /**
      * Get home
      *
-     * @return \LightCMS\CoreBundle\Entity\Page 
+     * @return \LightCMS\CoreBundle\Entity\Node
      */
-    public function getHome()
+    public function getNode()
     {
-        return $this->home;
+        return $this->node;
     }
 }
