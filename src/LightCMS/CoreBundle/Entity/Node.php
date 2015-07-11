@@ -11,7 +11,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(name="lcms_nodes")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
- * @ORM\DiscriminatorMap({ "node" = "Node" })
  */
 abstract class Node
 {

@@ -1,19 +1,14 @@
-parameters:
-    discriminator_map:
-        person:
-            entity: LightCMS\CoreBundle\Entity\Node
-            map:
-                page: LightCMS\PageBundle\Entity\Page
-                folder: LightCMS\FolderBundle\Entity\Folder
-
 services:
 
-    lcms.discriminator_map:
+    discriminator_map:
         class: LightCMS\CoreBundle\Listener\DiscriminatorMapListener
         arguments:
-            - [%discriminator_map%]
+            - @service_container
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }
+
+    class_guesser:
+        class: LightCMS\CoreBundle\Service\ClassGuesserService
 
     service.site:
         class:     LightCMS\CoreBundle\Service\SiteService

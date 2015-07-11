@@ -1,3 +1,10 @@
+parameters:
+    discriminator_map.folder:
+        node:
+            entity: LightCMS\CoreBundle\Entity\Node
+            map:
+                folder: LightCMS\FolderBundle\Entity\Folder
+
 services:
 #    light_cms_folder.example:
 #        class: LightCMS\FolderBundle\Example

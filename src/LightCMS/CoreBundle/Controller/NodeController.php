@@ -14,12 +14,16 @@ class NodeController extends Controller
 
         $node = $site->getNode();
 
-        $bundle = 'LightCMSCoreBundle';
-        $layout = 'Layout/'.$site->getLayout();
 
-        var_dump(get_class($node));
+        $guesser = $this->get('class_guesser')->getGuesser($node);
 
-        return $this->render($bundle.':'.$layout.':layout.html.twig', array(
+        $bundle = $guesser->getBundleShortName();
+        $layout = $guesser->guessEntityShortName();
+
+        $extendLayout = 'LightCMSCoreBundle:Layout/'.$site->getLayout();
+
+        return $this->render($bundle.':'.$layout.':view.html.twig', array(
+            'extendTemplate' => $extendLayout.':layout.html.twig',
             'site' => $site,
             'node' => $node
         ));
