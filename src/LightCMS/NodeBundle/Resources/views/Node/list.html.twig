@@ -1,5 +1,20 @@
-{% for node in nodes %}
-    <div>
-        <a href="{{ path('light_cms_core_backend', { 'module': 'node', 'action': 'edit', 'id': node.salt}) }}">{{ node.name }}</a>
-    </div>
-{% endfor %}
+<div id="sidetree">
+    {% include 'LightCMSNodeBundle:Node:list-item.html.twig' with {'nodes': nodes} %}
+</div>
+<script>
+    $( document ).ready(function() {
+        var easyTree = $('#sidetree').easytree();
+
+        function optionChange() {
+            easyTree.options.allowActivate = $('#allowActivation')[0].checked;
+            easyTree.options.enableDnd = $('#enableDnd')[0].checked;
+            easyTree.options.disableIcons = $('#disableIcons')[0].checked;
+            easyTree.options.ordering = $("input[name='ordering']:checked").val()
+            easyTree.options.slidingTime = $('#slidingTime').val();
+            easyTree.options.minOpenLevels = $('#minOpenLevels').val();
+
+            easyTree.rebuildTree();
+        }
+    });
+
+</script>

@@ -10,8 +10,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use Doctrine\ORM\EntityManager;
 
-use LightCMS\CoreBundle\Entity\Page;
-use LightCMS\CoreBundle\Entity\Gallery;
+use LightCMS\NodeBundle\Entity\Folder;
+use LightCMS\NodeBundle\Entity\Page;
+use LightCMS\SiteBundle\Entity\Site;
 
 class InitCommand extends ContainerAwareCommand
 {
@@ -28,7 +29,7 @@ class InitCommand extends ContainerAwareCommand
         $em = $this->getContainer()->get('doctrine')->getManager();
 
         $output->writeln('Creating Home Folder');
-        $folder = new \LightCMS\NodeBundle\Entity\Folder();
+        $folder = new Folder();
         $folder->setName('Default Site');
         $folder->setUrlname('Default Site Root');
         $folder->setPublished(true);
@@ -36,7 +37,8 @@ class InitCommand extends ContainerAwareCommand
         $em->persist($folder);
 
         $output->writeln('Creating Home Page');
-        $page = new \LightCMS\NodeBundle\Entity\Page();
+        $page = new Page();
+        $page->setParent($folder);
         $page->setName('Home');
         $page->setUrlname('home');
         $page->setPublished(true);
@@ -46,7 +48,7 @@ class InitCommand extends ContainerAwareCommand
         $em->persist($page);
 
         $output->writeln('Creating Default Site');
-        $site = new \LightCMS\SiteBundle\Entity\Site();
+        $site = new Site();
         $site->setTitle('My Site');
         $site->setLayout('default');
         $site->setHost('*');

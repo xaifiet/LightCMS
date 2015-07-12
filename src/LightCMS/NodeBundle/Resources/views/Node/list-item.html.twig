@@ -1,0 +1,8 @@
+<ul>
+    {% for node in nodes %}
+        <li class="isFolder">
+            <a href="{{ path('light_cms_core_backend', { 'module': 'node', 'action': 'edit', 'id': node.salt}) }}">{{ node.name }}</a>
+            {% include 'LightCMSNodeBundle:Node:list-item.html.twig' with { 'nodes': node.getChildren() } %}
+        </li>
+    {% endfor %}
+</ul>

@@ -4,10 +4,12 @@
         <title>Light CMS Backend</title>
         {% block stylesheets %}
             <link href="{{ asset('/bundles/lightcmscore/css/backend/default/backend.css') }}" type="text/css" rel="stylesheet" />
+            <link href="{{ asset('/bundles/lightcmscore/js/easytree/skin-lion/ui.easytree.css') }}" type="text/css" rel="stylesheet" />
         {% endblock %}
         {% block javascript %}
             <script type="text/javascript" src="{{ asset('/bundles/lightcmscore/js/jquery-2.1.4.min.js') }}"></script>
             <script type="text/javascript" src="{{ asset('/bundles/lightcmscore/js/tinymce/tinymce.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/bundles/lightcmscore/js/easytree/jquery.easytree.min.js') }}"></script>
         {% endblock %}
     </head>
     <body>

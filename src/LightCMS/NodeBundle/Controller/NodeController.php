@@ -32,7 +32,7 @@ class NodeController extends Controller
 
     public function listAction()
     {
-        $nodes = $this->getDoctrine()->getRepository('LightCMSNodeBundle:Node')->findAll();
+        $nodes = $this->getDoctrine()->getRepository('LightCMSNodeBundle:Node')->findByParent(null);
 
         return $this->render('LightCMSNodeBundle:Node:list.html.twig', array(
             'nodes' => $nodes
