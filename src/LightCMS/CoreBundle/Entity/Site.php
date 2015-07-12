@@ -63,7 +63,6 @@ class Site
      * __construct function.
      *
      * @access public
-     * @return void
      */
     public function __construct() {
         $this->created = new \DateTime();
@@ -222,7 +221,7 @@ class Site
     /**
      * Set home
      *
-     * @param \LightCMS\CoreBundle\Entity\Node $home
+     * @param \LightCMS\CoreBundle\Entity\Node $node
      * @return Site
      */
     public function setNode(\LightCMS\CoreBundle\Entity\Node $node = null)

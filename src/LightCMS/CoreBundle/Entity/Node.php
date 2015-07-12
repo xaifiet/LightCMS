@@ -64,7 +64,6 @@ abstract class Node
      * __construct function.
      *
      * @access public
-     * @return void
      */
     public function __construct() {
         $this->salt = md5(uniqid(null, true));

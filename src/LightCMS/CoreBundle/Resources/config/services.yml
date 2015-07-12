@@ -10,7 +10,18 @@ services:
     class_guesser:
         class: LightCMS\CoreBundle\Service\ClassGuesserService
 
-    service.site:
+    lcms_site:
         class:     LightCMS\CoreBundle\Service\SiteService
         arguments:
             - @service_container
+
+    light_cms_core.form_type.node_type:
+        class: LightCMS\CoreBundle\Form\Type\NodeType
+        arguments: [ @doctrine.orm.entity_manager ]
+        tags:
+            - { name: form.type, alias: node }
+
+    light_cms_core.form_type.html_type:
+        class: LightCMS\CoreBundle\Form\Type\HtmlType
+        tags:
+            - { name: form.type, alias: html }

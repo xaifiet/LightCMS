@@ -4,16 +4,13 @@ namespace LightCMS\CoreBundle\Service;
 
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
+/**
+ * Class SiteService
+ *
+ * @package LightCMS\CoreBundle\Service
+ */
 class SiteService
 {
-
-    /**
-     * container
-     *
-     * @var mixed
-     * @access private
-     */
-    private $container;
 
     /**
      * request
@@ -40,11 +37,18 @@ class SiteService
     private $siteRepository;
 
     /**
+     * site
+     *
+     * @var \LightCMS\CoreBundle\Entity\Site
+     * @access private
+     */
+    private $site;
+
+    /**
      * __construct function.
      *
      * @access public
      * @param mixed $container
-     * @return void
      */
     public function __construct($container)
     {
@@ -56,6 +60,9 @@ class SiteService
 
         // Getting the Site Repository from Entity Manager
         $this->siteRepository = $this->entityManager->getRepository('LightCMSCoreBundle:Site');
+
+        // Fetching the current site
+        $this->fetchCurrentSite();
     }
 
     /**
@@ -66,23 +73,34 @@ class SiteService
      * @access public
      * @return LightCMS\CoreBundle\Entity\Site
      */
-    public function getSite()
+    private function fetchCurrentSite()
     {
         // Getting all available sites by priority
         $sites = $this->siteRepository->findBy(array(), array('priority' => 'ASC'));
 
         // Loop on sites
         foreach ($sites as $site) {
+
             // Preparing regexp for matching
             $regexp = '/'.str_replace('*', '.+', $site->getHost()).'/';
+
             // Check the regexp and return Site if matching
             if (preg_match($regexp, $this->request->getHost())) {
-               return $site;
+                $this->site = $site;
+                return true;
             }
         }
 
         // Throwing exception if no site available
         throw new NotFoundHttpException('No available Site for this request !');
+    }
+
+    /**
+     * @return \LightCMS\CoreBundle\Entity\Site
+     */
+    public function getSite()
+    {
+        return $this->site;
     }
 
     /**
@@ -95,20 +113,24 @@ class SiteService
      */
     public function getHome()
     {
-        // Getting site
-        $site = $this->getSite();
-
         // Getting home page from site
-        $page = $site->getHome();
+        $node = $this->site->getNode();
 
         // Returning the page if not null
-        if (!is_null($page)) {
-            return $page;
-
+        if (!is_null($node)) {
+            return $node;
         }
 
         // Throwing an exception if no home page available
         throw new NotFoundHttpException('No home page for this site !');
+    }
+
+    /**
+     *
+     */
+    public function getLayoutTemplate()
+    {
+        return 'LightCMSCoreBundle:Layout/'.$this->site->getLayout().':layout.html.twig';
     }
 
 }

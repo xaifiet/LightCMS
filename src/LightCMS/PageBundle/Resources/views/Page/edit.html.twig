@@ -1,0 +1,10 @@
+{% extends siteService.getLayoutTemplate() %}
+
+{% form_theme form 'LightCMS\CoreBundle:Form:theme.html.twig' %}
+
+{% block body %}
+
+    {{ form_start(form) }}
+
+    {{ form_end(form) }}
+{% endblock %}
