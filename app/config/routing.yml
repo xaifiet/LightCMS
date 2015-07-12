@@ -1,9 +1,9 @@
-light_cms_folder:
-    resource: "@LightCMSFolderBundle/Resources/config/routing.yml"
+light_cms_node:
+    resource: "@LightCMSNodeBundle/Resources/config/routing.yml"
     prefix:   /
 
-light_cms_page:
-    resource: "@LightCMSPageBundle/Resources/config/routing.yml"
+light_cms_site:
+    resource: "@LightCMSSiteBundle/Resources/config/routing.yml"
     prefix:   /
 
 light_cms_core:

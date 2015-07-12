@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Light CMS Backend</title>
+        {% block stylesheets %}
+            <link href="{{ asset('/bundles/lightcmscore/css/backend/default/backend.css') }}" type="text/css" rel="stylesheet" />
+        {% endblock %}
+        {% block javascript %}
+            <script type="text/javascript" src="{{ asset('/bundles/lightcmscore/js/jquery-2.1.4.min.js') }}"></script>
+            <script type="text/javascript" src="{{ asset('/bundles/lightcmscore/js/tinymce/tinymce.min.js') }}"></script>
+        {% endblock %}
+    </head>
+    <body>
+        <table id="layout">
+            <tbody>
+            <tr class="top">
+                <td colspan="3" class="header">Symfony Light CMS Backend</td>
+            </tr>
+            <tr class="hSpace">
+                <td colspan="3"></td>
+            </tr>
+            <tr>
+                <td class="sidebar">
+                    {{ render(controller(sideController, { 'id': id })) }}
+                </td>
+                <td class="vSpace"></td>
+                <td class="content">
+                    <div id="content">
+                        {{ render(controller(bodyController, { 'request': app.request(), 'id': id })) }}
+                    </div>
+                </td>
+            </tr>
+            <tbody>
+        </table>
+    </body>
+</html>

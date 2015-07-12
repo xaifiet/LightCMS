@@ -1,0 +1,18 @@
+parameters:
+    light_cms_core.backend.module.site:
+        module: site
+        name: Sites
+        controller: LightCMSSiteBundle:Site
+
+services:
+
+    light_cms_site.service.site_service:
+        class: LightCMS\SiteBundle\Service\SiteService
+        arguments:
+            - @service_container
+
+    light_cms_site.form_type.site_type:
+        class: LightCMS\SiteBundle\Form\Type\SiteType
+        arguments: [ @doctrine.orm.entity_manager ]
+        tags:
+            - { name: form.type, alias: site }

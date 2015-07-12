@@ -1,0 +1,33 @@
+parameters:
+
+    light_cms_core.backend.module.node:
+        module: node
+        name: Nodes
+        controller: LightCMSNodeBundle:Node
+
+    discriminator_map.node:
+        node:
+            entity: LightCMS\NodeBundle\Entity\Node
+            map:
+                folder: LightCMS\NodeBundle\Entity\Folder
+                page: LightCMS\NodeBundle\Entity\Page
+
+services:
+
+    light_cms_node.form_type.node_type:
+        class: LightCMS\NodeBundle\Form\Type\NodeType
+        arguments: [ @doctrine.orm.entity_manager ]
+        tags:
+            - { name: form.type, alias: node }
+
+    light_cms_node.form_type.folder_type:
+        class: LightCMS\NodeBundle\Form\Type\FolderType
+        arguments: [ @doctrine.orm.entity_manager ]
+        tags:
+            - { name: form.type, alias: folder }
+
+    light_cms_node.form_type.page_type:
+        class: LightCMS\NodeBundle\Form\Type\PageType
+        arguments: [ @doctrine.orm.entity_manager ]
+        tags:
+            - { name: form.type, alias: page }

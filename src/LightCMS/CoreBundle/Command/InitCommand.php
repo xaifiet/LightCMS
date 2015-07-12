@@ -27,9 +27,16 @@ class InitCommand extends ContainerAwareCommand
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
 
-        $output->writeln('Creating Home Page');
+        $output->writeln('Creating Home Folder');
+        $folder = new \LightCMS\NodeBundle\Entity\Folder();
+        $folder->setName('Default Site');
+        $folder->setUrlname('Default Site Root');
+        $folder->setPublished(true);
+        $folder->setHeader('');
+        $em->persist($folder);
 
-        $page = new \LightCMS\PageBundle\Entity\Page();
+        $output->writeln('Creating Home Page');
+        $page = new \LightCMS\NodeBundle\Entity\Page();
         $page->setName('Home');
         $page->setUrlname('home');
         $page->setPublished(true);
@@ -39,12 +46,13 @@ class InitCommand extends ContainerAwareCommand
         $em->persist($page);
 
         $output->writeln('Creating Default Site');
-        $site = new \LightCMS\CoreBundle\Entity\Site();
+        $site = new \LightCMS\SiteBundle\Entity\Site();
         $site->setTitle('My Site');
         $site->setLayout('default');
         $site->setHost('*');
         $site->setPriority(100);
-        $site->setNode($page);
+        $site->setRootNode($folder);
+        $site->setHomeNode($page);
         $em->persist($site);
 
         $em->flush();

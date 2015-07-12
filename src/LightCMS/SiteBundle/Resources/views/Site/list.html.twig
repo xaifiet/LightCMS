@@ -1,0 +1,8 @@
+<div>
+    <a href="{{ path('light_cms_core_backend', { 'module': 'site', 'action': 'edit', 'id': 'new'}) }}">Add Site</a>
+</div>
+{% for site in sites %}
+    <div>
+        <a href="{{ path('light_cms_core_backend', { 'module': 'site', 'action': 'edit', 'id': site.id}) }}">{{ site.title }}</a>
+    </div>
+{% endfor %}

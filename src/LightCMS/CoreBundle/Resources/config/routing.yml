@@ -13,3 +13,11 @@ light_cms_core_edit:
     defaults: { _controller: LightCMSCoreBundle:Node:edit }
     requirements:
         path: ".+"
+
+light_cms_core_backend:
+    path: /backend/{module}/{action}/{id}
+    defaults:
+        _controller: LightCMSCoreBundle:Backend:view
+        module: node
+        action: admin
+        id : null

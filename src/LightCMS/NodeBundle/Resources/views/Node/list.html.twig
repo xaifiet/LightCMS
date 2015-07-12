@@ -1,0 +1,5 @@
+{% for node in nodes %}
+    <div>
+        <a href="{{ path('light_cms_core_backend', { 'module': 'node', 'action': 'edit', 'id': node.salt}) }}">{{ node.name }}</a>
+    </div>
+{% endfor %}
