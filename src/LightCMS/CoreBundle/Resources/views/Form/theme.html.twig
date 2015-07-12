@@ -2,12 +2,13 @@
     {% spaceless %}
         <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
         <script type="text/javascript">
+            $('#{{ form.vars.id }}').attr('required', false);
             tinymce.init({
                 selector: "#{{ form.vars.id }}",
                 theme: "modern",
                 plugins: [
                     ["advlist charmap link image pagebreak lists preview  anchor textcolor "],
-                    [" code insertdatetime media spellchecker visualblocks code"],
+                    ["code insertdatetime media spellchecker visualblocks"],
                     ["table paste directionality colorpicker hr lists wordcount"]
                 ],
                 add_unload_trigger: false,
