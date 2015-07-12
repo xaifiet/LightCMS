@@ -8,7 +8,7 @@ class NodeController extends Controller
 {
     public function viewAction($path = null)
     {
-        $siteService = $this->get('lcms_site');
+        $siteService = $this->get('light_cms_site.service.site_service');
 
         $site = $siteService->getSite();
 
@@ -18,8 +18,6 @@ class NodeController extends Controller
 
         $bundle = $guesser->getBundleShortName();
         $class = $guesser->getShortName();
-
-        $this->get('twig')->addGlobal('siteService', $siteService);
 
         return $this->forward($bundle.':'.$class.':view', array(
             'site' => $site,

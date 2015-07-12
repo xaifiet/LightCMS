@@ -4,30 +4,33 @@ namespace LightCMS\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
-class BackendController extends Controller
+class FrontendController extends Controller
 {
-    public function viewAction($path = null)
+    public function viewAction($module = null, $path = null)
     {
-
-
-
-
-        $siteService = $this->get('lcms_site');
+        $siteService = $this->get('light_cms_site.service.site_service');
 
         $site = $siteService->getSite();
 
-        $node = $site->getHomeNode();
+        $ps = $this->get('light_cms_core.service.parameters_service');
 
-        $guesser = $this->get('class_guesser')->getGuesser($node);
+        $parameters = $ps->getParameters('/^light_cms_core\.backend\.module\..+/');
 
-        $bundle = $guesser->getBundleShortName();
-        $class = $guesser->getShortName();
+        foreach ($parameters as $parameter) {
 
-        $this->get('twig')->addGlobal('siteService', $siteService);
+            if ($parameter['module'] == $module) {
+                return $this->render('LightCMSCoreBundle:Frontend/default:layout.html.twig', array(
+                    'site' => $site,
+                    'bodyController' => $parameter['controller'].':view',
+                    'path' => $path,
+                ));
+            }
+        }
 
-        return $this->forward($bundle.':'.$class.':view', array(
+        return $this->render('LightCMSCoreBundle:Frontend/default:layout.html.twig',array(
             'site' => $site,
-            'node' => $node,
+            'bodyController' => 'LightCMSNodeBundle:Node:view',
+            'path' => $module.'/'.$path
         ));
     }
 
