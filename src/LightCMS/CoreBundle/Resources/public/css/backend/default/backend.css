@@ -14,9 +14,7 @@ table#layout {
 }
 
 table#layout > tbody > tr > td {
-    border-color: black;
-    border-style: solid;
-    border-width: 1px;
+    border: 1px solid black;
 }
 
 table#layout > tbody > tr:first-child > td {
@@ -36,6 +34,7 @@ table#layout > tbody > tr > td:last-child {
 }
 
 table#layout > tbody > tr.hSpace > td {
+    background-color: #e4f2fd;
     border-width: 0px;
     height: 3px;
     max-height: 3px;
@@ -43,6 +42,7 @@ table#layout > tbody > tr.hSpace > td {
 }
 
 table#layout > tbody > tr > td.vSpace {
+    background-color: #e4f2fd;
     border-width: 0px;
     cursor: col-resize;
     max-width: 3px;
@@ -52,7 +52,6 @@ table#layout > tbody > tr > td.vSpace {
 
 table#layout > tbody > tr.top > td {
     height: 40px;
-
 }
 
 table#layout > tbody > tr > td.header {
@@ -77,6 +76,10 @@ table#layout > tbody > tr > td.content div#content {
     overflow: auto;
 }
 
+table#layout > tbody > tr > td.content div#content > div {
+    padding: 25px;
+}
+
 /* Header */
 
 table#layout td.header {
@@ -89,8 +92,103 @@ table#layout td.header {
 
 /* Sidebar */
 
-td.sidebar,
-td.content {
-    background-color: #e4f2fd;
+td.sidebar .create {
+    width: 100%;
 }
 
+.redbutton,
+.greenbutton {
+    border-radius: 5px;
+    color: white;
+    display: inline-block;
+    font-weight: bold;
+    font-size: large;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+}
+
+.redbutton {
+    background-color: #ff5d58;
+}
+
+.greenbutton {
+    background-color: #00c333;
+}
+
+td.sidebar .create a {
+    display: block;
+    margin: 10px auto;
+    width: 90%;
+}
+
+td.sidebar ul {
+    border: 0;
+}
+
+.formbutton {
+    display: table;
+    margin: 20px 0;
+    width: 100%;
+}
+
+.formbutton:first-child {
+    margin-top: 0;
+}
+
+.formbutton:last-child {
+    margin-bottom: 0;
+}
+
+.formbutton > div {
+    display: table-cell;
+}
+
+.formbutton .delete {
+    text-align: right;
+}
+
+.formbutton a {
+    padding: 5px 30px;
+}
+
+.formfield {
+    margin: 10px 0;
+}
+
+.formfield .label {
+    font-weight: bold;
+    font-size: large;
+}
+
+.formfield .widget input[type=text],
+.formfield .widget select {
+    border: 1px solid grey;
+    border-radius: 5px;
+    font-size: large;
+    padding: 5px 10px;
+    width: 100%;
+}
+
+.modulelist {
+    margin: 10px;
+    width: 100%;
+}
+
+.modulelist a {
+    background-color: #c8cccf;
+    border: 1px solid black;
+    border-radius: 5px;
+    color: black;
+    display: block;
+    font-size: large;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    width: 100%;
+}
+
+.modulelist a:hover {
+    background-color: #00c333;
+    color: white;
+}

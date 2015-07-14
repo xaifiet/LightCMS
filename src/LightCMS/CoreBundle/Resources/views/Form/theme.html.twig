@@ -1,3 +1,29 @@
+{% block form_row %}
+    {% spaceless %}
+        <div class="formfield">
+            <div class="label">{{ form_label(form) }} :</div>
+            <div class="widget">{{ form_widget(form) }}</div>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
+{% block action_row %}
+    {% spaceless %}
+        <div class="formbutton">
+            <div class="save">
+                <div>
+                    {{ form_widget(form.submit, {'attr': {'class': 'greenbutton'}}) }}
+                </div>
+            </div>
+            <div class="delete">
+                <div>
+                    {{ form_widget(form.delete, {'attr': {'class': 'redbutton'}}) }}
+                </div>
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
 {% block html_widget %}
     {% spaceless %}
         <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>

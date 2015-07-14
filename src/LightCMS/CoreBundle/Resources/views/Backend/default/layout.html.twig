@@ -23,12 +23,14 @@
             </tr>
             <tr>
                 <td class="sidebar">
-                    {{ render(controller(sideController, { 'id': id })) }}
+                    {{ side|raw }}
                 </td>
                 <td class="vSpace"></td>
                 <td class="content">
                     <div id="content">
-                        {{ render(controller(bodyController, { 'request': app.request(), 'id': id })) }}
+                        <div>
+                            {{ body|raw }}
+                        </div>
                     </div>
                 </td>
             </tr>

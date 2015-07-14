@@ -63,9 +63,14 @@ class SiteType extends AbstractType
         ));
 
         // Adding the submit button
-        $builder->add('submit', 'submit', array(
-            'label' => 'Save'));
+        $builder->add('actionup', 'action', array(
+            'mapped' => false
+        ));
 
+        // Adding the submit button
+        $builder->add('actiondown', 'action', array(
+            'mapped' => false
+        ));
     }
 
     /**
@@ -75,9 +80,7 @@ class SiteType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'LightCMS\SiteBundle\Entity\Site',
-            'cascade_validation' => true,
-            'submit_label' => 'form.submit.default',
-            'cancel_label' => 'form.submit.cancel'
+            'cascade_validation' => true
         ));
     }
 

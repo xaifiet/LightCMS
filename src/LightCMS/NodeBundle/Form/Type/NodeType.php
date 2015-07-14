@@ -43,20 +43,26 @@ class NodeType extends AbstractType
             'label' => 'node.form.urlname.label'));
 
         $builder->add('parent', 'entity', array(
-            'label' => 'page.form.type.parent.label',
+            'label' => 'page.form.parent.label',
             'class' => 'LightCMS\NodeBundle\Entity\Node',
             'choice_label' => 'name',
         ));
 
         $builder->add('published', 'choice', array(
-            'label' => 'page.form.content.label',
+            'label' => 'page.form.published.label',
             'choices' => array(
                 1 => 'page.form.published.yes',
                 0 => 'page.form.published.no')));
 
         // Adding the submit button
-        $builder->add('submit', 'submit', array(
-            'label' => 'Save'));
+        $builder->add('actionup', 'action', array(
+            'mapped' => false
+        ));
+
+        // Adding the submit button
+        $builder->add('actiondown', 'action', array(
+            'mapped' => false
+        ));
     }
 
     /**
@@ -66,9 +72,7 @@ class NodeType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'LightCMS\NodeBundle\Entity\Node',
-            'cascade_validation' => true,
-            'submit_label' => 'form.submit.default',
-            'cancel_label' => 'form.submit.cancel'
+            'cascade_validation' => true
         ));
     }
 

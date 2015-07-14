@@ -1,3 +1,6 @@
+<div class="create">
+    <a href="{{ path('light_cms_core_backend', { 'module': 'node', 'action': 'create' }) }}" class="redbutton">Create new Node</a>
+</div>
 <div id="sidetree">
     {% include 'LightCMSNodeBundle:Node:list-item.html.twig' with {'nodes': nodes} %}
 </div>

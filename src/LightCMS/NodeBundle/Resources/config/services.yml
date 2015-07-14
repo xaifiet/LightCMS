@@ -5,12 +5,18 @@ parameters:
         name: Nodes
         controller: LightCMSNodeBundle:Node
 
-    discriminator_map.node:
+    inheritance_joined_map.node:
         node:
             entity: LightCMS\NodeBundle\Entity\Node
             map:
-                folder: LightCMS\NodeBundle\Entity\Folder
-                page: LightCMS\NodeBundle\Entity\Page
+                folder:
+                    class: LightCMS\NodeBundle\Entity\Folder
+                    shortclass: Folder
+                    controller: LightCMSNodeBundle:Folder
+                page:
+                    class: LightCMS\NodeBundle\Entity\Page
+                    shortclass: Page
+                    controller: LightCMSNodeBundle:Page
 
 services:
 

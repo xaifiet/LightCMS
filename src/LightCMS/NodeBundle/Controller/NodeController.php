@@ -6,6 +6,27 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 class NodeController extends Controller
 {
+
+    protected function getModules()
+    {
+        $list = $this->get('light_cms_core.service.parameters_service')
+                     ->getParameters('/^inheritance_joined_map\..+/');
+
+        $modules = array();
+
+        foreach ($list as $inheritance) {
+            foreach ($inheritance as $entity) {
+                if ($entity['entity'] != 'LightCMS\\NodeBundle\\Entity\\Node') {
+                    continue;
+                }
+                foreach ($entity['map'] as $name => $module) {
+                    $modules[$name] = $module;
+                }
+            }
+        }
+        return $modules;
+    }
+
     public function viewAction($path = null)
     {
         $siteService = $this->get('light_cms_site.service.site_service');
@@ -36,6 +57,24 @@ class NodeController extends Controller
 
         return $this->render('LightCMSNodeBundle:Node:list.html.twig', array(
             'nodes' => $nodes
+        ));
+    }
+
+    public function createAction($request, $id)
+    {
+        $modules = $this->getModules();
+
+        foreach ($modules as $name => $module) {
+            if ($id == $name) {
+                return $this->forward($module['controller'].':edit', array(
+                    'request' => $request,
+                    'id' => 'new',
+                ));
+            }
+        }
+
+        return $this->render('LightCMSNodeBundle:Node:create.html.twig', array(
+            'modules' => $modules
         ));
     }
 

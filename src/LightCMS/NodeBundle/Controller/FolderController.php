@@ -4,6 +4,8 @@ namespace LightCMS\NodeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use LightCMS\NodeBundle\Entity\Folder;
+
 class FolderController extends Controller
 {
     public function viewAction($site, $node)
@@ -16,7 +18,11 @@ class FolderController extends Controller
 
     public function editAction($request, $id)
     {
-        $folder = $this->getDoctrine()->getRepository('LightCMSNodeBundle:Node')->find($id);
+        if ($id == 'new') {
+            $folder = new Folder();
+        } else {
+            $folder = $this->getDoctrine()->getRepository('LightCMSNodeBundle:Node')->find($id);
+        }
 
         // Form creation
         $form = $this->createForm('folder', $folder, array(
@@ -26,7 +32,7 @@ class FolderController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->get('submit')->isClicked()) {
+        if ($form->get('actionup')->get('submit')->isClicked() or $form->get('actiondown')->get('submit')->isClicked()) {
 
             if ($form->isValid()) {
 

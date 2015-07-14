@@ -42,7 +42,7 @@ class SiteController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->get('submit')->isClicked()) {
+        if ($form->get('actionup')->get('submit')->isClicked() or $form->get('actiondown')->get('submit')->isClicked()) {
 
             if ($form->isValid()) {
 

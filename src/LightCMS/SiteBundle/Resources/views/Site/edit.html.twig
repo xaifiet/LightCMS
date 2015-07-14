@@ -1,3 +1,16 @@
+{% form_theme form 'LightCMSCoreBundle:Form:theme.html.twig' %}
+
 {{ form_start(form) }}
+
+    {{ form_row(form.actionup) }}
+
+    {{ form_row(form.title) }}
+    {{ form_row(form.host) }}
+    {{ form_row(form.layout) }}
+    {{ form_row(form.priority) }}
+    {{ form_row(form.rootNode) }}
+    {{ form_row(form.homeNode) }}
+
+    {{ form_row(form.actiondown) }}
 
 {{ form_end(form) }}

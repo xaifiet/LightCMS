@@ -4,6 +4,8 @@ namespace LightCMS\NodeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+use LightCMS\NodeBundle\Entity\Page;
+
 class PageController extends Controller
 {
     public function viewAction($site, $node)
@@ -14,30 +16,53 @@ class PageController extends Controller
         ));
     }
 
-
     public function editAction($request, $id)
     {
-        $page = $this->getDoctrine()->getRepository('LightCMSNodeBundle:Node')->find($id);
+        if ($id == 'new') {
+            $page = new Page();
+        } else {
+            $page = $this->getDoctrine()->getRepository('LightCMSNodeBundle:Node')->find($id);
+        }
 
         // Form creation
         $form = $this->createForm('page', $page, array(
-            'action' => $request->getUri(),
+            'action' => $this->generateUrl('light_cms_core_backend', array(
+                'module' => 'node',
+                'action' => $id == 'new' ? 'create' : 'edit',
+                'id' => $id == 'new' ? 'page' : $id
+            )),
             'method' => 'POST'
         ));
 
         $form->handleRequest($request);
 
-        if ($form->get('submit')->isClicked()) {
+        if ($form->isValid()) {
 
-            if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
 
-                $em = $this->getDoctrine()->getManager();;
+            if ($form->get('actionup')->get('submit')->isClicked() or
+                $form->get('actiondown')->get('submit')->isClicked()
+            ) {
+
                 $em->persist($page);
                 $em->flush();
 
-            }
-        }
+                return $this->redirect($this->generateUrl('light_cms_core_backend', array(
+                    'module' => 'node',
+                    'action' => 'edit',
+                    'id' => $page->getSalt()
+                )));
 
+            } else if ($form->get('actionup')->get('delete')->isClicked() or
+                $form->get('actiondown')->get('delete')->isClicked()
+            ) {
+                $em->remove($page);
+                $em->flush();
+
+                return $this->redirect($this->generateUrl('light_cms_core_backend'));
+            }
+
+        }
         return $this->render('LightCMSNodeBundle:Page:edit.html.twig', array(
             'site' => $page,
             'form' => $form->createView()));

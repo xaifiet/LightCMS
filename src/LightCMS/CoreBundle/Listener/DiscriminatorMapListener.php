@@ -45,8 +45,7 @@ class DiscriminatorMapListener
      * The Entity disciminator map has priority against parameter map
      *
      * @access public
-     * @param Symfony\Component\DependencyInjection\Container $container
-     * @return void
+     * @param Container $container
      */
     public function __construct(Container $container)
     {
@@ -57,7 +56,7 @@ class DiscriminatorMapListener
         $parametesKeys = array_keys($parameters);
 
         // Matching parameters with specific key "discriminator_map"
-        $matches  = preg_grep ('/^discriminator_map\..+/i', $parametesKeys);
+        $matches  = preg_grep ('/^inheritance_joined_map\..+/i', $parametesKeys);
 
         // Looping on matching configurations
         foreach ($matches as $match) {
@@ -69,7 +68,7 @@ class DiscriminatorMapListener
                 foreach ($parent['map'] as $name => $map) {
 
                     // Adding the map to the mapping
-                    $this->mapping[$parent['entity']][$name] = $map;
+                    $this->mapping[$parent['entity']][$name] = $map['class'];
                 }
             }
         }

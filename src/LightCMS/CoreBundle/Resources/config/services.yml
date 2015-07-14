@@ -20,3 +20,8 @@ services:
         class: LightCMS\CoreBundle\Form\Type\HtmlType
         tags:
             - { name: form.type, alias: html }
+
+    light_cms_core.form_type.action_type:
+        class: LightCMS\CoreBundle\Form\Type\ActionType
+        tags:
+            - { name: form.type, alias: action }
