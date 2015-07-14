@@ -3,6 +3,7 @@
 namespace LightCMS\NodeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 use LightCMS\NodeBundle\Entity\Folder;
 
@@ -16,7 +17,7 @@ class FolderController extends Controller
         ));
     }
 
-    public function editAction($request, $id)
+    public function editAction(Request $request, $id)
     {
         if ($id == 'new') {
             $folder = new Folder();

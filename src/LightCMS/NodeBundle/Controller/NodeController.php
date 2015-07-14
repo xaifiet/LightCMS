@@ -3,6 +3,7 @@
 namespace LightCMS\NodeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class NodeController extends Controller
 {
@@ -46,7 +47,7 @@ class NodeController extends Controller
         ));
     }
 
-    public function adminAction($request, $id)
+    public function adminAction(Request $request, $id)
     {
         return $this->render('LightCMSNodeBundle:Node:admin.html.twig');
     }
@@ -60,7 +61,7 @@ class NodeController extends Controller
         ));
     }
 
-    public function createAction($request, $id)
+    public function createAction(Request $request, $id)
     {
         $modules = $this->getModules();
 
@@ -78,7 +79,7 @@ class NodeController extends Controller
         ));
     }
 
-    public function editAction($request, $id)
+    public function editAction(Request $request, $id)
     {
         $node = $this->getDoctrine()->getRepository('LightCMSNodeBundle:Node')->find($id);
 

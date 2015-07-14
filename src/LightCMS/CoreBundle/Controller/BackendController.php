@@ -3,6 +3,7 @@
 namespace LightCMS\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class BackendController
@@ -15,24 +16,18 @@ class BackendController extends Controller
     /**
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewAction($module = 'node', $action = 'admin', $id = null)
+    public function viewAction(Request $request, $module = 'node', $action = 'admin', $id = null)
     {
 
         $ps = $this->get('light_cms_core.service.parameters_service');
 
-        $parameters = $ps->getParameters('/^light_cms_core\.backend\.module\..+/');
+        $params = $ps->getParameters('/^light_cms_core\.backend\.module\..+/');
 
-        $twig = $this->get('twig');
+        foreach ($params as $param) {
 
-        foreach ($parameters as $parameter) {
-
-            if ($parameter['module'] == $module) {
-                $body = $this->forward($parameter['controller'].':'.$action, array(
-                    'request' => $this->getRequest(),
-                    'id' => $id));
-                $side = $this->forward($parameter['controller'].':list', array(
-                    'request' => $this->getRequest(),
-                    'id' => $id));
+            if ($param['module'] == $module) {
+                $body = $this->forward($param['controller'].':'.$action, array('id' => $id), $request->query->all());
+                $side = $this->forward($param['controller'].':list', array('id' => $id), $request->query->all());
 
                 return $this->render('LightCMSCoreBundle:Backend/default:layout.html.twig', array(
                     'side' => $side->getContent(),

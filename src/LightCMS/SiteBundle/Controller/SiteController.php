@@ -3,6 +3,7 @@
 namespace LightCMS\SiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class SiteController extends Controller
 {
@@ -21,12 +22,12 @@ class SiteController extends Controller
         ));
     }
 
-    public function adminAction($request, $id)
+    public function adminAction(Request $request, $id)
     {
         return $this->render('LightCMSSiteBundle:Site:admin.html.twig');
     }
 
-    public function editAction($request, $id)
+    public function editAction(Request $request, $id)
     {
         if ($id == 'new') {
             $site = new \LightCMS\SiteBundle\Entity\Site();
