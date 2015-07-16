@@ -37,32 +37,33 @@ class NodeType extends AbstractType
 
         // Adding the node name
         $builder->add('name', 'text', array(
-            'label' => 'node.form.name.label'));
+            'label' => 'node.form.name.label',
+            'attr' => array(
+                'class' => 'form-control')));
 
         $builder->add('urlname', 'text', array(
-            'label' => 'node.form.urlname.label'));
+            'label' => 'node.form.urlname.label',
+            'attr' => array(
+                'class' => 'form-control')));
 
         $builder->add('parent', 'entity', array(
             'label' => 'page.form.parent.label',
             'class' => 'LightCMS\NodeBundle\Entity\Node',
             'choice_label' => 'name',
+            'attr' => array(
+                'class' => 'form-control')
         ));
 
         $builder->add('published', 'choice', array(
             'label' => 'page.form.published.label',
+            'attr' => array(
+                'class' => 'form-control'),
             'choices' => array(
                 1 => 'page.form.published.yes',
                 0 => 'page.form.published.no')));
 
         // Adding the submit button
-        $builder->add('actionup', 'action', array(
-            'mapped' => false
-        ));
-
-        // Adding the submit button
-        $builder->add('actiondown', 'action', array(
-            'mapped' => false
-        ));
+        $builder->add('submit', 'submit');
     }
 
     /**

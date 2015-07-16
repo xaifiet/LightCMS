@@ -37,14 +37,23 @@ class PageType extends AbstractType
     {
 
         // Adding the node name
-        $builder->add('header', 'html', array(
-            'label' => 'page.form.header.label'));
+        $builder->add('header', 'textarea', array(
+            'label' => 'page.form.header.label',
+            'required' => false,
+            'attr' => array(
+                'class' => 'form-control summernote')));
 
-        $builder->add('body', 'html', array(
-            'label' => 'page.form.body.label'));
+        $builder->add('body', 'textarea', array(
+            'label' => 'page.form.body.label',
+            'required' => false,
+            'attr' => array(
+                'class' => 'form-control summernote')));
 
-        $builder->add('footer', 'html', array(
-            'label' => 'page.form.footer.label'));
+        $builder->add('footer', 'textarea', array(
+            'label' => 'page.form.footer.label',
+            'required' => false,
+            'attr' => array(
+                'class' => 'form-control summernote')));
 
     }
 

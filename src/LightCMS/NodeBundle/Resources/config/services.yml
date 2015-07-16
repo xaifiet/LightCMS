@@ -1,9 +1,16 @@
 parameters:
 
-    light_cms_core.backend.module.node:
-        module: node
-        name: Nodes
-        controller: LightCMSNodeBundle:Node
+    light_cms_core.backend_module.node:
+        name: node
+        title: Nodes
+        bundle: LightCMSNodeBundle
+        controller: Node
+        tree:
+            repository: 'LightCMSNodeBundle:Node'
+            id: salt
+            name: name
+            parent: parent
+        icon: 'glyphicon glyphicon-home'
 
     inheritance_joined_map.node:
         node:

@@ -3,38 +3,56 @@
     <head>
         <title>Light CMS Backend</title>
         {% block stylesheets %}
-            <link href="{{ asset('/bundles/lightcmscore/css/backend/default/backend.css') }}" type="text/css" rel="stylesheet" />
-            <link href="{{ asset('/bundles/lightcmscore/js/easytree/skin-lion/ui.easytree.css') }}" type="text/css" rel="stylesheet" />
-        {% endblock %}
-        {% block javascript %}
-            <script type="text/javascript" src="{{ asset('/bundles/lightcmscore/js/jquery-2.1.4.min.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('/bundles/lightcmscore/js/tinymce/tinymce.min.js') }}"></script>
-            <script type="text/javascript" src="{{ asset('/bundles/lightcmscore/js/easytree/jquery.easytree.min.js') }}"></script>
+            {% stylesheets
+            '@bootstrap_css'
+            '%kernel.root_dir%/../vendor/almasaeed2010/adminlte/dist/css/AdminLTE.css'
+            '%kernel.root_dir%/../vendor/almasaeed2010/adminlte/dist/css/skins/skin-blue.css'
+            '%kernel.root_dir%/../vendor/summernote/summernote/dist/summernote.css'
+            '%kernel.root_dir%/../vendor/components/font-awesome/css/font-awesome.css'
+            'bundles/lightcmscore/css/backend/default/backend.css'
+            %}
+            <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
         {% endblock %}
     </head>
-    <body>
-        <table id="layout">
-            <tbody>
-            <tr class="top">
-                <td colspan="3" class="header">Symfony Light CMS Backend</td>
-            </tr>
-            <tr class="hSpace">
-                <td colspan="3"></td>
-            </tr>
-            <tr>
-                <td class="sidebar">
-                    {{ side|raw }}
-                </td>
-                <td class="vSpace"></td>
-                <td class="content">
-                    <div id="content">
-                        <div>
-                            {{ body|raw }}
-                        </div>
-                    </div>
-                </td>
-            </tr>
-            <tbody>
-        </table>
+    <body class="skin-blue sidebar-mini">
+        <div class="wrapper">
+
+            {% include 'LightCMSCoreBundle:Backend/default:header.html.twig' %}
+
+            {% include 'LightCMSCoreBundle:Backend/default:sidebar.html.twig' %}
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                <!-- Content Header (Page header) -->
+                <div class="content-header">
+                    <h1>
+                        {% block contentTitle %}Light CMS{% endblock %}
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+                        {% block breadcrumb %}{% endblock %}
+                        <!--<li class="active">Documentation</li>-->
+                    </ol>
+                </div>
+
+                <!-- Main content -->
+                <div class="content body">
+                    {% block body %}{% endblock %}
+                </div>
+            </div>
+
+        </div>
+        {% block javascripts %}
+            {% javascripts
+            '@jquery'
+            '@bootstrap_js'
+            '%kernel.root_dir%/../vendor/almasaeed2010/adminlte/dist/js/app.js'
+            '%kernel.root_dir%/../vendor/summernote/summernote/dist/summernote.js'
+            'bundles/lightcmscore/js/backend.js'
+            %}
+                <script type="text/javascript" src="{{ asset_url }}"></script>
+            {% endjavascripts %}
+        {% endblock %}
     </body>
 </html>

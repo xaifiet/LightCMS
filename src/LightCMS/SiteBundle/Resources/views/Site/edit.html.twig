@@ -1,16 +1,30 @@
+{% extends 'LightCMSCoreBundle:Backend/default:layout.html.twig' %}
+
 {% form_theme form 'LightCMSCoreBundle:Form:theme.html.twig' %}
 
-{{ form_start(form) }}
+{% block body %}
+    {{ form_start(form) }}
 
-    {{ form_row(form.actionup) }}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Node Informations</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {{ form_row(form.title) }}
+            {{ form_row(form.host) }}
+            {{ form_row(form.layout) }}
+            {{ form_row(form.priority) }}
+            {{ form_row(form.rootNode) }}
+            {{ form_row(form.homeNode) }}
+        </div><!-- /.box-body -->
+    </div>
 
-    {{ form_row(form.title) }}
-    {{ form_row(form.host) }}
-    {{ form_row(form.layout) }}
-    {{ form_row(form.priority) }}
-    {{ form_row(form.rootNode) }}
-    {{ form_row(form.homeNode) }}
+    <div class="box box-primary">
+        <div class="box-footer">
+            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-info'}}) }}
+        </div>
+    </div>
 
-    {{ form_row(form.actiondown) }}
+    {{ form_end(form) }}
+{% endblock %}
 
-{{ form_end(form) }}

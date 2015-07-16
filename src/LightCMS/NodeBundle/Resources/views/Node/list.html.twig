@@ -1,23 +1,10 @@
-<div class="create">
-    <a href="{{ path('light_cms_core_backend', { 'module': 'node', 'action': 'create' }) }}" class="redbutton">Create new Node</a>
-</div>
-<div id="sidetree">
-    {% include 'LightCMSNodeBundle:Node:list-item.html.twig' with {'nodes': nodes} %}
-</div>
-<script>
-    $( document ).ready(function() {
-        var easyTree = $('#sidetree').easytree();
+{% extends 'LightCMSCoreBundle:Backend/default:'~style~'.html.twig' %}
 
-        function optionChange() {
-            easyTree.options.allowActivate = $('#allowActivation')[0].checked;
-            easyTree.options.enableDnd = $('#enableDnd')[0].checked;
-            easyTree.options.disableIcons = $('#disableIcons')[0].checked;
-            easyTree.options.ordering = $("input[name='ordering']:checked").val()
-            easyTree.options.slidingTime = $('#slidingTime').val();
-            easyTree.options.minOpenLevels = $('#minOpenLevels').val();
+{% block body %}
 
-            easyTree.rebuildTree();
-        }
-    });
+    <ul class="treeview-menu">
+        {% include 'LightCMSNodeBundle:Node:list-item.html.twig' with { 'nodes': nodes } %}
+    </ul>
 
-</script>
+{% endblock %}
+

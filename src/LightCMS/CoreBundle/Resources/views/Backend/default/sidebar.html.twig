@@ -1,0 +1,25 @@
+<div class="main-sidebar">
+    <div class="sidebar">
+        <ul class="sidebar-menu">
+            <li class="header">MAIN NAVIGATION</li>
+            {% for module in moduleService.getModules() %}
+                {% if module == moduleService.getModule() %}
+                    <li class="treeview active">
+                        <a href="#">
+                            <i class="{{ module.icon }}"></i> <span>{{ module.title }}</span> <i class="fa fa-angle-left pull-right"></i>
+                        </a>
+                        <ul class="treeview-menu sublit">
+                            {% include 'LightCMSCoreBundle:Backend/default:sidebar_tree.html.twig' with { 'module' : module, 'tree': moduleService.getModuleTree() }  %}
+                        </ul>
+                    </li>
+                {% else %}
+                    <li>
+                        <a href="{{ path('light_cms_core_backend', {'module': module.name}) }}">
+                            <i class="{{ module.icon }}"></i> <span>{{ module.title }}</span>
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>

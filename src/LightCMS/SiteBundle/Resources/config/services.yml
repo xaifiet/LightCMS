@@ -1,8 +1,14 @@
 parameters:
-    light_cms_core.backend.module.site:
-        module: site
-        name: Sites
-        controller: LightCMSSiteBundle:Site
+    light_cms_core.backend_module.site:
+        name: site
+        title: Sites
+        bundle: LightCMSSiteBundle
+        controller: Site
+        tree:
+            repository: 'LightCMSSiteBundle:Site'
+            id: id
+            name: title
+        icon: 'glyphicon glyphicon-globe'
 
 services:
 

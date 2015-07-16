@@ -37,16 +37,24 @@ class SiteType extends AbstractType
 
         // Adding the node name
         $builder->add('title', 'text', array(
-            'label' => 'site.form.name.label'));
+            'label' => 'site.form.name.label',
+            'attr' => array(
+                'class' => 'form-control')));
 
         $builder->add('host', 'text', array(
-            'label' => 'site.form.host.label'));
+            'label' => 'site.form.host.label',
+            'attr' => array(
+                'class' => 'form-control')));
 
         $builder->add('layout', 'text', array(
-            'label' => 'site.form.layout.label'));
+            'label' => 'site.form.layout.label',
+            'attr' => array(
+                'class' => 'form-control')));
 
         $builder->add('priority', 'integer', array(
             'label' => 'site.form.priority.label',
+            'attr' => array(
+                'class' => 'form-control'),
             'scale' => 0
         ));
 
@@ -60,17 +68,12 @@ class SiteType extends AbstractType
             'label' => 'page.form.type.homeNode.label',
             'class' => 'LightCMS\NodeBundle\Entity\Node',
             'choice_label' => 'name',
+            'attr' => array(
+                'class' => 'form-control')
         ));
 
         // Adding the submit button
-        $builder->add('actionup', 'action', array(
-            'mapped' => false
-        ));
-
-        // Adding the submit button
-        $builder->add('actiondown', 'action', array(
-            'mapped' => false
-        ));
+        $builder->add('submit', 'submit');
     }
 
     /**

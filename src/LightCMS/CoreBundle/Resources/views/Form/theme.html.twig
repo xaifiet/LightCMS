@@ -1,48 +1,27 @@
 {% block form_row %}
     {% spaceless %}
-        <div class="formfield">
-            <div class="label">{{ form_label(form) }} :</div>
-            <div class="widget">{{ form_widget(form) }}</div>
+        <div class="form-group">
+            {{ form_label(form) }}
+            {{ form_widget(form) }}
         </div>
     {% endspaceless %}
 {% endblock %}
 
-{% block action_row %}
+{% block entity_widget %}
     {% spaceless %}
-        <div class="formbutton">
-            <div class="save">
-                <div>
-                    {{ form_widget(form.submit, {'attr': {'class': 'greenbutton'}}) }}
-                </div>
-            </div>
-            <div class="delete">
-                <div>
-                    {{ form_widget(form.delete, {'attr': {'class': 'redbutton'}}) }}
-                </div>
-            </div>
+        <div class="input-group input-group-sm">
+            <input type="hidden" id="{{ form.vars.id }}" />
+            <input type="text" class="form-control">
+            <span class="input-group-btn">
+                <button class="btn btn-info btn-flat" type="button" data-toggle="modal" data-target="#{{ form.vars.id }}-modal">Select Parent</button>
+            </span>
         </div>
+        {{ render(controller('LightCMSNodeBundle:Node:tree', { 'style': 'modal', 'idmodal': form.vars.id ~ '-modal' })) }}
     {% endspaceless %}
 {% endblock %}
 
 {% block html_widget %}
     {% spaceless %}
         <textarea {{ block('widget_attributes') }}>{{ value }}</textarea>
-        <script type="text/javascript">
-            $('#{{ form.vars.id }}').attr('required', false);
-            tinymce.init({
-                selector: "#{{ form.vars.id }}",
-                theme: "modern",
-                plugins: [
-                    ["advlist charmap link image pagebreak lists preview  anchor textcolor "],
-                    ["code insertdatetime media spellchecker visualblocks"],
-                    ["table paste directionality colorpicker hr lists wordcount"]
-                ],
-                add_unload_trigger: false,
-                schema: "html5",
-                menubar: false,
-                toolbar: "styleselect forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | anchor link image | table | spellchecker",
-                statusbar: false
-            });
-        </script>
     {% endspaceless %}
 {% endblock %}

@@ -1,17 +1,55 @@
+{% extends 'LightCMSCoreBundle:Backend/default:layout.html.twig' %}
+
 {% form_theme form 'LightCMSCoreBundle:Form:theme.html.twig' %}
 
-{{ form_start(form) }}
+{% block body %}
+    {{ form_start(form) }}
 
-    {{ form_row(form.actionup) }}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Node Informations</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {{ form_row(form.name) }}
+            {{ form_row(form.urlname) }}
+            {{ form_row(form.parent) }}
+            {{ form_row(form.published) }}
+        </div><!-- /.box-body -->
+    </div>
 
-    {{ form_row(form.name) }}
-    {{ form_row(form.urlname) }}
-    {{ form_row(form.parent) }}
-    {{ form_row(form.published) }}
-    {{ form_row(form.header) }}
-    {{ form_row(form.body) }}
-    {{ form_row(form.footer) }}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Page Header</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {{ form_row(form.header) }}
+        </div><!-- /.box-body -->
+    </div>
 
-    {{ form_row(form.actiondown) }}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Page Body</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {{ form_row(form.body) }}
+        </div><!-- /.box-body -->
+    </div>
 
-{{ form_end(form) }}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Page Footer</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            {{ form_row(form.footer) }}
+        </div><!-- /.box-body -->
+    </div>
+
+    <div class="box box-primary">
+        <div class="box-footer">
+            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-info'}}) }}
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}
+

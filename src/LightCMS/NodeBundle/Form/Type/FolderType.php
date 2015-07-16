@@ -32,8 +32,11 @@ class FolderType extends AbstractType
     {
 
         // Adding the node name
-        $builder->add('header', 'html', array(
-            'label' => 'page.form.header.label'));
+        $builder->add('header', 'textarea', array(
+            'label' => 'page.form.header.label',
+            'required' => false,
+            'attr' => array(
+                'class' => 'form-control summernote')));
 
     }
 

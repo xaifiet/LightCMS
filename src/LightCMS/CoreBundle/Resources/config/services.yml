@@ -5,6 +5,11 @@ services:
         arguments:
             - @service_container
 
+    light_cms_core.service.module_service:
+        class: LightCMS\CoreBundle\Service\ModuleService
+        arguments:
+            - @service_container
+
     discriminator_map:
         class: LightCMS\CoreBundle\Listener\DiscriminatorMapListener
         arguments:
@@ -14,14 +19,3 @@ services:
 
     class_guesser:
         class: LightCMS\CoreBundle\Service\ClassGuesserService
-
-
-    light_cms_core.form_type.html_type:
-        class: LightCMS\CoreBundle\Form\Type\HtmlType
-        tags:
-            - { name: form.type, alias: html }
-
-    light_cms_core.form_type.action_type:
-        class: LightCMS\CoreBundle\Form\Type\ActionType
-        tags:
-            - { name: form.type, alias: action }

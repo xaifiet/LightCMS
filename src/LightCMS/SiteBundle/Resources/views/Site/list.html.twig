@@ -1,30 +1,14 @@
-<div class="create">
-    <a href="{{ path('light_cms_core_backend', { 'module': 'site', 'action': 'edit', 'id': 'new'}) }}" class="redbutton">Create new Site</a>
-</div>
+{% extends 'LightCMSCoreBundle:Backend/default:'~style~'.html.twig' %}
 
-<div id="sidetree">
-    <ul>
+{% block body %}
+    <ul class="treeview-menu">
         {% for site in sites %}
-            <li>
-                <a href="{{ path('light_cms_core_backend', { 'module': 'site', 'action': 'edit', 'id': site.id}) }}">{{ site.title }}</a>
+            <li class="treeview">
+                <a href="{{ path('light_cms_core_backend', {'module': 'site', 'action': 'edit', 'id': site.id}) }}">
+                    <i class="fa fa-html5"></i> <span>{{ site.title }}</span>
+                </a>
             </li>
         {% endfor %}
     </ul>
-</div>
-<script>
-    $( document ).ready(function() {
-        var easyTree = $('#sidetree').easytree();
+{% endblock %}
 
-        function optionChange() {
-            easyTree.options.allowActivate = $('#allowActivation')[0].checked;
-            easyTree.options.enableDnd = $('#enableDnd')[0].checked;
-            easyTree.options.disableIcons = $('#disableIcons')[0].checked;
-            easyTree.options.ordering = $("input[name='ordering']:checked").val()
-            easyTree.options.slidingTime = $('#slidingTime').val();
-            easyTree.options.minOpenLevels = $('#minOpenLevels').val();
-
-            easyTree.rebuildTree();
-        }
-    });
-
-</script>

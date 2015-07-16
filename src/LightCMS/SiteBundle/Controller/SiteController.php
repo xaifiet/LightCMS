@@ -8,6 +8,17 @@ use Symfony\Component\HttpFoundation\Request;
 class SiteController extends Controller
 {
 
+    public function treeAction($style = 'nude', $idmodal = null)
+    {
+        $sites = $this->getDoctrine()->getRepository('LightCMSSiteBundle:Site')->findall();
+
+        return $this->render('LightCMSSiteBundle:Site:list.html.twig', array(
+            'sites' => $sites,
+            'style' => $style,
+            'idmodal' => $idmodal
+        ));
+    }
+
     public function viewAction($param)
     {
 
@@ -43,7 +54,7 @@ class SiteController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->get('actionup')->get('submit')->isClicked() or $form->get('actiondown')->get('submit')->isClicked()) {
+        if ($form->get('submit')->isClicked()) {
 
             if ($form->isValid()) {
 

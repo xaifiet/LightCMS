@@ -41,9 +41,7 @@ class PageController extends Controller
 
             $em = $this->getDoctrine()->getManager();
 
-            if ($form->get('actionup')->get('submit')->isClicked() or
-                $form->get('actiondown')->get('submit')->isClicked()
-            ) {
+            if ($form->get('submit')->isClicked()) {
 
                 $em->persist($page);
                 $em->flush();
@@ -54,9 +52,7 @@ class PageController extends Controller
                     'id' => $page->getSalt()
                 )));
 
-            } else if ($form->get('actionup')->get('delete')->isClicked() or
-                $form->get('actiondown')->get('delete')->isClicked()
-            ) {
+            } else if ($form->get('delete')->isClicked()) {
                 $em->remove($page);
                 $em->flush();
 

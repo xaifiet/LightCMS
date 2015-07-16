@@ -4,6 +4,7 @@ namespace LightCMS\NodeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class NodeController extends Controller
 {
@@ -26,6 +27,17 @@ class NodeController extends Controller
             }
         }
         return $modules;
+    }
+
+    public function treeAction(Request $request, $style = null, $idmodal = null)
+    {
+        $nodes = $this->getDoctrine()->getRepository('LightCMSNodeBundle:Node')->findByParent(null);
+
+        return $this->render('LightCMSNodeBundle:Node:list.html.twig', array(
+            'nodes' => $nodes,
+            'idmodal' => $idmodal,
+            'style' => $style
+        ));
     }
 
     public function viewAction($path = null)
