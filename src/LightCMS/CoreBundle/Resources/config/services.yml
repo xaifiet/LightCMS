@@ -19,3 +19,8 @@ services:
 
     class_guesser:
         class: LightCMS\CoreBundle\Service\ClassGuesserService
+
+    light_cms_core.form_type.field_group_type:
+        class: LightCMS\CoreBundle\Form\Type\FieldGroupType
+        tags:
+            - { name: form.type, alias: fieldgroup }

@@ -1,10 +1,26 @@
 parameters:
 
-    light_cms_core.backend_module.node:
+    light_cms_core.backend_module.node_bundle.node:
         name: node
         title: Nodes
         bundle: LightCMSNodeBundle
         controller: Node
+        search_entity: node
+        entities:
+            node:
+                class: LightCMS\NodeBundle\Entity\Node
+                repository: LightCMSNodeBundle:Node
+                form_type: node
+            page:
+                class: LightCMS\NodeBundle\Entity\Page
+                repository: LightCMSNodeBundle:Page
+                form_type: page
+            folder:
+                class: LightCMS\NodeBundle\Entity\Folder
+                repository: LightCMSNodeBundle:Folder
+                form_type: folder
+
+
         tree:
             repository: 'LightCMSNodeBundle:Node'
             id: salt
@@ -29,18 +45,15 @@ services:
 
     light_cms_node.form_type.node_type:
         class: LightCMS\NodeBundle\Form\Type\NodeType
-        arguments: [ @doctrine.orm.entity_manager ]
         tags:
             - { name: form.type, alias: node }
 
     light_cms_node.form_type.folder_type:
         class: LightCMS\NodeBundle\Form\Type\FolderType
-        arguments: [ @doctrine.orm.entity_manager ]
         tags:
             - { name: form.type, alias: folder }
 
     light_cms_node.form_type.page_type:
         class: LightCMS\NodeBundle\Form\Type\PageType
-        arguments: [ @doctrine.orm.entity_manager ]
         tags:
             - { name: form.type, alias: page }

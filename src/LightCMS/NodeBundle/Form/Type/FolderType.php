@@ -6,23 +6,8 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-use Doctrine\ORM\EntityManager;
-
 class FolderType extends AbstractType
 {
-
-    /**
-     * @var EntityManager
-     */
-    private $em;
-
-    /**
-     * @param EntityManager $entityManager
-     */
-    public function __construct(EntityManager $entityManager)
-    {
-        $this->em = $entityManager;
-    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -31,9 +16,15 @@ class FolderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
+        $groupHeader = $builder->add('header_group', 'fieldgroup', array(
+            'mapped' => false,
+            'label' => 'Page Header',
+            'inherit_data' => true
+        ))->get('header_group');
+
         // Adding the node name
-        $builder->add('header', 'textarea', array(
-            'label' => 'page.form.header.label',
+        $groupHeader->add('header', 'textarea', array(
+            'label' => 'folder.form.header.label',
             'required' => false,
             'attr' => array(
                 'class' => 'form-control summernote')));
@@ -47,9 +38,7 @@ class FolderType extends AbstractType
     {
         $resolver->setDefaults(array(
             'data_class' => 'LightCMS\NodeBundle\Entity\Folder',
-            'cascade_validation' => true,
-            'submit_label' => 'form.submit.default',
-            'cancel_label' => 'form.submit.cancel'
+            'cascade_validation' => true
         ));
     }
 
@@ -68,4 +57,5 @@ class FolderType extends AbstractType
     {
         return 'folder';
     }
+
 }

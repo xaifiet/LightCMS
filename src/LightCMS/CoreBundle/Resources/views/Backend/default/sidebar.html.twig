@@ -8,7 +8,7 @@
                         <a href="#">
                             <i class="{{ module.icon }}"></i> <span>{{ module.title }}</span> <i class="fa fa-angle-left pull-right"></i>
                         </a>
-                        <ul class="treeview-menu sublit">
+                        <ul class="treeview-menu">
                             {% include 'LightCMSCoreBundle:Backend/default:sidebar_tree.html.twig' with { 'module' : module, 'tree': moduleService.getModuleTree() }  %}
                         </ul>
                     </li>
