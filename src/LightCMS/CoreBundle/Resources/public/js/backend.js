@@ -67,3 +67,17 @@ deleteCollectionRow = function(event, elem, params) {
     $(div.remove());
     return false;
 }
+
+loadModal = function(event, elem, params) {
+    console.log('click');
+    $(params[0]).modal({
+        'remote': params[1]
+    });
+}
+
+addPrototype = function(event, elem, params) {
+    var prototype = $(elem).data('prototype');
+    var target = $(params[0]);
+
+    $(target).append($(prototype));
+}

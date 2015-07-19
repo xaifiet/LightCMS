@@ -19,7 +19,7 @@
 
 {% block widget_row %}
     {% spaceless %}
-        {{ form_widget(form) }}
+
     {% endspaceless %}
 {% endblock %}
 
@@ -35,7 +35,9 @@
                         <span class="fa fa-caret-down"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#" data-addprototype="page_rows_0_widgets">Content Widget</a></li>
+                        {% for name, prototype in form.widgets.vars.prototypes %}
+                            <li><a href="#" data-prototype="{{ form_widget(prototype)|escape }}" data-bind="click[addPrototype(#{{ form.widgets.vars.id }})]">{{ name|trans }}</a></li>
+                        {% endfor %}
                     </ul>
                     <button type="button" class="btn btn-xs btn-danger" data-bind="click[deleteCollectionRow(.box-primary)]">Delete Row</button>
                 </div>
@@ -59,14 +61,17 @@
 {% block entity_widget %}
     {% spaceless %}
         <div class="input-group input-group-sm">
-            <input type="hidden" id="{{ form.vars.id }}" />
+            <input type="hidden" id="{{ form.vars.id }}" value="{{ form.vars.value }}" />
             <input type="text" class="form-control">
             <span class="input-group-btn">
-                <button class="btn btn-info btn-flat" type="button" data-toggle="modal" data-target="#{{ form.vars.id }}-modal">Select Parent</button>
+                <button class="btn btn-info btn-flat" type="button" data-bind="click[loadModal(#{{ form.vars.id }}-parent,{{ path('light_cms_core_backend', {'action': 'tree', 'module':'page', 'id': form.vars.value, 'field': 'parent', 'display': 'modal'}) }})]">Select Parent</button>
             </span>
         </div>
-
-        {#{{ render(controller('LightCMSNodeBundle:Node:tree', { 'style': 'modal', 'idmodal': form.vars.id ~ '-modal' })) }}#}
+        <div id="{{ form.vars.id }}-parent" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content"></div>
+            </div>
+        </div>
     {% endspaceless %}
 {% endblock %}
 

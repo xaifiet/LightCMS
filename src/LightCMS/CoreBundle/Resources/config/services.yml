@@ -32,3 +32,8 @@ services:
         class: LightCMS\CoreBundle\Form\Type\FieldGroupType
         tags:
             - { name: form.type, alias: fieldgroup }
+
+    light_cms_core.form_type.collection_inheritance_type:
+        class: LightCMS\CoreBundle\Form\Type\CollectionInheritanceType
+        tags:
+            - { name: form.type, alias: collectioninheritance }

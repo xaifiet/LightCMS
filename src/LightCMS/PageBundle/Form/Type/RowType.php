@@ -33,13 +33,17 @@ class RowType extends AbstractType
 
         $builder->add('id', 'hidden');
 
-        $builder->add($builder->create('widgets', 'collection', array(
+        $builder->add($builder->create('widgets', 'collectioninheritance', array(
             'type' => 'widget',
             'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,
             'label' => 'widgets',
-            'prototype' => true))
+            'prototype' => true,
+            'types' => array(
+                'widget.form.type.content.label' => 'widgetcontent',
+                'widget.form.type.image.label' => 'widgetimage'
+                )))
             ->addModelTransformer(new WidgetsToScalarClassTransformer($this->entityManager, null)));
 
     }

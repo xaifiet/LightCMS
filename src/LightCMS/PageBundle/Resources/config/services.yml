@@ -90,3 +90,13 @@ services:
         class: LightCMS\PageBundle\Form\Type\WidgetType
         tags:
             - { name: form.type, alias: widget }
+
+    light_cms_page.form_type.widget_content_type:
+        class: LightCMS\PageBundle\Form\Type\WidgetContentType
+        tags:
+            - { name: form.type, alias: widgetcontent }
+
+    light_cms_page.form_type.widget_image_type:
+        class: LightCMS\PageBundle\Form\Type\WidgetImageType
+        tags:
+            - { name: form.type, alias: widgetimage }

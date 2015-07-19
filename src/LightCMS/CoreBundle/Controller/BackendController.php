@@ -123,12 +123,13 @@ class BackendController extends Controller
 
     }
 
-    public function treeAction(Request $request, $module, $parent)
+    public function treeAction(Request $request)
     {
+        $tree = $this->moduleService->getModuleTree($this->module);
 
-
-
-
+        return $this->render('LightCMSCoreBundle:Backend:tree.html.twig', array(
+            'tree' => $tree
+        ));
     }
 
 
