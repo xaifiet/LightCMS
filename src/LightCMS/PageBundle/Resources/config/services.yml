@@ -1,0 +1,92 @@
+parameters:
+
+    light_cms_core.backend_module.pagebundle:
+        page:
+            name: page
+            title: Pages
+            bundle: LightCMSPageBundle
+            controller: Node
+            icon: 'glyphicon glyphicon-file'
+            search_entity: node
+            entities:
+                node:
+                    class: LightCMS\PageBundle\Entity\Node
+                    repository: 'LightCMSPageBundle:Node'
+                    id: salt
+                    name:
+                        - name
+                    icon: 'glyphicon glyphicon-globe'
+                    create: true
+                site:
+                    form:
+                        type: site
+                    class: LightCMS\PageBundle\Entity\Site
+                    repository: 'LightCMSPageBundle:Site'
+                    id: salt
+                    name:
+                        - name
+                    create: false
+                page:
+                    form:
+                        type: page
+                        save: LightCMSPageBundle:Page:save
+                    class: LightCMS\PageBundle\Entity\Page
+                    repository: 'LightCMSPageBundle:Page'
+                    id: salt
+                    name:
+                        - name
+                    icon: 'glyphicon glyphicon-file'
+                    create: true
+            tree:
+                entity: node
+                parent: parent
+                id: salt
+
+
+    inheritance_joined_map.pagebundle:
+        node:
+            entity: LightCMS\PageBundle\Entity\Node
+            map:
+                site: LightCMS\PageBundle\Entity\Site
+                page: LightCMS\PageBundle\Entity\Page
+        widget:
+            entity: LightCMS\PageBundle\Entity\Widget
+            map:
+                widgetcontent: LightCMS\PageBundle\Entity\WidgetContent
+
+
+services:
+
+#    light_cms_site.service.site_service:
+#        class: LightCMS\PageBundle\Service\SiteService
+#        arguments:
+#            - @service_container
+
+    light_cms_page.form_type.node_type:
+        class: LightCMS\PageBundle\Form\Type\NodeType
+        tags:
+            - { name: form.type, alias: node }
+
+    light_cms_page.form_type.site_type:
+        class: LightCMS\PageBundle\Form\Type\SiteType
+        tags:
+            - { name: form.type, alias: site }
+
+    light_cms_page.form_type.page_type:
+        class: LightCMS\PageBundle\Form\Type\PageType
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+        tags:
+            - { name: form.type, alias: page }
+
+    light_cms_page.form_type.row_type:
+        class: LightCMS\PageBundle\Form\Type\RowType
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+        tags:
+            - { name: form.type, alias: row }
+
+    light_cms_page.form_type.widget_type:
+        class: LightCMS\PageBundle\Form\Type\WidgetType
+        tags:
+            - { name: form.type, alias: widget }

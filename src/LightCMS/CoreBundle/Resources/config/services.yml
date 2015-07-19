@@ -1,3 +1,11 @@
+parameters:
+
+    light_cms_core.backend_module.core_bundle:
+        dashboard:
+            name: dashboard
+            title: Dashboard
+            icon: 'glyphicon glyphicon-dashboard'
+
 services:
 
     light_cms_core.service.parameters_service:

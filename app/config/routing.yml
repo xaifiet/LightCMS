@@ -1,15 +1,23 @@
-light_cms_node:
-    resource: "@LightCMSNodeBundle/Resources/config/routing.yml"
-    prefix:   /
-
-light_cms_site:
-    resource: "@LightCMSSiteBundle/Resources/config/routing.yml"
-    prefix:   /
+#light_cms_media:
+#    resource: "@LightCMSMediaBundle/Resources/config/routing.yml"
+#    prefix:   /
+#
+#light_cms_page:
+#    resource: "@LightCMSPageBundle/Resources/config/routing.yml"
+#    prefix:   /
+#
+#light_cms_node:
+#    resource: "@LightCMSNodeBundle/Resources/config/routing.yml"
+#    prefix:   /
+#
+#light_cms_site:
+#    resource: "@LightCMSSiteBundle/Resources/config/routing.yml"
+#    prefix:   /
 
 light_cms_core:
     resource: "@LightCMSCoreBundle/Resources/config/routing.yml"
     prefix:   /
 
-app:
-    resource: "@AppBundle/Controller/"
-    type:     annotation
+#app:
+#    resource: "@AppBundle/Controller/"
+#    type:     annotation

@@ -6,14 +6,15 @@ use Symfony\Component\DependencyInjection\Container;
 
 class ModuleService
 {
-
-    protected $modules;
-
-    protected $module;
+    protected $container;
 
     protected $entityManager;
 
-    protected $currentId;
+    protected $modules = array();
+
+    protected $module = null;
+
+    protected $currentId = null;
 
 
     /**
@@ -25,20 +26,37 @@ class ModuleService
     public function __construct(Container $container)
     {
 
+        $this->container = $container;
+
         $this->entityManager = $container->get('doctrine.orm.entity_manager');
 
         $container->get('twig')->addGlobal('moduleService', $this);
 
+        $this->loadModules();
+    }
+
+    protected function loadModules()
+    {
+
         // Getting all symfony parameters
-        $this->parameters = $container->getParameterBag()->all();
+        $parameters = $this->container->getParameterBag()->all();
 
-        $ps = $container->get('light_cms_core.service.parameters_service');
+        // Getting all parameters keys
+        $parametersKeys = array_keys($parameters);
 
-        $this->modules = $ps->getParameters('/^light_cms_core\.backend_module\..+/');
+        // Matching parameters with specific key "discriminator_map"
+        $matches  = preg_grep ('/^light_cms_core\.backend_module\..+/i', $parametersKeys);
+
+        // Looping on matching configurations
+        foreach ($matches as $match) {
+
+            // Looping on map name
+            foreach ($parameters[$match] as $moduleName => $moduleInfo) {
+                $this->modules[$moduleName] = $moduleInfo;
+            }
+        }
 
         ksort($this->modules);
-
-
     }
 
     public function setCurrentId($id) {
@@ -109,9 +127,21 @@ class ModuleService
         return null;
     }
 
-    protected function buildTree($repo, $parent, $order)
+    public function getEntity($entityName, $module = null)
     {
-        $params = isset($this->module['tree']['parent']) ? array($this->module['tree']['parent'] => $parent) : array();
+        $module = is_null($module) ? $this->module : $module;
+
+        foreach ($module['entities'] as $name => $entity) {
+            if ($name == $entityName) {
+                return $entity;
+            }
+        }
+        return null;
+    }
+
+    protected function buildTree($module, $entity, $repo, $parent, $order)
+    {
+        $params = isset($module['tree']['parent']) ? array($module['tree']['parent'] => $parent) : array();
 
         $list = $repo->findBy($params, $order);
 
@@ -121,17 +151,21 @@ class ModuleService
 
         foreach ($list as $element) {
             $li = array();
-            $funcId = 'get'.ucfirst($this->module['tree']['id']);
+            $funcId = 'get'.ucfirst($module['tree']['id']);
             $li['id'] = $element->$funcId();
-            $funcName = 'get'.ucfirst($this->module['tree']['name']);
-            $li['name'] = $element->$funcName();
+            $name = array();
+            foreach ($entity['name'] as $field) {
+                $funcName = 'get'.ucfirst($field);
+                $name[] = $element->$funcName();
+            }
+            $li['name'] = implode(' ', $name);
             $li['active'] = false;
             $li['current'] = $this->currentId == $li['id'] ? true : false;
             $active = $this->currentId == $li['id'] ? true : $active;
-            if (isset($this->module['tree']['parent'])) {
-                list($childactive, $li['children']) = $this->buildTree($repo, $li['id'], $order);
-                $active = $childactive == true ? true : $active;
-                $li['active'] = $childactive == true ? true : $li['active'];
+            if (isset($module['tree']['parent'])) {
+                list($childActive, $li['children']) = $this->buildTree($module, $entity, $repo, $li['id'], $order);
+                $active = $childActive == true ? true : $active;
+                $li['active'] = $childActive == true ? true : $li['active'];
             }
             $res[] = $li;
         }
@@ -140,17 +174,22 @@ class ModuleService
     }
 
 
-    public function getModuleTree()
+    public function getModuleTree($module)
     {
 
-        if (is_null($this->module) or !is_array($this->module['tree'])) {
+        if (is_null($module) or !is_array($module['tree'])) {
             return array();
         }
 
-        $repo = $this->entityManager->getRepository($this->module['tree']['repository']);
-        $order = array($this->module['tree']['name'] => 'ASC');
+        $entity = $this->getEntity($module['tree']['entity'], $module);
 
-        list($active, $res) = $this->buildTree($repo, null, $order);
+        $repo = $this->entityManager->getRepository($entity['repository']);
+        $order = array();
+        foreach ($entity['name'] as $field) {
+            $order[$field] = 'ASC';
+        }
+
+        list($active, $res) = $this->buildTree($module, $entity, $repo, null, $order);
 
         return $res;
     }

@@ -9,18 +9,30 @@ use Symfony\Component\HttpFoundation\Request;
 class BackendController extends Controller
 {
 
-    public function indexAction(Request $request, $action = 'dashboard', $module = null, $id = null)
-    {
-        $moduleService = $this->get('light_cms_core.service.module_service');
-        $moduleService->setCurrentId($id);
-        $moduleService->setModule($module);
+    protected $moduleService;
 
-        $moduleArray = $moduleService->getModule();
+    protected $module;
+
+    protected $param;
+
+    public function indexAction(Request $request, $action = 'dashboard', $module = 'dashboard', $id = null)
+    {
+        $this->moduleService = $this->get('light_cms_core.service.module_service');
+        $this->moduleService->setCurrentId($id);
+        $this->moduleService->setModule($module);
+        $this->module = $this->moduleService->getModule();
+
+        $this->param = $id;
 
         $func = $action.'Action';
-        return $this->$func($request, $moduleArray, $id);
+        return $this->$func($request);
     }
 
+    public function dashboardAction(Request $request)
+    {
+
+        return $this->render('LightCMSCoreBundle:Backend:dashboard.html.twig');
+    }
 
     public function viewAction(Request $request, $module = 'node', $action = 'admin', $id = null)
     {
@@ -36,32 +48,54 @@ class BackendController extends Controller
         return $this->render('LightCMSCoreBundle:Backend/default:layout.html.twig');
     }
 
-    public function editAction(Request $request, $module, $id)
+    public function createAction(Request $request)
     {
-        $repository = $module['entities'][$module['search_entity']]['repository'];
+        $entityInfo = $this->moduleService->getEntity($this->param);
 
-        $entity = $this->getDoctrine()->getRepository($repository)->find($id);
+        $entity = new $entityInfo['class']();
+
+        return $this->formAction($request, 'create', $entityInfo, $entity, $this->param);
+    }
+
+    public function editAction(Request $request)
+    {
+        $entitySearch = $this->module['entities'][$this->module['search_entity']];
+
+        $repository = $entitySearch['repository'];
+
+        $entity = $this->getDoctrine()->getRepository($repository)->find($this->param);
 
         $entityClass = get_class($entity);
-
-        $entityName = null;
-        $formType = null;
-        foreach ($module['entities'] as $name => $moduleEntity) {
+        $entityInfo = null;
+        foreach ($this->module['entities'] as $name => $moduleEntity) {
             if ($moduleEntity['class'] == $entityClass) {
-                $entityName = $name;
-                $formType = $moduleEntity['form_type'];
+                $entityInfo = $moduleEntity;
             }
         }
 
+        return $this->formAction($request, 'edit', $entityInfo, $entity, $this->param);
+    }
+
+    public function formAction(Request $request, $action, $entityInfo, $entity, $param)
+    {
+
         // Form creation
-        $form = $this->createForm($formType, $entity, array(
+        $form = $this->createForm($entityInfo['form']['type'], $entity, array(
             'action' => $this->generateUrl('light_cms_core_backend', array(
-                'action' => 'edit',
-                'module' => $module['name'],
-                'id' => $id == 'new' ? $entityName : $id
+                'action' => $action,
+                'module' => $this->module['name'],
+                'id' => $param
             )),
             'method' => 'POST'
         ));
+
+        if (isset($entityInfo['form']['save'])) {
+            return $this->forward($entityInfo['form']['save'], array(
+                'request' => $request,
+                'form' => $form,
+                'entity' => $entity
+            ));
+        }
 
         $form->handleRequest($request);
 
@@ -83,8 +117,10 @@ class BackendController extends Controller
 
         }
 
-        return $this->render('LightCMSCoreBundle:Backend/default:edit.html.twig', array(
+        return $this->render('LightCMSCoreBundle:Backend:edit.html.twig', array(
             'form' => $form->createView()));
+
+
     }
 
     public function treeAction(Request $request, $module, $parent)

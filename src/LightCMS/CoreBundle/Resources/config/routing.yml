@@ -3,7 +3,7 @@ light_cms_core_backend:
     defaults:
         _controller: LightCMSCoreBundle:Backend:index
         action: dashboard
-        module: null
+        module: dashboard
         id : null
 
 

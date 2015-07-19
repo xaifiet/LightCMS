@@ -1,0 +1,33 @@
+{% extends 'LightCMSCoreBundle:Backend:layout.html.twig' %}
+
+{% form_theme form 'LightCMSCoreBundle:Form:theme.html.twig' %}
+
+{% block contentTitle %}
+    {{ page.getName() }} <small>{{ page.getSalt() }}</small>
+
+    <div class="btn-group pull-right">
+        <button class="btn btn-success" data-bind="click[submitForm(page)]">Save</button>
+        <button class="btn btn-info" data-bind="click[addCollectionRow(page_rows)]">Add Row</button>
+        <button class="btn btn-danger">Delete</button>
+    </div>
+
+    <div class="btn-group pull-right" style="margin-right:20px">
+        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+            Version X
+            <span class="fa fa-caret-down"></span>
+        </button>
+        <ul class="dropdown-menu" role="menu">
+            <li><a href="#">Version X</a></li>
+            <li><a href="#">Version X</a></li>
+            <li><a href="#">Version X</a></li>
+        </ul>
+    </div>
+{% endblock %}
+
+{% block body %}
+    {{ form_start(form) }}
+
+
+    {{ form_end(form) }}
+{% endblock %}
+

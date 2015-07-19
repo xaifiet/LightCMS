@@ -11,6 +11,42 @@
     {% endspaceless %}
 {% endblock %}
 
+{% block collection_row %}
+    {% spaceless %}
+        {{ form_widget(form) }}
+    {% endspaceless %}
+{% endblock %}
+
+{% block widget_row %}
+    {% spaceless %}
+        {{ form_widget(form) }}
+    {% endspaceless %}
+{% endblock %}
+
+
+{% block row_row %}
+    {% spaceless %}
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">Row</h3>
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        Add Widget
+                        <span class="fa fa-caret-down"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#" data-addprototype="page_rows_0_widgets">Content Widget</a></li>
+                    </ul>
+                    <button type="button" class="btn btn-xs btn-danger" data-bind="click[deleteCollectionRow(.box-primary)]">Delete Row</button>
+                </div>
+            </div>
+            <div class="box-body">
+                {{ form_widget(form) }}
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}
+
 {% block form_row %}
     {% spaceless %}
         <div class="form-group">
@@ -30,7 +66,7 @@
             </span>
         </div>
 
-        {{ render(controller('LightCMSNodeBundle:Node:tree', { 'style': 'modal', 'idmodal': form.vars.id ~ '-modal' })) }}
+        {#{{ render(controller('LightCMSNodeBundle:Node:tree', { 'style': 'modal', 'idmodal': form.vars.id ~ '-modal' })) }}#}
     {% endspaceless %}
 {% endblock %}
 
