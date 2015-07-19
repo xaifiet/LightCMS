@@ -1,4 +1,10 @@
 
+jQuery.extend(jQuery.expr[':'], {
+    dataaddprototype: function (el) { if ($(el).data('addprototype') != undefined) { return true; } return false; },
+    datadelete: function (el) { if ($(el).data('delete') != undefined) { return true; } return false; },
+    dataform: function (el) { if ($(el).data('form') != undefined) { return true; } return false; }
+});
+
 $(document).ready(function() {
     $('.summernote').summernote({
         height: 150
@@ -31,3 +37,33 @@ $(document).ready(function() {
 
 
 });
+
+submitForm = function(event, elem, params) {
+    var formName = params[0];
+    var form = $('form[name="'+formName+'"]');
+
+    $('*[type="submit"]', form).trigger('click');
+}
+
+addCollectionRow = function(event, elem, params) {
+
+    var id = params[0];
+    var div = $('#'+ id);
+
+    var newid = 0;
+    while ($('#'+id+'_'+newid, div).length > 0) {
+        newid++;
+    }
+
+    var prototype = $(div).data('prototype');
+    var newitem = prototype.replace(/__name__/g, newid);
+    $(div).append($(newitem));
+
+    return false;
+}
+
+deleteCollectionRow = function(event, elem, params) {
+    var div = $(elem).closest(params[0]);
+    $(div.remove());
+    return false;
+}

@@ -30,6 +30,8 @@ class ParametersService
     public function getParameters($regexp)
     {
 
+
+
         // Matching parameters with specific key "discriminator_map"
         $matches  = preg_grep ($regexp, $this->keys);
 

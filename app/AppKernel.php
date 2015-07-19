@@ -18,8 +18,8 @@ class AppKernel extends Kernel
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new AppBundle\AppBundle(),
             new LightCMS\CoreBundle\LightCMSCoreBundle(),
-            new LightCMS\SiteBundle\LightCMSSiteBundle(),
-            new LightCMS\NodeBundle\LightCMSNodeBundle(),
+            new LightCMS\PageBundle\LightCMSPageBundle(),
+            new LightCMS\MediaBundle\LightCMSMediaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

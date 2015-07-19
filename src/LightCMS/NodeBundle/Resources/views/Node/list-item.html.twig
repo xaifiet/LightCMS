@@ -1,8 +1,0 @@
-{% for node in nodes %}
-<li class="treeview">
-    <a href="#"><i class="fa fa-html5"></i> <span>{{ node.name }}</span> <i class="fa fa-angle-left pull-right"></i></a>
-    <ul class="treeview-menu">
-        {% include 'LightCMSNodeBundle:Node:list-item.html.twig' with { 'nodes': node.children } %}
-    </ul>
-</li>
-{% endfor %}

@@ -1,3 +1,0 @@
-light_cms_node_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: LightCMSNodeBundle:Default:index }

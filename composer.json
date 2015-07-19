@@ -25,7 +25,7 @@
         "twitter/bootstrap": "^3.3",
         "summernote/summernote": "^0.6.9",
         "almasaeed2010/adminlte": "^2.2",
-        "vakata/jstree": "^3.1"
+        "vakata/jstree": "^3.1",
         "components/font-awesome": "^4.3"
     },
     "require-dev": {

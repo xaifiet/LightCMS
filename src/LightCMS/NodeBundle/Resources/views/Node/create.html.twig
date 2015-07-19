@@ -1,5 +1,0 @@
-{% for name, module in modules %}
-    <div class="modulelist">
-        <a href="{{ path('light_cms_core_backend', { 'module': 'node', 'action': 'create', 'id': name }) }}">{{ module['shortclass'] }}</a>
-    </div>
-{% endfor %}

@@ -65,10 +65,10 @@ class DiscriminatorMapListener
             foreach ($parameters[$match] as $ename => $parent) {
 
                 // Looping on each map for a specific entity
-                foreach ($parent['map'] as $name => $map) {
+                foreach ($parent['map'] as $name => $class) {
 
                     // Adding the map to the mapping
-                    $this->mapping[$parent['entity']][$name] = $map['class'];
+                    $this->mapping[$parent['entity']][$name] = $class;
                 }
             }
         }
