@@ -27,6 +27,17 @@ class PageController extends Controller
         if ($form->isValid()) {
 
             $em = $this->getDoctrine()->getManager();
+            $rowPosition = 1;
+            foreach ($entity->getRows() as $row) {
+                $row->setPage($entity);
+                $row->setPosition($rowPosition++);
+                foreach ($row->getWidgets() as $widget) {
+                    if (is_null($widget->getSize())) {
+                        $widget->setSize(4);
+                    }
+                    $widget->setRow($row);
+                }
+            }
 
 //            if ($form->get('rows_group')->get('addRow')->isClicked()) {
 //
@@ -75,9 +86,9 @@ class PageController extends Controller
 
         }
 
-        if ($redirect) {
-            return $this->redirect($request->getUri());
-        }
+        //if ($redirect) {
+        //    return $this->redirect($request->getUri());
+        //}
         return $this->render('LightCMSPageBundle:Page:edit.html.twig', array(
             'form' => $form->createView(),
             'page' => $entity));

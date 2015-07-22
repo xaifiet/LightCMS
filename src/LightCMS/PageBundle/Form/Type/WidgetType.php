@@ -20,17 +20,14 @@ class WidgetType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add($builder->create('id', 'hidden'));
+        $builder->add('_type', 'hidden', array(
+            'data'   => $this->getName(),
+            'mapped' => false
+        ));
 
-        $builder->add($builder->create('type', 'hidden'));
-
-        $builder->add($builder->create('title', 'text', array(
-            'required' => false
-        )));
-
-        $builder->add($builder->create('size', 'text', array(
-            'required' => false
-        )));
+        $builder->add('size', 'hidden', array(
+            'required' => true
+        ));
 
     }
 
@@ -40,7 +37,8 @@ class WidgetType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'LightCMS\CoreBundle\Util\ScalarUtil',
+            'data_class' => 'LightCMS\PageBundle\Entity\Widget',
+            'model_class' => 'LightCMS\PageBundle\Entity\Widget',
             'cascade_validation' => true
         ));
     }

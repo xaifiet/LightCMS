@@ -5,6 +5,8 @@ namespace LightCMS\PageBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 
 use Doctrine\ORM\EntityManager;
 
@@ -31,20 +33,20 @@ class RowType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add('id', 'hidden');
+        $builder->add('_type', 'hidden', array(
+            'data'   => $this->getName(),
+            'mapped' => false
+        ));
 
-        $builder->add($builder->create('widgets', 'collectioninheritance', array(
-            'type' => 'widget',
-            'allow_add' => true,
-            'allow_delete' => true,
-            'by_reference' => false,
-            'label' => 'widgets',
-            'prototype' => true,
+        $builder->add('position', 'hidden', array('label' => false));
+
+        $builder->add('widgets', 'infinite_form_polycollection', array(
             'types' => array(
-                'widget.form.type.content.label' => 'widgetcontent',
-                'widget.form.type.image.label' => 'widgetimage'
-                )))
-            ->addModelTransformer(new WidgetsToScalarClassTransformer($this->entityManager, null)));
+                'widgetcontent',
+            ),
+            'allow_add' => true,
+            'allow_delete' => true
+        ));
 
     }
 
@@ -54,7 +56,7 @@ class RowType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'LightCMS\CoreBundle\Util\ScalarUtil',
+            'data_class' => 'LightCMS\PageBundle\Entity\Row',
             'cascade_validation' => true
         ));
     }

@@ -1,10 +1,6 @@
-jQuery.expr[':'].bind = function(elem, index, match) {
-    if ($(elem).data('bind') != undefined) {
-        return true;
-    }
-    return false;
-};
-
+jQuery.extend(jQuery.expr[':'], {
+    bind: function (el) { if ($(el).data('bind') != undefined) { return true; } return false; }
+});
 
 /*
  * jQuery ajax functions
@@ -16,14 +12,6 @@ jQuery.expr[':'].bind = function(elem, index, match) {
  * link location content to body
  */
 jQuery.fn.ajaxBind = function() {
-
-    jquery = function(event, $elem, params) {
-        var funcname = params.shift();
-        var selector = params.shift();
-        if ($(selector)[funcname] != undefined) {
-            $(selector)[funcname].apply($(selector), params);
-        }
-    };
 
     bindelem = function(elem, ajax) {
         var regexps = {
@@ -42,6 +30,12 @@ jQuery.fn.ajaxBind = function() {
         if (type == null) {
             return;
         }
+        if (matches[1] == 'ready') {
+            if (window[matches[2]] != undefined) {
+                window[matches[2]](event, elem, matches[3].split(','));
+            }
+            return false;
+        }
         $(elem).bind(matches[1], function(event) {
             if (type == 'a' && event.target != this) {
                 return false;
@@ -49,19 +43,21 @@ jQuery.fn.ajaxBind = function() {
                 return false;
             }
             if (window[matches[2]] != undefined) {
-                window[matches[2]](event, this, matches[3].split(','));
+                window[matches[2]](event, elem, matches[3].split(','));
             }
             return false;
         });
     };
 
     $(this).each(function() {
-        if ($(this).data('bind').length > 0) {
-            events = $(this).data('bind').split('|');
-            $(this).removeData('bind');
-            $(this).removeAttr('data-bind');
-            for (var i = 0; i < events.length; i++) {
-                bindelem(this, events[i]);
+        if ($(this).data('bind') != undefined) {
+            if ($(this).data('bind').length > 0) {
+                var events = $(this).data('bind').split('|');
+                $(this).removeData('bind');
+                $(this).removeAttr('data-bind');
+                for (var i = 0; i < events.length; i++) {
+                    bindelem(this, events[i]);
+                }
             }
         }
     });

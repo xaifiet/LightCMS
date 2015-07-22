@@ -30,20 +30,14 @@ class Widget
     private $row;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     */
-    private $title;
-
-    /**
      * @ORM\Column(type="string", length=50)
      */
-    private $size;
+    private $size = 4;
 
 
     public function __construct()
     {
-        $this->title = '';
-        $this->size = '';
+        $this->size = 4;
     }
 
     /**
@@ -54,29 +48,6 @@ class Widget
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set title
-     *
-     * @param string $title
-     * @return Widget
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string 
-     */
-    public function getTitle()
-    {
-        return $this->title;
     }
 
     /**

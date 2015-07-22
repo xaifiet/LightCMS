@@ -22,9 +22,14 @@ class Row
 
     /**
      * @ORM\ManyToOne(targetEntity="Page", inversedBy="rows")
-     * @ORM\JoinColumn(name="parent", referencedColumnName="salt", nullable=false)
+     * @ORM\JoinColumn(referencedColumnName="salt", nullable=false)
      **/
     private $page;
+
+    /**
+     * @ORM\Column(type="integer")
+     **/
+    private $position = 1;
 
     /**
      * @ORM\OneToMany(targetEntity="Widget", mappedBy="row", cascade={"all"}, orphanRemoval=true)
@@ -71,6 +76,29 @@ class Row
     public function getPage()
     {
         return $this->page;
+    }
+
+    /**
+     * Set position
+     *
+     * @param integer $position
+     * @return Row
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return string
+     */
+    public function getPosition()
+    {
+        return $this->position;
     }
 
     /**

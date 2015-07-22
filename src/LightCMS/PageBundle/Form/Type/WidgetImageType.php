@@ -33,7 +33,8 @@ class WidgetImageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'LightCMS\CoreBundle\Util\ScalarUtil',
+            'data_class' => 'LightCMS\PageBundle\Entity\WidgetImage',
+            'model_class' => 'LightCMS\PageBundle\Entity\WidgetImage',
             'cascade_validation' => true
         ));
     }

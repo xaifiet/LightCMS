@@ -33,7 +33,7 @@ services:
         tags:
             - { name: form.type, alias: fieldgroup }
 
-    light_cms_core.form_type.collection_inheritance_type:
-        class: LightCMS\CoreBundle\Form\Type\CollectionInheritanceType
+    light_cms_core.form_type.infinite_form_polycollection:
+        class: LightCMS\CoreBundle\Form\Type\PolyCollectionType
         tags:
-            - { name: form.type, alias: collectioninheritance }
+            - { name: form.type, alias: infinite_form_polycollection }

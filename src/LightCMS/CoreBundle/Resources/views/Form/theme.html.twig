@@ -17,17 +17,56 @@
     {% endspaceless %}
 {% endblock %}
 
-{% block widget_row %}
+{% block widgetcontent_widget %}
     {% spaceless %}
-
+        <div class="col-md-{{ form.size.vars.value }} widgetform" id="{{ form.vars.id }}">
+            <div class="btn-group pull-right showonparent" data-keep="yes">
+                <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <i class="glyphicon glyphicon-cog"></i>
+                    <span class="fa fa-caret-down"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="#" data-bind="click[setWidgetSize(4,col-md-4)]">1/3 Size</a></li>
+                    <li><a href="#" data-bind="click[setWidgetSize(6,col-md-6)]">1/2 Size</a></li>
+                    <li><a href="#" data-bind="click[setWidgetSize(8,col-md-8)]">2/3 Size</a></li>
+                    <li><a href="#" data-bind="click[setWidgetSize(12,col-md-12)]">Full Size</a></li>
+                    <li><a href="#" data-toggle="modal" data-target="#{{ form.vars.id }}_modal">Edit Widget</a></li>
+                    <li><a href="#" data-bind="click[deleteCollectionRow(#{{ form.vars.id }})]">Delete Widget</a></li>
+                </ul>
+            </div>
+            <div class="modal fade" id="{{ form.vars.id }}_modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" data-keep="yes">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Modal title</h4>
+                        </div>
+                        <div class="modal-body">
+                            {% for child in form.children %}
+                                {{ form_widget(child) }}
+                            {% endfor %}
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ form.content.vars.value }}
+        </div>
     {% endspaceless %}
 {% endblock %}
 
+{% block widget_row %}
+    {% spaceless %}
+        {{ form_widget(form) }}
+    {% endspaceless %}
+{% endblock %}
 
 {% block row_row %}
     {% spaceless %}
-        <div class="box box-primary">
+        <div class="box box-primary" id="{{ form.vars.id }}">
             <div class="box-header with-border">
+                <span class="fa fa-arrows sorthandle"></span>
                 <h3 class="box-title">Row</h3>
                 <div class="btn-group pull-right">
                     <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -35,15 +74,17 @@
                         <span class="fa fa-caret-down"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        {% for name, prototype in form.widgets.vars.prototypes %}
-                            <li><a href="#" data-prototype="{{ form_widget(prototype)|escape }}" data-bind="click[addPrototype(#{{ form.widgets.vars.id }})]">{{ name|trans }}</a></li>
+                        {% for prototype in form.widgets.vars.prototypes %}
+                            <li><a href="#" data-prototype="{{ form_widget(prototype)|escape }}" data-bind="click[addPrototype({{ form.widgets.vars.id }})]">Namr</a></li>
                         {% endfor %}
                     </ul>
-                    <button type="button" class="btn btn-xs btn-danger" data-bind="click[deleteCollectionRow(.box-primary)]">Delete Row</button>
+                    <button type="button" class="btn btn-xs btn-danger" data-bind="click[deleteCollectionRow(#{{ form.vars.id }})]">Delete Row</button>
                 </div>
             </div>
             <div class="box-body">
-                {{ form_widget(form) }}
+                {% for child in form.children %}
+                    {{ form_widget(child) }}
+                {% endfor %}
             </div>
         </div>
     {% endspaceless %}

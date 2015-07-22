@@ -64,13 +64,14 @@ class PageType extends AbstractType
         ));
 
         $builder->add($builder->create('rows', 'collection', array(
+            'attr' => array('data-bind' => 'ready[sortable(.sorthandle)]'),
             'type' => 'row',
             'allow_add' => true,
             'allow_delete' => true,
             'by_reference' => false,
-            'label' => false,
-            'prototype' => true))
-            ->addModelTransformer(new RowsToScalarClassTransformer($this->entityManager, $options['data'])));
+            'prototype' => true,
+            'label' => false)));
+//            ->addModelTransformer(new RowsToScalarClassTransformer($this->entityManager, $options['data'])));
 
         // Adding the submit button
         $builder->add('submit', 'submit', array(

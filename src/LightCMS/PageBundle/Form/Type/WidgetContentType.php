@@ -20,11 +20,17 @@ class WidgetContentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
+        $builder->add('_type', 'hidden', array(
+            'data'   => $this->getName(),
+            'mapped' => false
+        ));
+
         $builder->add('content', 'textarea', array(
             'label' => 'page.form.header.label',
             'required' => false,
+            'data' => 'plopiac',
             'attr' => array(
-                'class' => 'form-control summernote')));
+                'data-bind' => 'ready[summernoteInit()]')));
     }
 
     /**
@@ -33,7 +39,8 @@ class WidgetContentType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'LightCMS\CoreBundle\Util\ScalarUtil',
+            'data_class' => 'LightCMS\PageBundle\Entity\WidgetContent',
+            'model_class' => 'LightCMS\PageBundle\Entity\WidgetContent',
             'cascade_validation' => true
         ));
     }

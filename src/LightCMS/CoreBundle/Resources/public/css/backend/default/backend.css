@@ -5,3 +5,11 @@
 .skin-blue .treeview-menu > li.current > a {
     color: #ffffff;
 }
+
+.showonparent {
+    visibility: hidden;
+}
+
+*:hover > .showonparent {
+    visibility: visible;
+}
