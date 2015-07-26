@@ -28,7 +28,6 @@ class WidgetContentType extends AbstractType
         $builder->add('content', 'textarea', array(
             'label' => 'page.form.header.label',
             'required' => false,
-            'data' => 'plopiac',
             'attr' => array(
                 'data-bind' => 'ready[summernoteInit()]')));
     }

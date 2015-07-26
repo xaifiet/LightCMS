@@ -1,17 +1,35 @@
-light_cms_core_backend:
-    path: /backend/{action}/{module}/{id}
+light_cms_backend:
+    path: /backend
     defaults:
         _controller: LightCMSCoreBundle:Backend:index
-        action: dashboard
-        module: dashboard
-        id : null
 
-
-light_cms_core_frontend:
-    path: /{module}/{path}
+light_cms_backend_slash:
+    path: /backend/
     defaults:
-        _controller: LightCMSCoreBundle:Frontend:view
-        module: null
-        path: null
+        _controller: LightCMSCoreBundle:Backend:index
+
+light_cms_backend_entity_action:
+    path: /backend/{entity}/{action}
+    defaults:
+        _controller: LightCMSCoreBundle:Backend:index
+
+light_cms_backend_entity_action_id:
+    path: /backend/{entity}/{action}/{id}
+    defaults:
+        _controller: LightCMSCoreBundle:Backend:index
+
+light_cms_backend_entity_action_id_param:
+    path: /backend/{entity}/{action}/{id}/{params}
+    defaults:
+        _controller: LightCMSCoreBundle:Backend:index
     requirements:
-        path: ".+"
+        params: ".*"
+
+#light_cms_core_frontend:
+#    path: /{module}/{path}
+#    defaults:
+#        _controller: LightCMSCoreBundle:Frontend:view
+#        module: null
+#        path: null
+#    requirements:
+#        path: ".+"

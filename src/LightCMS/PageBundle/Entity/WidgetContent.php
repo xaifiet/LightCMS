@@ -19,6 +19,11 @@ class WidgetContent extends Widget
      */
     private $content;
 
+    public function __construct()
+    {
+        parent::__construct();
+        $this->content = '';
+    }
 
     /**
      * Set content
@@ -43,9 +48,4 @@ class WidgetContent extends Widget
         return $this->content;
     }
 
-    public function __construct()
-    {
-        parent::__construct();
-        $this->content = '';
-    }
 }

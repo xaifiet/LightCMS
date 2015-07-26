@@ -38,9 +38,12 @@ class RowType extends AbstractType
             'mapped' => false
         ));
 
-        $builder->add('position', 'hidden', array('label' => false));
+        $builder->add('position', 'hidden', array(
+            'label' => false,
+            'attr' => array('class' => 'rowposition')));
 
         $builder->add('widgets', 'infinite_form_polycollection', array(
+            'attr' => array('data-bind' => 'ready[sortable(.sorthandle,.widgetposition,box box-primary placeholder)]'),
             'types' => array(
                 'widgetcontent',
             ),

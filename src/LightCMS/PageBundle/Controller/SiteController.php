@@ -1,6 +1,6 @@
 <?php
 
-namespace LightCMS\SiteBundle\Controller;
+namespace LightCMS\PageBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,17 +38,24 @@ class SiteController extends Controller
         return $this->render('LightCMSSiteBundle:Site:admin.html.twig');
     }
 
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, $params)
     {
-        if ($id == 'new') {
-            $site = new \LightCMS\SiteBundle\Entity\Site();
+
+        $id = array_shift($params);
+        if (is_null($id)) {
+            $site = new \LightCMS\PageBundle\Entity\Site();
         } else {
-            $site = $this->getDoctrine()->getRepository('LightCMSSiteBundle:Site')->find($id);
+            $site = $this->getDoctrine()->getRepository('LightCMSPageBundle:Site')->find($id);
         }
 
-        // Form creation
+        if (is_null($site)) {
+            return null;
+        }
+
         $form = $this->createForm('site', $site, array(
-            'action' => $request->getUri(),
+            'action' => $this->generateUrl('light_cms_backend', array(
+                'params' => '/node/create/page'
+            )),
             'method' => 'POST'
         ));
 
@@ -65,7 +72,7 @@ class SiteController extends Controller
             }
         }
 
-        return $this->render('LightCMSSiteBundle:Site:edit.html.twig', array(
+        return $this->render('LightCMSPageBundle:Site:edit.html.twig', array(
             'site' => $site,
             'form' => $form->createView()));
     }

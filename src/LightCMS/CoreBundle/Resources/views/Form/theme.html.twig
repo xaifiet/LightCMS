@@ -1,15 +1,4 @@
-{% block fieldgroup_row %}
-    {% spaceless %}
-        <div class="box box-primary">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ form.vars.label }}</h3>
-            </div>
-            <div class="box-body">
-                {{ form_widget(form) }}
-            </div>
-        </div>
-    {% endspaceless %}
-{% endblock %}
+
 
 {% block collection_row %}
     {% spaceless %}
@@ -19,7 +8,12 @@
 
 {% block widgetcontent_widget %}
     {% spaceless %}
+        {% include 'LightCMSPageBundle:Widget:widget.html.twig' with { 'form': form } %}
+{#
         <div class="col-md-{{ form.size.vars.value }} widgetform" id="{{ form.vars.id }}">
+            <div class="btn-group showonparent" data-keep="yes">
+                <span class="fa fa-arrows sorthandle"></span>
+            </div>
             <div class="btn-group pull-right showonparent" data-keep="yes">
                 <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                     <i class="glyphicon glyphicon-cog"></i>
@@ -53,6 +47,7 @@
             </div>
             {{ form.content.vars.value }}
         </div>
+#}
     {% endspaceless %}
 {% endblock %}
 
@@ -99,13 +94,13 @@
     {% endspaceless %}
 {% endblock %}
 
-{% block entity_widget %}
+{% block test_widget %}
     {% spaceless %}
         <div class="input-group input-group-sm">
-            <input type="hidden" id="{{ form.vars.id }}" value="{{ form.vars.value }}" />
+            <input type="hidden" id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" value="{{ form.vars.value }}" />
             <input type="text" class="form-control">
             <span class="input-group-btn">
-                <button class="btn btn-info btn-flat" type="button" data-bind="click[loadModal(#{{ form.vars.id }}-parent,{{ path('light_cms_core_backend', {'action': 'tree', 'module':'page', 'id': form.vars.value, 'field': 'parent', 'display': 'modal'}) }})]">Select Parent</button>
+                <button class="btn btn-info btn-flat" type="button" data-bind="click[loadModal(#{{ form.vars.id }}-parent,{{ path('light_cms_backend', { 'params': 'page/tree/'~form.vars.value }) }})]">Select Parent</button>
             </span>
         </div>
         <div id="{{ form.vars.id }}-parent" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

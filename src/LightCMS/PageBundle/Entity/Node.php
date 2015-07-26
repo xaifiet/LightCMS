@@ -21,7 +21,7 @@ abstract class Node
      * @ORM\GeneratedValue(strategy="NONE")
      * @Assert\NotBlank()
      */
-    private $salt;
+    private $id;
 
     /**
      * @ORM\Column(type="string", length=100)
@@ -31,7 +31,6 @@ abstract class Node
 
     /**
      * @ORM\ManyToOne(targetEntity="Node", inversedBy="children")
-     * @ORM\JoinColumn(name="parent", referencedColumnName="salt")
      **/
     private $parent;
 
@@ -56,49 +55,49 @@ abstract class Node
      * @access public
      */
     public function __construct() {
-        $this->salt = md5(uniqid(null, true));
+        $this->id = md5(uniqid(null, true));
         $this->children = new ArrayCollection();
     }
 
     /**
      * @ORM\PrePersist
      */
-    public function setDateValue()
+    public function setCreatedValue()
     {
-        if (is_null($this->created)) {
-            $this->created = new \DateTime();
-        }
         $this->updated = new \DateTime();
+        if (is_null($this->created)) {
+            $this->created = $this->updated;
+        }
     }
 
     /**
-     * Set salt
+     * Set id
      *
-     * @param string $salt
+     * @param string $id
      * @return Node
      */
-    public function setSalt($salt)
+    public function setId($id)
     {
-        $this->salt = $salt;
+        $this->id = $id;
 
         return $this;
     }
 
     /**
-     * Get salt
+     * Get id
      *
      * @return string 
      */
-    public function getSalt()
+    public function getId()
     {
-        return $this->salt;
+        return $this->id;
     }
 
     /**
      * Set name
      *
      * @param string $name
-     * @return Page
+     * @return Node
      */
     public function setName($name)
     {
@@ -110,7 +109,7 @@ abstract class Node
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -179,7 +178,7 @@ abstract class Node
     /**
      * Get parent
      *
-     * @return \LightCMS\PageBundle\Entity\Node
+     * @return \LightCMS\PageBundle\Entity\Node 
      */
     public function getParent()
     {

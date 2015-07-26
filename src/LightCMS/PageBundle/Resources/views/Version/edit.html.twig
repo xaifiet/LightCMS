@@ -1,0 +1,42 @@
+{% extends 'LightCMSCoreBundle:Backend:layout.html.twig' %}
+
+{% form_theme form 'LightCMSCoreBundle:Form:theme.html.twig' %}
+
+{% block body %}
+{% spaceless %}
+    {{ form_start(form) }}
+
+    <section class="content-header">
+        <h1>
+            {{ entity.page.name }} - Version {{ entity.number }}<small>{{ entity.id }}</small>
+
+            <div class="pull-right">
+                <div class="btn-group" style="margin-right:20px">
+                    {{ form_widget(form.submit) }}
+                </div>
+                {% if form.publish is defined %}
+                    <div class="btn-group" style="margin-right:20px">
+                        {{ form_widget(form.publish) }}
+                    </div>
+                {% endif %}
+                <div class="btn-group" style="margin-right:20px">
+                    <a class="btn btn-info" href="{{ path('light_cms_backend_entity_action_id', { 'entity': 'version', 'action': 'createfromversion', 'id': entity.getId()}) }}">Duplicate</a>
+                </div>
+                <div class="btn-group" style="margin-right:20px">
+                    <a class="btn btn-info" href="#">Add Row</a>
+                </div>
+                <div class="btn-group">
+                    <a class="btn btn-default" href="{{ path('light_cms_backend_entity_action_id', { 'entity': 'page', 'action': 'edit', 'id': entity.getPage().getId()}) }}">Back to Page</a>
+                </div>
+            </div>
+        </h1>
+    </section>
+
+    <section class="content">
+        {{ form_row(form.rows) }}
+    </section>
+
+    {{ form_end(form) }}
+{% endspaceless %}
+{% endblock %}
+

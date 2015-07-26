@@ -20,14 +20,15 @@ class Page extends Node
     private $url;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\OneToOne(targetEntity="Version")
      **/
     private $published;
 
     /**
-     * @ORM\OneToMany(targetEntity="Row", mappedBy="page", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="Version", mappedBy="page", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OrderBy({"number" = "ASC"})
      **/
-    private $rows;
+    private $versions;
 
     /**
      * Constructor
@@ -35,8 +36,9 @@ class Page extends Node
     public function __construct()
     {
         parent::__construct();
-        $this->rows = new ArrayCollection();
+        $this->versions = new ArrayCollection();
     }
+
 
     /**
      * Set url
@@ -64,10 +66,10 @@ class Page extends Node
     /**
      * Set published
      *
-     * @param boolean $published
+     * @param \LightCMS\PageBundle\Entity\Version $published
      * @return Page
      */
-    public function setPublished($published)
+    public function setPublished(\LightCMS\PageBundle\Entity\Version $published = null)
     {
         $this->published = $published;
 
@@ -77,7 +79,7 @@ class Page extends Node
     /**
      * Get published
      *
-     * @return boolean 
+     * @return \LightCMS\PageBundle\Entity\Version 
      */
     public function getPublished()
     {
@@ -85,35 +87,35 @@ class Page extends Node
     }
 
     /**
-     * Add rows
+     * Add versions
      *
-     * @param \LightCMS\PageBundle\Entity\Row $rows
+     * @param \LightCMS\PageBundle\Entity\Version $versions
      * @return Page
      */
-    public function addRow(\LightCMS\PageBundle\Entity\Row $rows)
+    public function addVersion(\LightCMS\PageBundle\Entity\Version $versions)
     {
-        $this->rows[] = $rows;
+        $this->versions[] = $versions;
 
         return $this;
     }
 
     /**
-     * Remove rows
+     * Remove versions
      *
-     * @param \LightCMS\PageBundle\Entity\Row $rows
+     * @param \LightCMS\PageBundle\Entity\Version $versions
      */
-    public function removeRow(\LightCMS\PageBundle\Entity\Row $rows)
+    public function removeVersion(\LightCMS\PageBundle\Entity\Version $versions)
     {
-        $this->rows->removeElement($rows);
+        $this->versions->removeElement($versions);
     }
 
     /**
-     * Get rows
+     * Get versions
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getRows()
+    public function getVersions()
     {
-        return $this->rows;
+        return $this->versions;
     }
 }

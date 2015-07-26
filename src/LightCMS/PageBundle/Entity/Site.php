@@ -31,8 +31,7 @@ class Site extends Node
     private $theme;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Node")
-     * @ORM\JoinColumn(referencedColumnName="salt")
+     * @ORM\OneToOne(targetEntity="Page")
      **/
     private $home;
 
@@ -107,35 +106,12 @@ class Site extends Node
     }
 
     /**
-     * Set title
-     *
-     * @param string $title
-     * @return Site
-     */
-    public function setTitle($title)
-    {
-        $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * Get title
-     *
-     * @return string 
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
      * Set home
      *
-     * @param \LightCMS\PageBundle\Entity\Node $home
+     * @param \LightCMS\PageBundle\Entity\Page $home
      * @return Site
      */
-    public function setHome(\LightCMS\PageBundle\Entity\Node $home = null)
+    public function setHome(\LightCMS\PageBundle\Entity\Page $home = null)
     {
         $this->home = $home;
 
@@ -145,7 +121,7 @@ class Site extends Node
     /**
      * Get home
      *
-     * @return \LightCMS\PageBundle\Entity\Node
+     * @return \LightCMS\PageBundle\Entity\Page 
      */
     public function getHome()
     {

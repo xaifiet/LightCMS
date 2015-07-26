@@ -17,22 +17,10 @@
     </head>
     <body class="skin-blue sidebar-mini">
         <div class="wrapper">
-
             {% include 'LightCMSCoreBundle:Backend:header.html.twig' %}
-
             {% include 'LightCMSCoreBundle:Backend:sidebar.html.twig' %}
-
             <div class="content-wrapper">
-                <section class="content-header">
-                    <h1>
-                        {% block contentTitle %}Light CMS{% endblock %}
-                    </h1>
-                </section>
-
-
-                <section class="content">
-                    {% block body %}{% endblock %}
-                </section>
+                {% block body %}{% endblock %}
             </div>
         </div>
         {% block javascripts %}

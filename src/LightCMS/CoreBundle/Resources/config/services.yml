@@ -1,10 +1,17 @@
 parameters:
 
-    light_cms_core.backend_module.core_bundle:
+    light_cms.modules.core_bundle:
         dashboard:
-            name: dashboard
-            title: Dashboard
-            icon: 'glyphicon glyphicon-dashboard'
+            menu:
+                title: Dashboard
+                icon: 'glyphicon glyphicon-dashboard'
+                link:
+                    route: light_cms_backend
+                    params: []
+            path: dashboard
+            controller:
+                backend: LightCMSCodeBundle:Dashboard:view
+
 
 services:
 

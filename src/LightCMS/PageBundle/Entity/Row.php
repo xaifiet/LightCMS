@@ -15,24 +15,26 @@ class Row
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="string", length=32)
+     * @ORM\GeneratedValue(strategy="NONE")
+     * @Assert\NotBlank()
      */
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Page", inversedBy="rows")
-     * @ORM\JoinColumn(referencedColumnName="salt", nullable=false)
+     * @ORM\ManyToOne(targetEntity="Version", inversedBy="rows")
+     * @ORM\JoinColumn(nullable=false)
      **/
-    private $page;
+    private $version;
 
     /**
      * @ORM\Column(type="integer")
      **/
-    private $position = 1;
+    private $position = 0;
 
     /**
      * @ORM\OneToMany(targetEntity="Widget", mappedBy="row", cascade={"all"}, orphanRemoval=true)
+     * @ORM\OrderBy({"position" = "ASC"})
      **/
     private $widgets;
 
@@ -42,40 +44,32 @@ class Row
      * @access public
      */
     public function __construct() {
+        $this->id = md5(uniqid(null, true));
         $this->widgets = new ArrayCollection();
     }
 
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
-     * Set page
+     * Set id
      *
-     * @param \LightCMS\PageBundle\Entity\Page $page
+     * @param string $id
      * @return Row
      */
-    public function setPage(\LightCMS\PageBundle\Entity\Page $page = null)
+    public function setId($id)
     {
-        $this->page = $page;
+        $this->id = $id;
 
         return $this;
     }
 
     /**
-     * Get page
+     * Get id
      *
-     * @return \LightCMS\PageBundle\Entity\Page
+     * @return string 
      */
-    public function getPage()
+    public function getId()
     {
-        return $this->page;
+        return $this->id;
     }
 
     /**
@@ -94,11 +88,34 @@ class Row
     /**
      * Get position
      *
-     * @return string
+     * @return integer 
      */
     public function getPosition()
     {
         return $this->position;
+    }
+
+    /**
+     * Set version
+     *
+     * @param \LightCMS\PageBundle\Entity\Version $version
+     * @return Row
+     */
+    public function setVersion(\LightCMS\PageBundle\Entity\Version $version)
+    {
+        $this->version = $version;
+
+        return $this;
+    }
+
+    /**
+     * Get version
+     *
+     * @return \LightCMS\PageBundle\Entity\Version 
+     */
+    public function getVersion()
+    {
+        return $this->version;
     }
 
     /**

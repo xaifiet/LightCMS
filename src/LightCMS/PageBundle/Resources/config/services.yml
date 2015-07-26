@@ -1,59 +1,69 @@
 parameters:
 
-    light_cms_core.backend_module.pagebundle:
-        page:
-            name: page
-            title: Pages
-            bundle: LightCMSPageBundle
-            controller: Node
-            icon: 'glyphicon glyphicon-file'
-            search_entity: node
-            entities:
-                node:
-                    class: LightCMS\PageBundle\Entity\Node
-                    repository: 'LightCMSPageBundle:Node'
-                    id: salt
-                    name:
-                        - name
-                    icon: 'glyphicon glyphicon-globe'
-                    create: true
-                site:
-                    form:
-                        type: site
-                    class: LightCMS\PageBundle\Entity\Site
-                    repository: 'LightCMSPageBundle:Site'
-                    id: salt
-                    name:
-                        - name
-                    create: false
-                page:
-                    form:
-                        type: page
-                        save: LightCMSPageBundle:Page:save
-                    class: LightCMS\PageBundle\Entity\Page
-                    repository: 'LightCMSPageBundle:Page'
-                    id: salt
-                    name:
-                        - name
-                    icon: 'glyphicon glyphicon-file'
-                    create: true
-            tree:
-                entity: node
-                parent: parent
-                id: salt
-
-
-    inheritance_joined_map.pagebundle:
+    light_cms.entities.pagebundle:
         node:
-            entity: LightCMS\PageBundle\Entity\Node
-            map:
-                site: LightCMS\PageBundle\Entity\Site
-                page: LightCMS\PageBundle\Entity\Page
-        widget:
-            entity: LightCMS\PageBundle\Entity\Widget
-            map:
-                widgetcontent: LightCMS\PageBundle\Entity\WidgetContent
+            class: LightCMS\PageBundle\Entity\Node
+            repository: LightCMSPageBundle:Node
+            module: page
+            idfield: salt
+            name: [ 'name' ]
+            form: node
+            templates:
+                edit: LightCMSPageBundle:Node:edit.html.twig
+                view: LightCMSPageBundle:Node:view.html.twig
+        site:
+            icon: 'glyphicon glyphicon-globe'
+            class: LightCMS\PageBundle\Entity\Site
+            repository: LightCMSPageBundle:Site
+            controller: LightCMSPageBundle:Site
+            module: page
+            idfield: salt
+            name: [ 'name' ]
+            form: site
+            templates:
+                edit: LightCMSPageBundle:Site:edit.html.twig
+                view: LightCMSPageBundle:Site:view.html.twig
+        page:
+            icon: 'glyphicon glyphicon-file'
+            class: LightCMS\PageBundle\Entity\Page
+            repository: LightCMSPageBundle:Page
+            controller: LightCMSPageBundle:Page
+            module: page
+            idfield: salt
+            name: [ 'name' ]
+            form: page
+            templates:
+                edit: LightCMSPageBundle:Page:edit.html.twig
+                view: LightCMSPageBundle:Page:view.html.twig
+        version:
+            class: LightCMS\PageBundle\Entity\Version
+            repository: LightCMSPageBundle:Version
+            controller: LightCMSPageBundle:Version
+            module: page
+            idfield: id
+            form: version
+            templates:
+                edit: LightCMSPageBundle:Version:edit.html.twig
+                view: LightCMSPageBundle:Version:view.html.twig
 
+    light_cms.inheritance.pagebundle:
+        node:
+            - page
+            - site
+        widget:
+            - widgetcontent
+
+    light_cms.modules.pagebundle:
+        page:
+            menu:
+                Title: Pages
+                icon: 'glyphicon glyphicon-file'
+                tree: LightCMSPageBundle:Node:tree
+            path: node
+            default: true
+            controller:
+                backend: LightCMSPageBundle:Node:dashboard
+                front: LightCMSPageBundle:Node:view
 
 services:
 
@@ -79,6 +89,13 @@ services:
         tags:
             - { name: form.type, alias: page }
 
+    light_cms_page.form_type.version_type:
+        class: LightCMS\PageBundle\Form\Type\VersionType
+        arguments:
+            entityManager: "@doctrine.orm.entity_manager"
+        tags:
+            - { name: form.type, alias: version }
+
     light_cms_page.form_type.row_type:
         class: LightCMS\PageBundle\Form\Type\RowType
         arguments:
@@ -96,7 +113,3 @@ services:
         tags:
             - { name: form.type, alias: widgetcontent }
 
-    light_cms_page.form_type.widget_image_type:
-        class: LightCMS\PageBundle\Form\Type\WidgetImageType
-        tags:
-            - { name: form.type, alias: widgetimage }

@@ -54,15 +54,8 @@ class SiteType extends AbstractType
             'attr' => array(
                 'class' => 'form-control')));
 
-
-        $groupSubmit = $builder->add('submit_group', 'fieldgroup', array(
-            'mapped' => false,
-            'label' => 'Actions',
-            'inherit_data' => true
-        ))->get('submit_group');
-
         // Adding the submit button
-        $groupSubmit->add('submit', 'submit');
+        $builder->add('submit', 'submit');
     }
 
     /**

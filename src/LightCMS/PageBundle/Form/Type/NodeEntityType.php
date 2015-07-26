@@ -6,12 +6,23 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+use Doctrine\ORM\EntityManager;
+
+use LightCMS\PageBundle\Form\DataTransformer\RowsToScalarClassTransformer;
+
 /**
  * Class PageType
  * @package LightCMS\NodeBundle\Form\Type
  */
-class WidgetImageType extends AbstractType
+class NodeEntityType extends AbstractType
 {
+
+    private $entityManager;
+
+    public function __construct(EntityManager $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -20,10 +31,18 @@ class WidgetImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add('file', 'file', array(
+        var_dump($options['id_reader']);
+        $builder->add('parent', 'hidden', array(
+            'label' => false,
+            'attr' => array(
+                'class' => 'form-control')));
+
+        $builder->add('name', 'text', array(
             'mapped' => false,
-            'label' => 'image.form.file.label',
-            'required' => false));
+            'data' => 'pourt',
+            'label' => false,
+            'attr' => array(
+                'class' => 'form-control')));
 
     }
 
@@ -33,8 +52,7 @@ class WidgetImageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'LightCMS\PageBundle\Entity\WidgetImage',
-            'model_class' => 'LightCMS\PageBundle\Entity\WidgetImage',
+            'data_class' => 'LightCMS\PageBundle\Entity\Node',
             'cascade_validation' => true
         ));
     }
@@ -44,7 +62,7 @@ class WidgetImageType extends AbstractType
      */
     public function getParent()
     {
-        return 'widget';
+        return 'entity';
     }
 
     /**
@@ -52,6 +70,6 @@ class WidgetImageType extends AbstractType
      */
     public function getName()
     {
-        return 'widgetimage';
+        return 'nodeentity';
     }
 }

@@ -25,6 +25,10 @@ class WidgetType extends AbstractType
             'mapped' => false
         ));
 
+        $builder->add('position', 'hidden', array(
+            'label' => false,
+            'attr' => array('class' => 'widgetposition')));
+
         $builder->add('size', 'hidden', array(
             'required' => true
         ));

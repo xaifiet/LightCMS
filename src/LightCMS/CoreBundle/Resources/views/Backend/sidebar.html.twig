@@ -4,7 +4,7 @@
             <li class="header">MAIN NAVIGATION</li>
             {% for module in moduleService.getModules() %}
                 <li class="treeview {% if module == moduleService.getModule() %}active{% endif %}">
-                    <a href="{{ path('light_cms_core_backend', { 'action': 'dashboard', 'module': module.name }) }}" data-bind="ready[sidebarReady()]">
+                    <a href="{{ path('light_cms_backend', { 'params': '/dashboard' }) }}" data-bind="ready[sidebarReady()]">
                         <i class="{{ module.icon }}"></i> <span>{{ module.title }}</span> {% if module['tree'] is defined %}<i class="fa fa-angle-left pull-right"></i>{% endif %}
                     </a>
                     {% if module['tree'] is defined %}

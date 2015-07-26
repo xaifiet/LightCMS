@@ -4,6 +4,7 @@ namespace LightCMS\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 
 class BackendController extends Controller
@@ -15,8 +16,31 @@ class BackendController extends Controller
 
     protected $param;
 
-    public function indexAction(Request $request, $action = 'dashboard', $module = 'dashboard', $id = null)
+    public function indexAction(Request $request, $entity = null, $action = null, $id = null, $params = null)
     {
+        $parameterService = $this->get('light_cms_core.service.parameters_service');
+        $moduleService = $this->get('light_cms_core.service.module_service');
+
+        $parameters = $parameterService->getParameters('/^light_cms\.entities\..+/i');
+
+        // Looping on matching configurations
+        foreach ($parameters as $bundle) {
+            // Looping on map name
+            foreach ($bundle as $entityName => $entityInfo) {
+                if ($entityName != $entity) {
+                    continue;
+                }
+                $moduleService->setModule($entityInfo['module']);
+                return $this->forward($entityInfo['controller'].':'.$action, array(
+                    'request' => $request,
+                    'id' => $id
+                ));
+            }
+        }
+
+        return $this->render('LightCMSCoreBundle:Backend:nude.html.twig');
+
+
         $this->moduleService = $this->get('light_cms_core.service.module_service');
         $this->moduleService->setCurrentId($id);
         $this->moduleService->setModule($module);
@@ -50,6 +74,13 @@ class BackendController extends Controller
 
     public function createAction(Request $request)
     {
+
+        foreach ($this->module['entities'] as $name => $moduleEntity) {
+            if ($moduleEntity['class'] == $entityClass) {
+                $entityInfo = $moduleEntity;
+            }
+        }
+
         $entityInfo = $this->moduleService->getEntity($this->param);
 
         $entity = new $entityInfo['class']();
@@ -78,6 +109,7 @@ class BackendController extends Controller
 
     public function formAction(Request $request, $action, $entityInfo, $entity, $param)
     {
+        var_dump($_POST);
 
         // Form creation
         $form = $this->createForm($entityInfo['form']['type'], $entity, array(

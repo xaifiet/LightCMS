@@ -100,8 +100,20 @@ setWidgetSize = function(event, elem, params) {
 };
 
 sortable = function(event, elem, params) {
+    console.log(elem);
     $(elem).sortable({
-        handle: params[0]
+        handle: params[0],
+        forcePlaceholderSize: true,
+        start: function(event, ui) {
+            $(ui.placeholder).css('visibility', 'visible');
+        },
+        stop: function(event, ui) {
+            var position = 0;
+            $(params[1], elem).each(function() {
+                $(this).val(position);
+                position += 1;
+            })
+        }
     });
 
 };
