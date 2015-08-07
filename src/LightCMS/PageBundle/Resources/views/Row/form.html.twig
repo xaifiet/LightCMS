@@ -1,0 +1,26 @@
+<div class="box box-primary" id="{{ form.vars.id }}">
+    {{ form_row(form.position) }}
+    <div class="box-header with-border">
+        <span class="fa fa-arrows sorthandle"></span>
+        <h3 class="box-title">Row</h3>
+        <div class="btn-group pull-right" data-keep="yes">
+            <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <i class="glyphicon glyphicon-cog"></i>
+                <span class="fa fa-caret-down"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                {% for prototype in form.widgets.vars.prototypes %}
+                    <li><a href="#" data-prototype="{{ form_widget(prototype)|escape }}" data-bind="@click[addPrototype({{ form.widgets.vars.id }})]">Name</a></li>
+                {% endfor %}
+                <li role="presentation" class="divider"></li>
+                <li><a href="#" data-toggle="modal" data-target="#{{ form.vars.id }}_modal">Edit Row</a></li>
+                <li><a href="#" data-bind="@click[deleteCollectionRow(#{{ form.vars.id }})]">Delete Row</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="box-body">
+        {% for child in form.children %}
+            {{ form_widget(child) }}
+        {% endfor %}
+    </div>
+</div>

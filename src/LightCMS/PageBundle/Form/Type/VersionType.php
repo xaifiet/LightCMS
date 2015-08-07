@@ -32,7 +32,10 @@ class VersionType extends AbstractType
     {
 
         $builder->add($builder->create('rows', 'collection', array(
-            'attr' => array('data-bind' => 'ready[sortable(.sorthandle,.rowposition,box box-primary placeholder)]'),
+            'attr' => array(
+                'data-bind' => 'ready[sortable(.sorthandle)]',
+                'data-positions' => '.rowposition'
+            ),
             'type' => 'row',
             'allow_add' => true,
             'allow_delete' => true,

@@ -1,0 +1,7 @@
+<div class="container">
+    <div class="row">
+        {% for widget in row.widgets %}
+            {% include 'LightCMSPageBundle:Widget:view.html.twig' with { 'widget': widget } %}
+        {% endfor %}
+    </div>
+</div>

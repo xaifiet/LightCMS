@@ -1,0 +1,23 @@
+{% block row_row %}
+    {% spaceless %}
+        {{ form_widget(form) }}
+    {% endspaceless %}
+{% endblock %}
+
+{% block row_widget %}
+    {% spaceless %}
+        {% include 'LightCMSPageBundle:Row:form.html.twig' with {'form': form } %}
+    {% endspaceless %}
+{% endblock %}
+
+{% block widget_row %}
+    {% spaceless %}
+        {{ form_widget(form) }}
+    {% endspaceless %}
+{% endblock %}
+
+{% block widget_widget %}
+    {% spaceless %}
+        {% include 'LightCMSPageBundle:Widget:form.html.twig' with {'form': form } %}
+    {% endspaceless %}
+{% endblock %}

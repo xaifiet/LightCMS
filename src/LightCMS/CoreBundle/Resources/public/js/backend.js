@@ -76,10 +76,7 @@ addPrototype = function(event, elem, params) {
     var div = $('#'+ id);
 
     var newid = 0;
-    console.log(div);
-    console.log('#'+id+'_'+newid);
     while ($('#'+id+'_'+newid, div).length > 0) {
-        console.log('loop');
         newid++;
     }
 
@@ -87,11 +84,16 @@ addPrototype = function(event, elem, params) {
     var newitem = prototype.replace(/__name__/g, newid);
     $(div).append($(newitem));
 
+    if ($(div).data('positions') !== undefined) {
+        rePosition(div, $(div).data('positions'));
+    }
+
     return false;
 };
 
 setWidgetSize = function(event, elem, params) {
     var widget = $(elem).closest('.widgetform');
+    console.log(widget);
     $(widget).removeClass (function (index, css) {
         return (css.match (/(^|\s)col-\S+/g) || []).join(' ');
     });
@@ -99,20 +101,26 @@ setWidgetSize = function(event, elem, params) {
     $('#'+$(widget).attr('id')+'_size', widget).val(params[0]);
 };
 
+rePosition = function(elem, input) {
+    var position = 0;
+    $(input, elem).each(function() {
+        $(this).val(position);
+        position += 1;
+    })
+};
+
 sortable = function(event, elem, params) {
-    console.log(elem);
     $(elem).sortable({
         handle: params[0],
         forcePlaceholderSize: true,
         start: function(event, ui) {
+            $(ui.placeholder).html($(ui.helper.html()));
             $(ui.placeholder).css('visibility', 'visible');
         },
         stop: function(event, ui) {
-            var position = 0;
-            $(params[1], elem).each(function() {
-                $(this).val(position);
-                position += 1;
-            })
+            if ($(elem).data('positions') !== undefined) {
+                rePosition(elem, $(elem).data('positions'));
+            }
         }
     });
 

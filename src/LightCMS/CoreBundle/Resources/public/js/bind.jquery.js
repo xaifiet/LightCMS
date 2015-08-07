@@ -30,13 +30,20 @@ jQuery.fn.ajaxBind = function() {
         if (type == null) {
             return;
         }
-        if (matches[1] == 'ready') {
+        var returnValue = false;
+        var eventBind = matches[1];
+        if (eventBind.charAt(0) == '@') {
+            returnValue = true;
+            eventBind = eventBind.substring(1);
+        }
+
+        if (eventBind == 'ready') {
             if (window[matches[2]] != undefined) {
                 window[matches[2]](event, elem, matches[3].split(','));
             }
-            return false;
+            return returnValue;
         }
-        $(elem).bind(matches[1], function(event) {
+        $(elem).bind(eventBind, function(event) {
             if (type == 'a' && event.target != this) {
                 return false;
             } else if (type == 'c' && (event.target != this && $(this).has(event.target).length == 0)) {
@@ -45,7 +52,7 @@ jQuery.fn.ajaxBind = function() {
             if (window[matches[2]] != undefined) {
                 window[matches[2]](event, elem, matches[3].split(','));
             }
-            return false;
+            return returnValue;
         });
     };
 
