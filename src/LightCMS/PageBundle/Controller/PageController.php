@@ -78,11 +78,8 @@ class PageController extends Controller
         }
 
         if ($redirect) {
-            return $this->redirect($this->GenerateUrl('light_cms_backend_entity_action_id', array(
-                'entity' => 'page',
-                'action' => 'edit',
-                'id' => $entity->getId()
-            )));
+            $lcmsUrl = $this->get('light_cms_core.service.generate_url');
+            return $this->redirect($lcmsUrl->generateUrl('node', 'page', $action, array('id' => $entity->getId())));
         }
         return $this->render('LightCMSPageBundle:Page:edit.html.twig', array(
             'form' => $form->createView(),

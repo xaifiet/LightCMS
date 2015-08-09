@@ -1,6 +1,6 @@
 {% for node in nodes %}
     <li class="treeview">
-        <a href="{{ lcmspath({ 'module': 'node', 'subModule': node.getInheritanceType(), 'action': 'edit', 'id': node.id }) }}" data-bind="ready[sidebarReady()]">
+        <a href="{{ lcmspath('node', node.getInheritanceType(), 'edit', {'id': node.id }) }}" data-bind="ready[sidebarReady()]">
             <span>{{ node.name }}</span> {% if node.children|length > 0 %}<i class="fa fa-angle-left pull-right"></i>{% endif %}
         </a>
         {% if node.children|length > 0 %}

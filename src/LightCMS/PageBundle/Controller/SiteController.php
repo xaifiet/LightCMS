@@ -8,73 +8,57 @@ use Symfony\Component\HttpFoundation\Request;
 class SiteController extends Controller
 {
 
-    public function treeAction($style = 'nude', $idmodal = null)
-    {
-        $sites = $this->getDoctrine()->getRepository('LightCMSSiteBundle:Site')->findall();
-
-        return $this->render('LightCMSSiteBundle:Site:list.html.twig', array(
-            'sites' => $sites,
-            'style' => $style,
-            'idmodal' => $idmodal
-        ));
-    }
-
     public function viewAction($param)
     {
 
     }
 
-    public function listAction()
+    public function createAction(Request $request, $params)
     {
-        $sites = $this->getDoctrine()->getRepository('LightCMSSiteBundle:Site')->findAll();
+        $entity = new Site();
 
-        return $this->render('LightCMSSiteBundle:Site:list.html.twig', array(
-            'sites' => $sites
-        ));
+        return $this->formAction($request, $entity, 'create');
     }
 
-    public function adminAction(Request $request, $id)
-    {
-        return $this->render('LightCMSSiteBundle:Site:admin.html.twig');
-    }
 
     public function editAction(Request $request, $params)
     {
+        $entity = $this->getDoctrine()->getRepository('LightCMSPageBundle:Site')->find($params['id']);
 
-        $id = array_shift($params);
-        if (is_null($id)) {
-            $site = new \LightCMS\PageBundle\Entity\Site();
-        } else {
-            $site = $this->getDoctrine()->getRepository('LightCMSPageBundle:Site')->find($id);
-        }
+        return $this->formAction($request, $entity, 'edit');
+    }
 
-        if (is_null($site)) {
+    public function formAction(Request $request, $entity, $action)
+    {
+        if (is_null($entity)) {
             return null;
         }
 
-        $form = $this->createForm('site', $site, array(
-            'action' => $this->generateUrl('light_cms_backend', array(
-                'params' => '/node/create/page'
-            )),
+        $form = $this->createForm('site', $entity, array(
+            'action' => $request->getUri(),
             'method' => 'POST'
         ));
 
         $form->handleRequest($request);
 
-        if ($form->get('submit')->isClicked()) {
+        $redirect = false;
 
-            if ($form->isValid()) {
-
+        if ($form->isValid()) {
+            if ($form->get('submit')->isClicked()) {
                 $em = $this->getDoctrine()->getManager();;
-                $em->persist($site);
+                $em->persist($entity);
                 $em->flush();
-
             }
         }
 
+        if ($redirect) {
+            $lcmsUrl = $this->get('light_cms_core.service.generate_url');
+            return $this->redirect($lcmsUrl->generateUrl('node', 'site', $action, array('id' => $entity->getId())));
+        }
+
         return $this->render('LightCMSPageBundle:Site:edit.html.twig', array(
-            'site' => $site,
-            'form' => $form->createView()));
+            'form' => $form->createView(),
+            'entity' => $entity));
     }
 
 }

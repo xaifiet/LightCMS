@@ -30,8 +30,6 @@ class NodeEntityType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        var_dump($options['id_reader']);
         $builder->add('parent', 'hidden', array(
             'label' => false,
             'attr' => array(

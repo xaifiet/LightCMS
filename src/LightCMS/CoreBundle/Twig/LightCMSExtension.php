@@ -26,23 +26,11 @@ class LightCMSExtension extends \Twig_Extension
         );
     }
 
-    public function pathFunction($params = array())
+    public function pathFunction($module, $subModule, $action, $params = array())
     {
-        $router = $this->container->get('router');
+        $lcmsUrl = $this->container->get('light_cms_core.service.generate_url');
 
-        $routeParams = array();
-        $viewParams = array();
-        foreach ($params as $key => $value) {
-            if (in_array($key, array('module', 'subModule', 'action'))) {
-                $routeParams[$key] = $value;
-            } else {
-                $viewParams[] = $key.'/'.$value;
-            }
-        }
-        $routeParams['params'] = implode('/', $viewParams);
-
-
-        return $router->generate('light_cms_backend_module_action', $routeParams);
+        return $lcmsUrl->generateUrl($module, $subModule, $action, $params);
     }
 
     public function getName()

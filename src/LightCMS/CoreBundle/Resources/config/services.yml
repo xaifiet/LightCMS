@@ -23,12 +23,18 @@ services:
         arguments:
             - @service_container
 
+    light_cms_core.service.generate_url:
+        class: LightCMS\CoreBundle\Service\LightCMSUrlService
+        arguments:
+            - @service_container
+
     discriminator_map:
         class: LightCMS\CoreBundle\Listener\DiscriminatorMapListener
         arguments:
             - @service_container
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }
+
 
 #    class_guesser:
 #        class: LightCMS\CoreBundle\Service\ClassGuesserService

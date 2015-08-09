@@ -3,7 +3,6 @@
 {% form_theme form 'LightCMSCoreBundle:Form:theme.html.twig' %}
 
 {% block body %}
-
     {{ form_start(form) }}
 
     <section class="content-header">
@@ -31,9 +30,9 @@
                         </button>
                         <ul class="dropdown-menu" role="menu">
                             {% for version in entity.getVersions() %}
-                                <li><a href="{{ lcmspath({ 'module': 'node', 'subModule': 'version', 'action': 'edit', 'id': version.getId()}) }}">Version {{ version.number }}</a></li>
+                                <li><a href="{{ lcmspath('node', 'version', 'edit', {'id': version.getId()}) }}">Version {{ version.number }}</a></li>
                             {% endfor %}
-                            <li><a href="{{ lcmspath({ 'module': 'node', 'subModule': 'version', 'action': 'createfrompage', 'id': entity.getId()}) }}">add Version</a></li>
+                            <li><a href="{{ lcmspath('node', 'version', 'createfrompage', {'id': entity.getId()}) }}">add Version</a></li>
                         </ul>
                     </div>
                 {% endif %}
