@@ -8,18 +8,13 @@ light_cms_backend_slash:
     defaults:
         _controller: LightCMSCoreBundle:Backend:index
 
-light_cms_backend_entity_action:
-    path: /backend/{entity}/{action}
+light_cms_backend_module:
+    path: /backend/{module}/{subModule}/{action}
     defaults:
         _controller: LightCMSCoreBundle:Backend:index
 
-light_cms_backend_entity_action_id:
-    path: /backend/{entity}/{action}/{id}
-    defaults:
-        _controller: LightCMSCoreBundle:Backend:index
-
-light_cms_backend_entity_action_id_param:
-    path: /backend/{entity}/{action}/{id}/{params}
+light_cms_backend_module_action:
+    path: /backend/{module}/{subModule}/{action}/{params}
     defaults:
         _controller: LightCMSCoreBundle:Backend:index
     requirements:

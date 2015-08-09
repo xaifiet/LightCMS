@@ -39,6 +39,10 @@ class Page extends Node
         $this->versions = new ArrayCollection();
     }
 
+    public function getInheritanceType()
+    {
+        return 'page';
+    }
 
     /**
      * Set url

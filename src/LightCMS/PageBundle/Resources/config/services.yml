@@ -54,16 +54,16 @@ parameters:
             - widgetcontent
 
     light_cms.modules.pagebundle:
-        page:
+        node:
             menu:
-                Title: Pages
-                icon: 'glyphicon glyphicon-file'
-                tree: LightCMSPageBundle:Node:tree
-            path: node
-            default: true
-            controller:
-                backend: LightCMSPageBundle:Node:dashboard
-                front: LightCMSPageBundle:Node:view
+                Nodes:
+                    icon: 'glyphicon glyphicon-file'
+                    tree: LightCMSPageBundle:Node:tree
+            submodules:
+                page: LightCMSPageBundle:Page
+                site: LightCMSPageBundle:Site
+                version: LightCMSPageBundle:Version
+
 
 services:
 

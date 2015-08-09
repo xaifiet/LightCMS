@@ -3,16 +3,24 @@
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
             {% for module in moduleService.getModules() %}
-                <li class="treeview {% if module == moduleService.getModule() %}active{% endif %}">
-                    <a href="{{ path('light_cms_backend', { 'params': '/dashboard' }) }}" data-bind="ready[sidebarReady()]">
-                        <i class="{{ module.icon }}"></i> <span>{{ module.title }}</span> {% if module['tree'] is defined %}<i class="fa fa-angle-left pull-right"></i>{% endif %}
-                    </a>
-                    {% if module['tree'] is defined %}
-                        <ul class="treeview-menu">
-                            {% include 'LightCMSCoreBundle:Backend:sidebar_tree.html.twig' with { 'module' : module, 'tree': moduleService.getModuleTree(module) }  %}
-                        </ul>
-                    {% endif %}
-                </li>
+                {% if module.menu is defined %}
+                    {% for title, menu in module.menu %}
+                        <li class="treeview {% if module == moduleService.getModule() %}active{% endif %}">
+                            <a href="{% if menu.route is defined and menu.params is defined %}{{ path(menu.route, menu.params) }}{% else %}#{% endif %}" {% if menu.tree is defined %}data-bind="ready[sidebarReady()]"{% endif %}>
+                                {% if menu.icon is defined %}
+                                    <i class="{{ menu.icon }}"></i>
+                                {% endif %}
+                                <span>{{ title }}</span>
+                                {% if menu.tree is defined %}<i class="fa fa-angle-left pull-right"></i>{% endif %}
+                            </a>
+                            {% if menu.tree is defined %}
+                               <ul class="treeview-menu">
+                                   {{ render(controller(menu.tree, { request: app.request })) }}
+                               </ul>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                {% endif %}
             {% endfor %}
         </ul>
     </div>

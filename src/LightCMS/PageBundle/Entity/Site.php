@@ -35,6 +35,10 @@ class Site extends Node
      **/
     private $home;
 
+    public function getInheritanceType()
+    {
+        return 'site';
+    }
 
     /**
      * Set host

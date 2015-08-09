@@ -1,16 +1,14 @@
 parameters:
 
     light_cms.modules.core_bundle:
-        dashboard:
+        lcms:
             menu:
-                title: Dashboard
-                icon: 'glyphicon glyphicon-dashboard'
-                link:
+                Dashboard:
+                    icon: 'glyphicon glyphicon-dashboard'
                     route: light_cms_backend
                     params: []
-            path: dashboard
-            controller:
-                backend: LightCMSCodeBundle:Dashboard:view
+            submodules:
+                dashboard: LightCMSCoreBundle:Dashboard
 
 
 services:
@@ -32,15 +30,22 @@ services:
         tags:
             - { name: doctrine.event_listener, event: loadClassMetadata }
 
-    class_guesser:
-        class: LightCMS\CoreBundle\Service\ClassGuesserService
-
-    light_cms_core.form_type.field_group_type:
-        class: LightCMS\CoreBundle\Form\Type\FieldGroupType
-        tags:
-            - { name: form.type, alias: fieldgroup }
+#    class_guesser:
+#        class: LightCMS\CoreBundle\Service\ClassGuesserService
+#
+#    light_cms_core.form_type.field_group_type:
+#        class: LightCMS\CoreBundle\Form\Type\FieldGroupType
+#        tags:
+#            - { name: form.type, alias: fieldgroup }
 
     light_cms_core.form_type.infinite_form_polycollection:
         class: LightCMS\CoreBundle\Form\Type\PolyCollectionType
         tags:
             - { name: form.type, alias: infinite_form_polycollection }
+
+    light_cms_core.twig.lcms_extension:
+        class: LightCMS\CoreBundle\Twig\LightCMSExtension
+        arguments:
+            - @service_container
+        tags:
+            - { name: twig.extension }

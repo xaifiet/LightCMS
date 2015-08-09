@@ -10,159 +10,29 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class BackendController extends Controller
 {
 
-    protected $moduleService;
-
-    protected $module;
-
-    protected $param;
-
-    public function indexAction(Request $request, $entity = null, $action = null, $id = null, $params = null)
+    public function indexAction(Request $request, $module = null, $subModule = null, $action = null, $params = null)
     {
-        $parameterService = $this->get('light_cms_core.service.parameters_service');
+        $module = is_null($module) ? 'lcms' : $module;
+        $subModule = is_null($subModule) ? 'dashboard' : $subModule;
+        $action = is_null($action) ? 'view' : $action;
+
         $moduleService = $this->get('light_cms_core.service.module_service');
 
-        $parameters = $parameterService->getParameters('/^light_cms\.entities\..+/i');
-
-        // Looping on matching configurations
-        foreach ($parameters as $bundle) {
-            // Looping on map name
-            foreach ($bundle as $entityName => $entityInfo) {
-                if ($entityName != $entity) {
-                    continue;
-                }
-                $moduleService->setModule($entityInfo['module']);
-                return $this->forward($entityInfo['controller'].':'.$action, array(
-                    'request' => $request,
-                    'id' => $id
-                ));
-            }
-        }
-
-        return $this->render('LightCMSCoreBundle:Backend:nude.html.twig');
-
-
-        $this->moduleService = $this->get('light_cms_core.service.module_service');
-        $this->moduleService->setCurrentId($id);
-        $this->moduleService->setModule($module);
-        $this->module = $this->moduleService->getModule();
-
-        $this->param = $id;
-
-        $func = $action.'Action';
-        return $this->$func($request);
-    }
-
-    public function dashboardAction(Request $request)
-    {
-
-        return $this->render('LightCMSCoreBundle:Backend:dashboard.html.twig');
-    }
-
-    public function viewAction(Request $request, $module = 'node', $action = 'admin', $id = null)
-    {
-        $moduleService = $this->get('light_cms_core.service.module_service');
-        $moduleService->setCurrentId($id);
         $moduleService->setModule($module);
-        if (!is_null($module)) {
-            return $this->forward('LightCMSNodeBundle:Page:edit',
-                array('id' => $id),
-                $request->query->all());
+        $moduleService->setSubModule($subModule);
+
+        $bundleController = $moduleService->getCurrentController();
+
+        $tabParams = explode('/', $params);
+        $controllerParams = array();
+        while (count($tabParams) > 0) {
+            $controllerParams[array_shift($tabParams)] = array_shift($tabParams);
         }
 
-        return $this->render('LightCMSCoreBundle:Backend/default:layout.html.twig');
-    }
-
-    public function createAction(Request $request)
-    {
-
-        foreach ($this->module['entities'] as $name => $moduleEntity) {
-            if ($moduleEntity['class'] == $entityClass) {
-                $entityInfo = $moduleEntity;
-            }
-        }
-
-        $entityInfo = $this->moduleService->getEntity($this->param);
-
-        $entity = new $entityInfo['class']();
-
-        return $this->formAction($request, 'create', $entityInfo, $entity, $this->param);
-    }
-
-    public function editAction(Request $request)
-    {
-        $entitySearch = $this->module['entities'][$this->module['search_entity']];
-
-        $repository = $entitySearch['repository'];
-
-        $entity = $this->getDoctrine()->getRepository($repository)->find($this->param);
-
-        $entityClass = get_class($entity);
-        $entityInfo = null;
-        foreach ($this->module['entities'] as $name => $moduleEntity) {
-            if ($moduleEntity['class'] == $entityClass) {
-                $entityInfo = $moduleEntity;
-            }
-        }
-
-        return $this->formAction($request, 'edit', $entityInfo, $entity, $this->param);
-    }
-
-    public function formAction(Request $request, $action, $entityInfo, $entity, $param)
-    {
-        var_dump($_POST);
-
-        // Form creation
-        $form = $this->createForm($entityInfo['form']['type'], $entity, array(
-            'action' => $this->generateUrl('light_cms_core_backend', array(
-                'action' => $action,
-                'module' => $this->module['name'],
-                'id' => $param
-            )),
-            'method' => 'POST'
-        ));
-
-        if (isset($entityInfo['form']['save'])) {
-            return $this->forward($entityInfo['form']['save'], array(
-                'request' => $request,
-                'form' => $form,
-                'entity' => $entity
-            ));
-        }
-
-        $form->handleRequest($request);
-
-        if ($form->isValid()) {
-
-            $em = $this->getDoctrine()->getManager();
-
-            if ($form->get('submit_group')->get('submit')->isClicked()) {
-
-                $em->persist($entity);
-                $em->flush();
-
-            } else if ($form->get('submit_group')->get('delete')->isClicked()) {
-                $em->remove($entity);
-                $em->flush();
-
-                return $this->redirect($this->generateUrl('light_cms_core_backend'));
-            }
-
-        }
-
-        return $this->render('LightCMSCoreBundle:Backend:edit.html.twig', array(
-            'form' => $form->createView()));
-
-
-    }
-
-    public function treeAction(Request $request)
-    {
-        $tree = $this->moduleService->getModuleTree($this->module);
-
-        return $this->render('LightCMSCoreBundle:Backend:tree.html.twig', array(
-            'tree' => $tree
+        return $this->forward($bundleController.':'.$action, array(
+            'request' => $request,
+            'params' => $controllerParams
         ));
     }
-
 
 }

@@ -16,7 +16,7 @@ class PageController extends Controller
 
     }
 
-    public function createAction(Request $request, $id)
+    public function createAction(Request $request, $params)
     {
         $entity = new Page();
 
@@ -24,9 +24,9 @@ class PageController extends Controller
     }
 
 
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, $params)
     {
-        $entity = $this->getDoctrine()->getRepository('LightCMSPageBundle:Page')->find($id);
+        $entity = $this->getDoctrine()->getRepository('LightCMSPageBundle:Page')->find($params['id']);
 
         return $this->formAction($request, $entity, 'edit');
     }

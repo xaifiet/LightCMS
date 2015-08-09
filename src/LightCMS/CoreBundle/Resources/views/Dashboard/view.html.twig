@@ -1,0 +1,8 @@
+{% extends 'LightCMSCoreBundle:Backend:layout.html.twig' %}
+
+{% block body %}
+    dashboard
+
+    {{ dump(moduleService.getModules()) }}
+{% endblock %}
+
