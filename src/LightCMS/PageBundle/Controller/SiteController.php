@@ -45,7 +45,7 @@ class SiteController extends Controller
 
         if ($form->isValid()) {
             if ($form->get('submit')->isClicked()) {
-                $em = $this->getDoctrine()->getManager();;
+                $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
                 $em->flush();
             }
@@ -58,6 +58,14 @@ class SiteController extends Controller
 
         return $this->render('LightCMSPageBundle:Site:edit.html.twig', array(
             'form' => $form->createView(),
+            'entity' => $entity));
+    }
+
+    public function homeEntityAction(Request $request, $params)
+    {
+        $entity = $this->getDoctrine()->getRepository('LightCMSPageBundle:Site')->find($params['id']);
+
+        return $this->render('LightCMSPageBundle:Site:home_entity.html.twig', array(
             'entity' => $entity));
     }
 

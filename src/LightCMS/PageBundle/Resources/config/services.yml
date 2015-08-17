@@ -79,6 +79,8 @@ services:
 
     light_cms_page.form_type.site_type:
         class: LightCMS\PageBundle\Form\Type\SiteType
+        arguments:
+            - @service_container
         tags:
             - { name: form.type, alias: site }
 

@@ -49,6 +49,13 @@ services:
         tags:
             - { name: form.type, alias: infinite_form_polycollection }
 
+    light_cms_core.form_type.modal_entity:
+        class: LightCMS\CoreBundle\Form\Type\ModalEntityType
+        arguments:
+            - @doctrine
+        tags:
+            - { name: form.type, alias: modal_entity }
+
     light_cms_core.twig.lcms_extension:
         class: LightCMS\CoreBundle\Twig\LightCMSExtension
         arguments:

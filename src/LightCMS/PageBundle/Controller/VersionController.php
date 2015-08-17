@@ -15,9 +15,9 @@ class VersionController extends Controller
 
     }
 
-    public function createfromPageAction(Request $request, $id)
+    public function createfromPageAction(Request $request, $params)
     {
-        $page = $this->getDoctrine()->getRepository('LightCMSPageBundle:Page')->find($id);
+        $page = $this->getDoctrine()->getRepository('LightCMSPageBundle:Page')->find($params['id']);
         $version = $page->getPublished();
 
         $clone = $this->createClone($version, $page);
@@ -29,9 +29,9 @@ class VersionController extends Controller
         )));
     }
 
-    public function createfromversionAction(Request $request, $id)
+    public function createfromversionAction(Request $request, $params)
     {
-        $version = $this->getDoctrine()->getRepository('LightCMSPageBundle:Version')->find($id);
+        $version = $this->getDoctrine()->getRepository('LightCMSPageBundle:Version')->find($params['id']);
 
         $clone = $this->createClone($version, $version->getPage());
 
@@ -71,9 +71,9 @@ class VersionController extends Controller
     }
 
 
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, $params)
     {
-        $entity = $this->getDoctrine()->getRepository('LightCMSPageBundle:Version')->find($id);
+        $entity = $this->getDoctrine()->getRepository('LightCMSPageBundle:Version')->find($params['id']);
 
         if (is_null($entity)) {
             return null;

@@ -20,13 +20,13 @@
                     </div>
                 {% endif %}
                 <div class="btn-group" style="margin-right:20px">
-                    <a class="btn btn-info" href="{{ path('light_cms_backend_entity_action_id', { 'entity': 'version', 'action': 'createfromversion', 'id': entity.getId()}) }}">Duplicate</a>
+                    <a class="btn btn-info" href="{{ lcmspath('node', 'version', 'createfromversion', {'id': entity.getId()}) }}">Duplicate</a>
                 </div>
                 <div class="btn-group" style="margin-right:20px">
                     <a class="btn btn-info" href="#" data-bind="click[addPrototype({{ form.rows.vars.id }})]" data-prototype="{{ form_widget(form.rows.vars.prototype)|escape }}">Add Row</a>
                 </div>
                 <div class="btn-group">
-                    <a class="btn btn-default" href="{{ path('light_cms_backend_entity_action_id', { 'entity': 'page', 'action': 'edit', 'id': entity.getPage().getId()}) }}">Back to Page</a>
+                    <a class="btn btn-default" href="{{ lcmspath('node', 'page', 'edit', {'id': entity.getPage().getId()}) }}">Back to Page</a>
                 </div>
             </div>
         </h1>

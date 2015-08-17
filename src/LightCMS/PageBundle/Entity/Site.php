@@ -31,7 +31,8 @@ class Site extends Node
     private $theme;
 
     /**
-     * @ORM\OneToOne(targetEntity="Page")
+     * @ORM\OneToOne(targetEntity="Page", cascade={"all"})
+     * @ORM\JoinColumn(nullable=true)
      **/
     private $home;
 

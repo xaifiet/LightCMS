@@ -3,3 +3,21 @@
         {{ form_widget(form) }}
     {% endspaceless %}
 {% endblock %}
+
+{% block modal_entity_widget %}
+    {% spaceless %}
+        <div class="input-group input-group-sm">
+            {{ form_widget(form.id) }}
+            {{ form_widget(form.name) }}
+
+            <span class="input-group-btn">
+                <button class="btn btn-info btn-flat" type="button" data-bind="click[loadModal(#{{ form.vars.id }}-parent,{{ form.vars.modal_uri }})]">Select Parent</button>
+            </span>
+        </div>
+        <div id="{{ form.vars.id }}-parent" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content"></div>
+            </div>
+        </div>
+    {% endspaceless %}
+{% endblock %}
