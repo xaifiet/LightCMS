@@ -5,10 +5,7 @@ namespace LightCMS\PageBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
-use Doctrine\ORM\EntityManager;
-
-use LightCMS\PageBundle\Form\DataTransformer\RowsToScalarClassTransformer;
+use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Class PageType
@@ -17,11 +14,19 @@ use LightCMS\PageBundle\Form\DataTransformer\RowsToScalarClassTransformer;
 class PageType extends AbstractType
 {
 
-    private $entityManager;
+    protected $container;
 
-    public function __construct(EntityManager $entityManager)
+
+    /**
+     * __construct function.
+     *
+     * @access public
+     *
+     * @param Container $container
+     */
+    public function __construct(Container $container)
     {
-        $this->entityManager = $entityManager;
+        $this->container = $container;
     }
 
     /**
@@ -41,13 +46,24 @@ class PageType extends AbstractType
             'attr' => array(
                 'class' => 'form-control')));
 
-        $builder->add('parent', 'entity', array(
+        $lcmsUrl = $this->container->get('light_cms_core.service.generate_url');
+        $modalUrl = $lcmsUrl->generateUrl('node', 'page', 'parentEntity', array('id' => $options['data']->getId()));
+
+        $builder->add('parent', 'modal_entity', array(
             'label' => 'page.form.parent.label',
-            'class' => 'LightCMS\PageBundle\Entity\Node',
-            'choice_label' => 'name',
-            'attr' => array(
-                'class' => 'form-control')
+            'entity_class' => 'LightCMS\PageBundle\Entity\Node',
+            'entity_label' => array('name'),
+            'entity_repository' => 'LightCMSPageBundle:Node',
+            'modal_uri' => $modalUrl
         ));
+
+//        $builder->add('parent', 'entity', array(
+//            'label' => 'page.form.parent.label',
+//            'class' => 'LightCMS\PageBundle\Entity\Node',
+//            'choice_label' => 'name',
+//            'attr' => array(
+//                'class' => 'form-control')
+//        ));
 
         // Adding the submit button
         $builder->add('submit', 'submit', array(

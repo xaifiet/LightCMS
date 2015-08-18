@@ -125,3 +125,24 @@ sortable = function(event, elem, params) {
     });
 
 };
+
+inputSet = function(event, elem, params) {
+
+    $(params[0]).val(params[1]);
+
+};
+
+changeModalEntity = function(event, elem, params) {
+    var modal = $(elem).closest('div.modal');
+
+    $('#'+modal.data('id')).val(params[0]);
+    $('#'+modal.data('name')).val(params[1]);
+    $(modal).modal('hide')
+};
+
+showHideTree = function(event, elem, params) {
+    var li = $(elem).closest('li');
+    $('> div.treetoggle i', li).toggleClass('fa-angle-right');
+    $('> div.treetoggle i', li).toggleClass('fa-angle-down');
+    $('> ul', li).toggle();
+}

@@ -9,12 +9,12 @@
         <div class="input-group input-group-sm">
             {{ form_widget(form.id) }}
             {{ form_widget(form.name) }}
-
             <span class="input-group-btn">
-                <button class="btn btn-info btn-flat" type="button" data-bind="click[loadModal(#{{ form.vars.id }}-parent,{{ form.vars.modal_uri }})]">Select Parent</button>
+                <button class="btn btn-info btn-flat" type="button" data-bind="click[loadModal(#{{ form.vars.id }}-modal,{{ form.vars.modal_uri }})]">Select Parent</button>
+                <button class="btn btn-danger btn-flat" type="button" data-bind="click[inputSet(#{{ form.id.vars.id }},)]|click[inputSet(#{{ form.name.vars.id }},)]">Empty</button>
             </span>
         </div>
-        <div id="{{ form.vars.id }}-parent" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div id="{{ form.vars.id }}-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-id="{{ form.id.vars.id }}" data-name="{{ form.name.vars.id }}">
             <div class="modal-dialog">
                 <div class="modal-content"></div>
             </div>

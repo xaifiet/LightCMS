@@ -1,5 +1,5 @@
 jQuery.extend(jQuery.expr[':'], {
-    bind: function (el) { if ($(el).data('bind') != undefined) { return true; } return false; }
+    bind: function (el) { return $(el).data('bind') != undefined;  }
 });
 
 /*
@@ -13,46 +13,69 @@ jQuery.extend(jQuery.expr[':'], {
  */
 jQuery.fn.ajaxBind = function() {
 
-    bindelem = function(elem, ajax) {
+    var matchEvent = function (event) {
+
         var regexps = {
-            'a': /^([^[]+)\[([^(]+)\(([^)]*)\)\]$/,
-            'c': /^([^[]+)\{([^(]+)\(([^)]*)\)\}$/
+            'a': /^([^[]+)\[([^\]]+)\]$/,
+            'c': /^([^[]+)\{([^\}]+)\}$/
         };
+
         var type = null;
-        var matches = null;
-        for(var key in regexps) {
-            if (regexps[key].test(ajax)) {
-                matches = ajax.match(regexps[key]);
+        for (key in regexps) {
+            if (regexps[key].test(event)) {
                 type = key;
-                break;
             }
         }
         if (type == null) {
-            return;
-        }
-        var returnValue = false;
-        var eventBind = matches[1];
-        if (eventBind.charAt(0) == '@') {
-            returnValue = true;
-            eventBind = eventBind.substring(1);
+            return null;
         }
 
-        if (eventBind == 'ready') {
-            if (window[matches[2]] != undefined) {
-                window[matches[2]](event, elem, matches[3].split(','));
+        var matches = event.match(regexps[type]);
+
+        return {
+            'event': matches[1].replace(/^@/, ''),
+            'return': matches[1].charAt(0) == '@',
+            'type': type,
+            'actions': matches[2]
+        };
+
+    };
+
+    var execActions = function (event, elem, actionsString) {
+        var regexp = /^([^(]+)\(([^)]*)\)$/;
+
+        var actions = actionsString.split(';');
+
+        for (var i = 0; i < actions.length; i++) {
+            if (regexp.test(actions[i])) {
+                var matches = actions[i].match(regexp);
+                if (window[matches[1]] != undefined) {
+                    window[matches[1]](event, elem, matches[2].split(','));
+                }
             }
-            return returnValue;
         }
-        $(elem).bind(eventBind, function(event) {
-            if (type == 'a' && event.target != this) {
+    };
+
+    var bindElement = function (elem, bindString) {
+
+        var bind = matchEvent(bindString);
+
+        if (bind == null) {
+            return;
+        }
+
+        if (bind['event'] == 'ready') {
+            execActions(null, elem, bind['actions']);
+            return bind['return'];
+        }
+        $(elem).bind(bind['event'], function (event) {
+            if (bind['type'] == 'a' && event.target != this) {
                 return false;
-            } else if (type == 'c' && (event.target != this && $(this).has(event.target).length == 0)) {
+            } else if (bind['type'] == 'c' && (event.target != this && $(this).has(event.target).length == 0)) {
                 return false;
             }
-            if (window[matches[2]] != undefined) {
-                window[matches[2]](event, elem, matches[3].split(','));
-            }
-            return returnValue;
+            execActions(event, elem, bind['actions']);
+            return bind['return'];
         });
     };
 
@@ -63,7 +86,7 @@ jQuery.fn.ajaxBind = function() {
                 $(this).removeData('bind');
                 $(this).removeAttr('data-bind');
                 for (var i = 0; i < events.length; i++) {
-                    bindelem(this, events[i]);
+                    bindElement(this, events[i]);
                 }
             }
         }

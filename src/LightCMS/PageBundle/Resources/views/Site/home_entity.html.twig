@@ -10,9 +10,16 @@
             <h4 class="modal-title">Home Page Selection</h4>
         </div>
         <div class="modal-body">
-            {% for node in entity.children %}
-                <div>{{ node.name }} - {{ node.id }}</div>
-            {% endfor %}
+            <ul class="treeview">
+                {% for node in entity.children %}
+                    <li>
+                        <div class="treetoggle">
+                        </div>
+                        <i class="glyphicon glyphicon-file"></i>
+                        <a href="#" data-bind="click[changeModalEntity({{ node.id }},{{ node.name }})]">{{ node.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -87,6 +87,15 @@ class PageController extends Controller
             'action' => $action));
     }
 
+    public function parentEntityAction(Request $request, $params)
+    {
+        $entities = $this->getDoctrine()->getRepository('LightCMSPageBundle:Node')->findBy(array('parent' => null));
+
+        return $this->render('LightCMSPageBundle:Page:parent_entity.html.twig', array(
+            'entities' => $entities,
+            'id' => $params['id']
+        ));
+    }
 
 }
 

@@ -13,9 +13,7 @@ use LightCMS\CoreBundle\Form\EventListener\ModalEntityFormSubscriber;
 
 class ModalEntityType extends AbstractType
 {
-    /**
-     * @var ManagerRegistry
-     */
+
     protected $registry;
 
     public function __construct(ManagerRegistry $registry)
@@ -25,9 +23,7 @@ class ModalEntityType extends AbstractType
 
     public function buildView(FormView $view, FormInterface $form, array $options)
     {
-
         $view->vars['modal_uri'] = $options['modal_uri'];
-
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)

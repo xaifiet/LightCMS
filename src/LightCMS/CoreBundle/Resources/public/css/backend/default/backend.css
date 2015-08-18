@@ -17,3 +17,19 @@
 .ui-sortable-placeholder {
     opacity: 0.5;
 }
+
+ul.treeview {
+    list-style-type: none;
+    padding: 0px;
+}
+
+ul.treeview ul {
+    list-style-type: none;
+    padding-left: 20px;
+}
+
+ul.treeview .treetoggle {
+    display: inline-block;
+    text-align: center;
+    width: 20px;
+}

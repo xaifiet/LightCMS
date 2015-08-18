@@ -87,7 +87,7 @@ services:
     light_cms_page.form_type.page_type:
         class: LightCMS\PageBundle\Form\Type\PageType
         arguments:
-            entityManager: "@doctrine.orm.entity_manager"
+            - @service_container
         tags:
             - { name: form.type, alias: page }
 
