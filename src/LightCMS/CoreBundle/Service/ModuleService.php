@@ -63,42 +63,33 @@ class ModuleService
         return $this->modules;
     }
 
-    /**
-     * @return null
-     */
     public function getModule()
     {
         return $this->module;
     }
 
-    /**
-     * @param null $module
-     */
     public function setModule($module)
     {
-        $this->module = $module;
+        if (isset($this->modules[$module])) {
+            $this->module = $module;
+            return true;
+        }
+        return false;
     }
 
-    /**
-     * @return null
-     */
-    public function getSubModule()
+    public function getBackController($subModule)
     {
-        return $this->submodule;
+        if (isset($this->modules[$this->module]['backend'][$subModule])) {
+            return $this->modules[$this->module]['backend'][$subModule];
+        }
+
+        return null;
     }
 
-    /**
-     * @param null $submodule
-     */
-    public function setSubModule($subModule)
+    public function getFrontController()
     {
-        $this->subModule = $subModule;
-    }
-
-    public function getCurrentController()
-    {
-        if (isset($this->modules[$this->module]['submodules'][$this->subModule])) {
-            return $this->modules[$this->module]['submodules'][$this->subModule];
+        if (isset($this->modules[$this->module]['frontend'])) {
+            return $this->modules[$this->module]['frontend'];
         }
 
         return null;

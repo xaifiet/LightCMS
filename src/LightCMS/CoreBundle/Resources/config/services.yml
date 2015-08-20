@@ -7,7 +7,7 @@ parameters:
                     icon: 'glyphicon glyphicon-dashboard'
                     route: light_cms_backend
                     params: []
-            submodules:
+            backend:
                 dashboard: LightCMSCoreBundle:Dashboard
 
 

@@ -1,3 +1,18 @@
+# BACKEND Login
+
+light_cms_backend_user_login:
+    path: /backend/user/login
+    defaults:
+        _controller: LightCMSUserBundle:Login:back
+
+light_cms_backend_user_check:
+    path: /backend/user/check
+
+light_cms_backend_user_logout:
+    path: /backend/user/logout
+
+# BACKEND Routing
+
 light_cms_backend:
     path: /backend
     defaults:
@@ -7,6 +22,7 @@ light_cms_backend_slash:
     path: /backend/
     defaults:
         _controller: LightCMSCoreBundle:Backend:index
+
 
 light_cms_backend_module:
     path: /backend/{module}/{subModule}/{action}
@@ -20,11 +36,26 @@ light_cms_backend_module_action:
     requirements:
         params: ".*"
 
-#light_cms_core_frontend:
-#    path: /{module}/{path}
-#    defaults:
-#        _controller: LightCMSCoreBundle:Frontend:view
-#        module: null
-#        path: null
-#    requirements:
-#        path: ".+"
+# FRONT Login
+
+light_cms_frontend_user_login:
+    path: /user/login
+    defaults:
+        _controller: LightCMSUserBundle:Login:front
+
+light_cms_frontend_user_check:
+    path: /user/check
+
+light_cms_frontend_user_logout:
+    path: /user/logout
+
+
+# FRONT Routing
+
+light_cms_frontend:
+    path: /{path}
+    defaults:
+        _controller: LightCMSCoreBundle:Frontend:view
+        path: null
+    requirements:
+        path: ".+"

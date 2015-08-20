@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new LightCMS\CoreBundle\LightCMSCoreBundle(),
             new LightCMS\PageBundle\LightCMSPageBundle(),
             new LightCMS\MediaBundle\LightCMSMediaBundle(),
+            new LightCMS\UserBundle\LightCMSUserBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

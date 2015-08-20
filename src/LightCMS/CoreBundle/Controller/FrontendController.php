@@ -3,34 +3,28 @@
 namespace LightCMS\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 class FrontendController extends Controller
 {
-    public function viewAction($module = null, $path = null)
+
+    public function viewAction(Request $request, $path = null)
     {
-        $siteService = $this->get('light_cms_site.service.site_service');
+        $moduleService = $this->get('light_cms_core.service.module_service');
 
-        $site = $siteService->getSite();
-
-        $ps = $this->get('light_cms_core.service.parameters_service');
-
-        $parameters = $ps->getParameters('/^light_cms_core\.backend\.module\..+/');
-
-        foreach ($parameters as $parameter) {
-
-            if ($parameter['module'] == $module) {
-                return $this->render('LightCMSCoreBundle:Frontend/default:layout.html.twig', array(
-                    'site' => $site,
-                    'bodyController' => $parameter['controller'].':view',
-                    'path' => $path,
-                ));
-            }
+        $path = explode('/', trim($path, '/'));
+        $module = count($path) > 0 ? $path[0] : null;
+        if (!$moduleService->setModule($module)) {
+            $moduleService->setModule('node');
+        } else {
+            array_shift($path);
         }
 
-        return $this->render('LightCMSCoreBundle:Frontend/default:layout.html.twig',array(
-            'site' => $site,
-            'bodyController' => 'LightCMSNodeBundle:Node:view',
-            'path' => $module.'/'.$path
+        $controller = $moduleService->getFrontController();
+
+        return $this->forward($controller, array(
+            'request' => $request,
+            'path' => array_filter($path)
         ));
     }
 

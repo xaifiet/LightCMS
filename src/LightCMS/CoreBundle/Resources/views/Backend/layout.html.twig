@@ -2,39 +2,23 @@
 <html>
     <head>
         <title>Light CMS Backend</title>
-        {% block stylesheets %}
-            {% stylesheets
-            '@bootstrap_css'
-            '%kernel.root_dir%/../vendor/almasaeed2010/adminlte/dist/css/AdminLTE.css'
-            '%kernel.root_dir%/../vendor/almasaeed2010/adminlte/dist/css/skins/skin-blue.css'
-            '%kernel.root_dir%/../vendor/summernote/summernote/dist/summernote.css'
-            '%kernel.root_dir%/../vendor/components/font-awesome/css/font-awesome.css'
-            'bundles/lightcmscore/css/backend/default/backend.css'
-            %}
-            <link rel="stylesheet" href="{{ asset_url }}" />
-            {% endstylesheets %}
-        {% endblock %}
+        {% include 'LightCMSCoreBundle:Backend:css.html.twig' %}
     </head>
-    <body class="skin-blue sidebar-mini">
-        <div class="wrapper">
-            {% include 'LightCMSCoreBundle:Backend:header.html.twig' %}
-            {% include 'LightCMSCoreBundle:Backend:sidebar.html.twig' %}
-            <div class="content-wrapper">
-                {% block body %}{% endblock %}
+    {% if app.user %}
+        <body class="skin-blue sidebar-mini">
+            <div class="wrapper">
+                {% include 'LightCMSCoreBundle:Backend:header.html.twig' %}
+                    {% include 'LightCMSCoreBundle:Backend:sidebar.html.twig' %}
+                <div class="content-wrapper">
+                    {% block body %}{% endblock %}
+                </div>
             </div>
-        </div>
-        {% block javascripts %}
-            {% javascripts
-            '@jquery'
-            '@jqueryui'
-            '@bootstrap_js'
-            '%kernel.root_dir%/../vendor/almasaeed2010/adminlte/dist/js/app.js'
-            '%kernel.root_dir%/../vendor/summernote/summernote/dist/summernote.js'
-            'bundles/lightcmscore/js/backend.js'
-            'bundles/lightcmscore/js/bind.jquery.js'
-            %}
-                <script type="text/javascript" src="{{ asset_url }}"></script>
-            {% endjavascripts %}
-        {% endblock %}
-    </body>
+            {% include 'LightCMSCoreBundle:Backend:javascript.html.twig' %}
+        </body>
+    {% else %}
+        <body class="hold-transition login-page">
+            {% block login %}{% endblock %}
+            {% include 'LightCMSCoreBundle:Backend:javascript.html.twig' %}
+        </body>
+    {% endif %}
 </html>

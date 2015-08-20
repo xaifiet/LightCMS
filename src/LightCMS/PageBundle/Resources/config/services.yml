@@ -59,10 +59,11 @@ parameters:
                 Nodes:
                     icon: 'glyphicon glyphicon-file'
                     tree: LightCMSPageBundle:Node:tree
-            submodules:
+            backend:
                 page: LightCMSPageBundle:Page
                 site: LightCMSPageBundle:Site
                 version: LightCMSPageBundle:Version
+            frontend: LightCMSPageBundle:Node:view
 
 
 services:

@@ -4,7 +4,6 @@ namespace LightCMS\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 
 class BackendController extends Controller
@@ -12,6 +11,11 @@ class BackendController extends Controller
 
     public function indexAction(Request $request, $module = null, $subModule = null, $action = null, $params = null)
     {
+        $user = $this->getUser();
+        if (is_null($user)) {
+            return $this->redirect($this->generateUrl('light_cms_backend_user_login'));
+        }
+
         $module = is_null($module) ? 'lcms' : $module;
         $subModule = is_null($subModule) ? 'dashboard' : $subModule;
         $action = is_null($action) ? 'view' : $action;
@@ -19,9 +23,8 @@ class BackendController extends Controller
         $moduleService = $this->get('light_cms_core.service.module_service');
 
         $moduleService->setModule($module);
-        $moduleService->setSubModule($subModule);
 
-        $bundleController = $moduleService->getCurrentController();
+        $bundleController = $moduleService->getBackController($subModule);
 
         $tabParams = explode('/', $params);
         $controllerParams = array();

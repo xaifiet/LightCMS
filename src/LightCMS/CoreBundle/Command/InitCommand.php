@@ -10,8 +10,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 use Doctrine\ORM\EntityManager;
 
-use LightCMS\SiteBundle\Entity\Site;
-use LightCMS\NodeBundle\Entity\Page;
+use LightCMS\PageBundle\Entity\Site;
+use LightCMS\PageBundle\Entity\Page;
+use LightCMS\UserBundle\Entity\User;
 
 class InitCommand extends ContainerAwareCommand
 {
@@ -27,7 +28,7 @@ class InitCommand extends ContainerAwareCommand
     {
         $em = $this->getContainer()->get('doctrine')->getManager();
 
-        $output->writeln('Creating Default Site');
+/*        $output->writeln('Creating Login Site');
         $site = new Site();
         $site->setHost('*');
         $site->setPriority(100);
@@ -47,15 +48,29 @@ class InitCommand extends ContainerAwareCommand
 
         $site->setHome($page);
         $em->persist($site);
-        $em->flush();
+        $em->flush();*/
 
-
+/*
+        $output->writeln('Creating administrator user');
+        $admin = new User();
+        $encoder = $this->getContainer()->get('security.encoder_factory')->getEncoder($admin);
+        $admin->setPassword($encoder->encodePassword('admin', $admin->getSalt()));
+        $admin->setUsername('admin');
+        $admin->setFirstname('admin');
+        $admin->setLastname('USER');
+        $admin->setEmail('admin@localhost');
+        $admin->setPlainPassword('admin');
+        $admin->setIsPasswordExpired(true);
+        $admin->setRole('ROLE_ADMIN');
+        $admin->setIsActive(true);
+        $em->persist($admin);
+        $em->flush();*/
 
         /*
-                $output->writeln('Creating Default Site');
+                $output->writeln('Creating Login Site');
                 $folder = new Folder();
-                $folder->setName('Default Site');
-                $folder->setUrlname('Default Site Root');
+                $folder->setName('Login Site');
+                $folder->setUrlname('Login Site Root');
                 $folder->setPublished(true);
                 $folder->setHeader('');
                 $em->persist($folder);
