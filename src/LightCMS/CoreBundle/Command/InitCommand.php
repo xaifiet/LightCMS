@@ -50,21 +50,22 @@ class InitCommand extends ContainerAwareCommand
         $em->persist($site);
         $em->flush();*/
 
-/*
+
+            /*
         $output->writeln('Creating administrator user');
         $admin = new User();
         $encoder = $this->getContainer()->get('security.encoder_factory')->getEncoder($admin);
         $admin->setPassword($encoder->encodePassword('admin', $admin->getSalt()));
-        $admin->setUsername('admin');
+            $admin->setEmail('admin@localhost.com');
         $admin->setFirstname('admin');
         $admin->setLastname('USER');
-        $admin->setEmail('admin@localhost');
         $admin->setPlainPassword('admin');
         $admin->setIsPasswordExpired(true);
         $admin->setRole('ROLE_ADMIN');
         $admin->setIsActive(true);
         $em->persist($admin);
-        $em->flush();*/
+        $em->flush();
+            */
 
         /*
                 $output->writeln('Creating Login Site');

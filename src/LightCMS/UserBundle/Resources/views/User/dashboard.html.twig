@@ -1,0 +1,59 @@
+{% extends 'LightCMSCoreBundle:Backend:layout.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>User List
+            <div class="pull-right">
+                <div class="btn-group" style="margin-right:20px">
+                    <a href="{{ lcmspath('user', 'user', 'create', {}) }}" class="btn btn-sm btn-success">Add User</a>
+                </div>
+                <div class="btn-group" style="margin-right:20px">
+                    <div class="input-group" style="width: 150px;">
+                        <input type="text" name="table_search" class="form-control input-sm pull-right" placeholder="Search">
+                        <div class="input-group-btn">
+                            <button class="btn btn-sm btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h1>
+    </section>
+
+    <section class="content">
+
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <thead>
+                                <tr>
+                                <th>#</th>
+                                <th>Email</th>
+                                <th>Last Name</th>
+                                <th>First Name</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>{{ user.lastname }}</td>
+                                <td>{{ user.firstname }}</td>
+                                <td>
+                                    {% if user.isActive %}
+                                        <span class="label label-success">Active</span>
+                                    {% else %}
+                                        <span class="label label-danger">Inctive</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

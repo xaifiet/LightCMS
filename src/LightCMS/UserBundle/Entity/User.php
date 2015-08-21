@@ -8,13 +8,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
-use Symfony\Component\Security\Core\Role\Role;
 
 /**
- * @ORM\Entity(repositoryClass="LightCMS\UserBundle\Entity\UserRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="lcms_users")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface
 {
 
     /**
@@ -25,10 +24,10 @@ class User implements UserInterface, \Serializable
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=25, unique=true)
-     * @Assert\NotBlank(message = "user.username.validator.Notblank")
+     * @ORM\Column(type="string", length=100, unique=true)
+     * @Assert\Email(message = "user.email.validator.Email")
      */
-    private $username;
+    private $email;
 
     /**
      * @ORM\Column(type="string", length=32, unique=true)
@@ -46,12 +45,6 @@ class User implements UserInterface, \Serializable
      * @Assert\NotBlank(message = "user.lastname.validator.Notblank")
      */
     private $lastname;
-
-    /**
-     * @ORM\Column(type="string", length=100, unique=true)
-     * @Assert\Email(message = "user.email.validator.Email")
-     */
-    private $email;
 
     /**
      * @ORM\Column(type="string", length=40)
@@ -114,9 +107,17 @@ class User implements UserInterface, \Serializable
     /**
      * @inheritDoc
      */
+    public function getUsername()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @inheritDoc
+     */
     public function getRoles()
     {
-        return array(new Role($this->role));
+        return array($this->role);
     }
 
     /**
@@ -124,30 +125,6 @@ class User implements UserInterface, \Serializable
      */
     public function eraseCredentials()
     {
-    }
-
-    /**
-     * @see \Serializable::serialize()
-     */
-    public function serialize()
-    {
-        return serialize(array(
-            $this->id,
-            $this->username,
-            $this->password,
-        ));
-    }
-
-    /**
-     * @see \Serializable::unserialize()
-     */
-    public function unserialize($serialized)
-    {
-        list (
-            $this->id,
-            $this->username,
-            $this->password,
-            ) = unserialize($serialized);
     }
 
     /**
@@ -161,26 +138,26 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set username
+     * Set email
      *
-     * @param string $username
+     * @param string $email
      * @return User
      */
-    public function setUsername($username)
+    public function setEmail($email)
     {
-        $this->username = $username;
+        $this->email = $email;
 
         return $this;
     }
 
     /**
-     * Get username
+     * Get email
      *
      * @return string
      */
-    public function getUsername()
+    public function getEmail()
     {
-        return $this->username;
+        return $this->email;
     }
 
     /**
@@ -250,29 +227,6 @@ class User implements UserInterface, \Serializable
     public function getLastname()
     {
         return $this->lastname;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
     }
 
     /**

@@ -1,4 +1,24 @@
+parameters:
+
+    light_cms.modules.userbundle:
+        user:
+            menu:
+                Users:
+                    icon: 'glyphicon glyphicon-user'
+                    route: light_cms_backend_module
+                    params:
+                        module: user
+                        subModule: user
+                        action: dashboard
+                    tree: LightCMSUserBundle:User:tree
+            backend:
+                user: LightCMSUserBundle:User
+
 services:
-#    light_cms_user.example:
-#        class: LightCMS\UserBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+
+    light_cms_user.form_type.user_type:
+        class: LightCMS\UserBundle\Form\Type\UserType
+        arguments:
+            - @service_container
+        tags:
+            - { name: form.type, alias: user }

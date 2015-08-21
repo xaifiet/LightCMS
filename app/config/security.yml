@@ -11,11 +11,14 @@ security:
 
     providers:
         lightcms_provider:
-            entity: { class: LightCMSUserBundle:User }
+            entity:
+                class: LightCMSUserBundle:User
+                property: email
 
     firewalls:
         back_secured_area:
-            pattern: ^/
+            context: backend
+            pattern: ^/backend
             form_login:
                 check_path: /backend/user/check
                 login_path: /backend/user/login
@@ -24,10 +27,11 @@ security:
             logout:
                 path:   /backend/user/logout
                 target: /backend
-            anonymous: true
+            anonymous: ~
 
         front_secured_area:
-            pattern:    ^/
+            context: frontend
+            pattern: ^/
             form_login:
                 check_path: /user/check
                 login_path: /user/login
@@ -37,5 +41,5 @@ security:
                 target: /
             anonymous: true
 
-    access_control:
-        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
+#    access_control:
+#        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

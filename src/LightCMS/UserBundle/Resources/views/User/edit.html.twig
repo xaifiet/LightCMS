@@ -1,0 +1,39 @@
+{% extends 'LightCMSCoreBundle:Backend:layout.html.twig' %}
+
+{% form_theme form 'LightCMSCoreBundle:Form:theme.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+
+    <section class="content-header">
+        <h1>
+            {% if entity.getId() %}
+                {{ entity.lastname }} {{ entity.firstname }}
+            {% else %}
+                Create User
+            {% endif %}
+
+            <div class="pull-right">
+                <div class="btn-group" style="margin-right:20px">
+                    {{ form_row(form.submit) }}
+                </div>
+            </div>
+        </h1>
+    </section>
+
+    <section class="content">
+        <div class="box box-primary">
+            <div class="box-header with-border">
+                <h3 class="box-title">User informations</h3>
+            </div>
+            <div class="box-body">
+                {{ form_row(form.email) }}
+                {{ form_row(form.firstname) }}
+                {{ form_row(form.lastname) }}
+            </div>
+        </div>
+    </section>
+
+    {{ form_end(form) }}
+{% endblock %}
+
