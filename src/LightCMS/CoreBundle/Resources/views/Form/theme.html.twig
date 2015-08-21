@@ -21,3 +21,22 @@
         </div>
     {% endspaceless %}
 {% endblock %}
+
+{#
+{% block repeated_row %}
+{% spaceless %}
+    <div>
+        <label for="user_lastname" class="required">user.form.lastname.label</label>
+        {{ form_widget(form) }}
+    </div>
+{% endspaceless %}
+{% endblock %}
+
+{% block repeated_widget %}
+    {% spaceless %}
+        <div class="input-group">
+            {{ form_widget(form.first) }}
+            {{ form_widget(form.second) }}
+        </div>
+    {% endspaceless %}
+{% endblock %}#}

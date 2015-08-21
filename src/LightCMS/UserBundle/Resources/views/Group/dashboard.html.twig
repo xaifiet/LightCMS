@@ -2,7 +2,7 @@
 
 {% block body %}
     <section class="content-header">
-        <h1>User List
+        <h1>Group List
             <div class="pull-right">
                 <div class="btn-group" style="margin-right:20px">
                     <a href="{{ lcmspath('user', 'user', 'create', {}) }}" class="btn btn-sm btn-success"><i class="fa fa-plus"></i></a>
@@ -18,9 +18,7 @@
             </div>
         </h1>
     </section>
-
     <section class="content">
-
         <div class="col-xs-12">
             <div class="box">
                 <div class="box-body table-responsive no-padding">
@@ -28,30 +26,18 @@
                         <thead>
                             <tr>
                                 <th style="width: 50px">#</th>
-                                <th>Email</th>
-                                <th>Last Name</th>
-                                <th>First Name</th>
-                                <th style="width: 100px">Status</th>
+                                <th>name</th>
                                 <th style="width: 100px">Action</th>
                             </tr>
                         </thead>
                         <tbody class="searchable">
-                            {% for user in users %}
+                            {% for group in groups %}
                                 <tr>
-                                    <td>{{ user.id }}</td>
-                                    <td>{{ user.email }}</td>
-                                    <td>{{ user.lastname }}</td>
-                                    <td>{{ user.firstname }}</td>
+                                    <td>{{ group.id }}</td>
+                                    <td>{{ group.name }}</td>
                                     <td>
-                                        {% if user.isActive %}
-                                            <span class="label label-success">Active</span>
-                                        {% else %}
-                                            <span class="label label-danger">Inctive</span>
-                                        {% endif %}
-                                    </td>
-                                    <td>
-                                        <a class="btn-sm btn-info" href="{{ lcmspath('user', 'user', 'edit', {'id': user.id }) }}"><i class="fa fa-pencil-square-o"></i></a>
-                                        <a class="btn-sm btn-danger" href="{{ lcmspath('user', 'user', 'delete', {'id': user.id }) }}"><i class="fa fa-trash"></i></a>
+                                        <a class="btn-sm btn-info" href="{{ lcmspath('user', 'group', 'edit', {'id': group.id }) }}"><i class="fa fa-pencil-square-o"></i></a>
+                                        <a class="btn-sm btn-danger" href="{{ lcmspath('user', 'group', 'delete', {'id': group.id }) }}"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}

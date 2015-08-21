@@ -50,7 +50,9 @@ jQuery.fn.ajaxBind = function() {
             if (regexp.test(actions[i])) {
                 var matches = actions[i].match(regexp);
                 if (window[matches[1]] != undefined) {
-                    window[matches[1]](event, elem, matches[2].split(','));
+                    var params = matches[2].split(',');
+                    params = params.filter(function(n){ return n != "" });
+                    window[matches[1]](event, elem, params);
                 }
             }
         }

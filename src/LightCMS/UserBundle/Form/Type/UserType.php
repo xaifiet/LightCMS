@@ -9,7 +9,7 @@ use Symfony\Component\DependencyInjection\Container;
 
 /**
  * Class UserType
- * @package LightCMS\SiteBundle\Form\Type
+ * @package LightCMS\UserBundle\Form\Type
  */
 class UserType extends AbstractType
 {
@@ -52,6 +52,48 @@ class UserType extends AbstractType
 
         $builder->add('lastname', 'text', array(
             'label' => 'user.form.lastname.label',
+            'attr' => array(
+                'class' => 'form-control')));
+
+        $builder->add('plainPassword', 'repeated', array(
+            'type' => 'password',
+            'required' => false,
+            'options' => array('required' => false),
+            'first_options' => array(
+                'label' => 'user.form.password_first.label',
+                'required' => false,
+                'attr' => array('class' => 'form-control')
+            ),
+            'second_options' => array(
+                'label' => 'user.form.password_second.label',
+                'required' => false,
+                'attr' => array('class' => 'form-control')
+            )));
+
+        $builder->add('isPasswordExpired', 'choice', array(
+            'label' => 'user.form.expired_password.label',
+            'choices' => array(
+                0 => 'NO',
+                1 => 'YES'
+            ),
+            'attr' => array(
+        'class' => 'form-control')));
+
+        $builder->add('role', 'choice', array(
+            'label' => 'user.form.role.label',
+            'choices' => array(
+                'ROLE_USER' => 'User',
+                'ROLE_ADMIN' => 'Administrator'
+            ),
+            'attr' => array(
+                'class' => 'form-control')));
+
+        $builder->add('isActive', 'choice', array(
+            'label' => 'user.form.active.label',
+            'choices' => array(
+                0 => 'NO',
+                1 => 'YES'
+            ),
             'attr' => array(
                 'class' => 'form-control')));
 

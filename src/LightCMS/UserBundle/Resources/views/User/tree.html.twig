@@ -1,7 +1,0 @@
-{% for user in users %}
-    <li class="treeview">
-        <a href="{{ lcmspath('user', 'user', 'edit', {'id': user.id }) }}">
-            <span>{{ user.lastname }} {{ user.firstname }}</span>
-        </a>
-    </li>
-{% endfor %}

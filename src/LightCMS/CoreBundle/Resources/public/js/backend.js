@@ -146,3 +146,21 @@ showHideTree = function(event, elem, params) {
     $('> div.treetoggle i', li).toggleClass('fa-angle-down');
     $('> ul', li).toggle();
 }
+
+setFocus = function(event, elem, params) {
+    if (params.length > 0) {
+        $(params[0]).focus();
+    } else {
+        $(elem).focus();
+    }
+};
+
+filter = function(event, elem, params) {
+
+    var rex = new RegExp($(elem).val(), 'i');
+    $('.searchable tr').hide();
+    $('.searchable tr').filter(function () {
+        return rex.test($(this).text());
+    }).css('display', '');
+
+};

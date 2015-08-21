@@ -1,51 +1,5 @@
 parameters:
 
-    light_cms.entities.pagebundle:
-        node:
-            class: LightCMS\PageBundle\Entity\Node
-            repository: LightCMSPageBundle:Node
-            module: page
-            idfield: salt
-            name: [ 'name' ]
-            form: node
-            templates:
-                edit: LightCMSPageBundle:Node:edit.html.twig
-                view: LightCMSPageBundle:Node:view.html.twig
-        site:
-            icon: 'glyphicon glyphicon-globe'
-            class: LightCMS\PageBundle\Entity\Site
-            repository: LightCMSPageBundle:Site
-            controller: LightCMSPageBundle:Site
-            module: page
-            idfield: salt
-            name: [ 'name' ]
-            form: site
-            templates:
-                edit: LightCMSPageBundle:Site:edit.html.twig
-                view: LightCMSPageBundle:Site:view.html.twig
-        page:
-            icon: 'glyphicon glyphicon-file'
-            class: LightCMS\PageBundle\Entity\Page
-            repository: LightCMSPageBundle:Page
-            controller: LightCMSPageBundle:Page
-            module: page
-            idfield: salt
-            name: [ 'name' ]
-            form: page
-            templates:
-                edit: LightCMSPageBundle:Page:edit.html.twig
-                view: LightCMSPageBundle:Page:view.html.twig
-        version:
-            class: LightCMS\PageBundle\Entity\Version
-            repository: LightCMSPageBundle:Version
-            controller: LightCMSPageBundle:Version
-            module: page
-            idfield: id
-            form: version
-            templates:
-                edit: LightCMSPageBundle:Version:edit.html.twig
-                view: LightCMSPageBundle:Version:view.html.twig
-
     light_cms.inheritance.pagebundle:
         node:
             - page
@@ -57,7 +11,7 @@ parameters:
         node:
             menu:
                 Nodes:
-                    icon: 'glyphicon glyphicon-file'
+                    icon: 'fa fa-sitemap'
                     tree: LightCMSPageBundle:Node:tree
             backend:
                 page: LightCMSPageBundle:Page

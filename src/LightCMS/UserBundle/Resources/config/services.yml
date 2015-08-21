@@ -4,17 +4,33 @@ parameters:
         user:
             menu:
                 Users:
-                    icon: 'glyphicon glyphicon-user'
+                    icon: 'fa fa-user'
                     route: light_cms_backend_module
                     params:
                         module: user
                         subModule: user
                         action: dashboard
-                    tree: LightCMSUserBundle:User:tree
+                Groups:
+                    icon: 'fa fa-users'
+                    route: light_cms_backend_module
+                    params:
+                        module: user
+                        subModule: group
+                        action: dashboard
+
             backend:
                 user: LightCMSUserBundle:User
+                group: LightCMSUserBundle:Group
 
 services:
+
+    light_cms_user.event_listener.user_event_listener:
+        class: LightCMS\UserBundle\EventListener\UserEventListener
+        arguments:
+            - @service_container
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
 
     light_cms_user.form_type.user_type:
         class: LightCMS\UserBundle\Form\Type\UserType
@@ -22,3 +38,10 @@ services:
             - @service_container
         tags:
             - { name: form.type, alias: user }
+
+    light_cms_user.form_type.group_type:
+        class: LightCMS\UserBundle\Form\Type\GroupType
+        arguments:
+            - @service_container
+        tags:
+            - { name: form.type, alias: group }

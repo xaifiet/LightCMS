@@ -24,6 +24,7 @@ security:
                 login_path: /backend/user/login
                 provider: lightcms_provider
                 default_target_path: /backend
+                require_previous_session: false
             logout:
                 path:   /backend/user/logout
                 target: /backend
@@ -36,6 +37,7 @@ security:
                 check_path: /user/check
                 login_path: /user/login
                 provider: lightcms_provider
+                require_previous_session: false
             logout:
                 path:   /user/logout
                 target: /

@@ -5,24 +5,23 @@ namespace LightCMS\UserBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-use LightCMS\UserBundle\Entity\User;
+use LightCMS\UserBundle\Entity\Group;
 
-class UserController extends Controller
+class GroupController extends Controller
 {
 
     public function dashboardAction(Request $request, $params)
     {
-        $users = $this->getDoctrine()->getRepository('LightCMSUserBundle:User')->findBy(array(), array(
-            'lastname' => 'ASC',
-            'firstname' => 'ASC'
+        $groups = $this->getDoctrine()->getRepository('LightCMSUserBundle:Group')->findBy(array(), array(
+            'name' => 'ASC'
         ));
 
-        return $this->render('LightCMSUserBundle:User:dashboard.html.twig', array('users' => $users));
+        return $this->render('LightCMSUserBundle:Group:dashboard.html.twig', array('groups' => $groups));
     }
 
     public function createAction(Request $request, $params)
     {
-        $entity = new User();
+        $entity = new Group();
 
         return $this->formAction($request, $entity, 'create');
     }
@@ -30,7 +29,7 @@ class UserController extends Controller
 
     public function editAction(Request $request, $params)
     {
-        $entity = $this->getDoctrine()->getRepository('LightCMSUserBundle:User')->find($params['id']);
+        $entity = $this->getDoctrine()->getRepository('LightCMSUserBundle:Group')->find($params['id']);
 
         return $this->formAction($request, $entity, 'edit');
     }
@@ -41,7 +40,7 @@ class UserController extends Controller
             return null;
         }
 
-        $form = $this->createForm('user', $entity, array(
+        $form = $this->createForm('group', $entity, array(
             'action' => $request->getUri(),
             'method' => 'POST'
         ));
@@ -58,7 +57,7 @@ class UserController extends Controller
 
         }
 
-        return $this->render('LightCMSUserBundle:User:edit.html.twig', array(
+        return $this->render('LightCMSUserBundle:Group:edit.html.twig', array(
             'form' => $form->createView(),
             'entity' => $entity,
             'action' => $action));
