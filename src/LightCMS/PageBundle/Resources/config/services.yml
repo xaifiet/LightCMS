@@ -12,13 +12,17 @@ parameters:
             menu:
                 Nodes:
                     icon: 'fa fa-sitemap'
-                    tree: LightCMSPageBundle:Node:tree
+                    route: light_cms_backend_module
+                    params:
+                        module: node
+                        subModule: node
+                        action: dashboard
             backend:
+                node: LightCMSPageBundle:Node
                 page: LightCMSPageBundle:Page
                 site: LightCMSPageBundle:Site
                 version: LightCMSPageBundle:Version
             frontend: LightCMSPageBundle:Node:view
-
 
 services:
 

@@ -1,0 +1,63 @@
+{% extends 'LightCMSCoreBundle:Backend:layout.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Media List
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        Add Media
+                        <span class="fa fa-caret-down"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ lcmspath('media', 'folder', 'create', {}) }}">Folder</a></li>
+                        <li><a href="{{ lcmspath('media', 'image', 'create', {}) }}">Image</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group" style="margin-right:20px">
+                    <div class="pull-right" style="width: 300px">
+                        <div class="input-group">
+                            <span class="input-group-addon">Filter</span>
+                            <input id="filter" type="text" class="form-control" placeholder="Type here..." data-bind="ready{setFocus()}|keyup{filter()}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </h1>
+    </section>
+
+    <section class="content">
+
+        <div class="col-xs-12">
+            <div class="box">
+                <div class="box-body table-responsive no-padding">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th style="width: 50px">#</th>
+                                <th>name</th>
+                                <th style="width: 50px">children</th>
+                                <th style="width: 100px">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="searchable">
+                            {% for media in medias %}
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <a href="{{ lcmspath('media', 'media', 'dashboard', {'id': media.id }) }}">{{ media.name }}</a>
+                                    </td>
+                                    <td>{{ media.children|length }}</td>
+                                    <td>
+                                        <a class="btn-sm btn-info" href="{{ lcmspath('media', media.getInheritanceType(), 'edit', {'id': media.id }) }}"><i class="fa fa-pencil-square-o"></i></a>
+                                        <a class="btn-sm btn-danger" href="{{ lcmspath('media', 'media', 'delete', {'id': media.id }) }}"><i class="fa fa-trash"></i></a>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

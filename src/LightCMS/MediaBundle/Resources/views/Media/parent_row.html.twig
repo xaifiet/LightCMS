@@ -1,0 +1,18 @@
+{% for entity in entities %}
+    {% if entity.id != id %}
+        <li>
+            <div class="treetoggle" data-bind="click{showHideTree()}">
+                {% if entity.children|length > 0 %}
+                    <i class="fa fa-angle-right"></i>
+                {% endif %}
+            </div>
+            <i class="fa fa-folder"></i>
+            <a href="#" data-bind="click[changeModalEntity({{ entity.id }},{{ entity.name }})]">{{ entity.name }}</a>
+            {% if entity.children|length > 0 %}
+                <ul style="display: none;">
+                    {% include 'LightCMSMediaBundle:Media:parent_row.html.twig' with {'entities': entity.children} %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endif %}
+{% endfor %}

@@ -1,6 +1,6 @@
 <?php
 
-namespace LightCMS\PageBundle\Entity;
+namespace LightCMS\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -8,12 +8,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="lcms_nodes")
+ * @ORM\Table(name="lcms_medias")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\HasLifecycleCallbacks()
  */
-abstract class Node
+abstract class Media
 {
     /**
      * @ORM\Id
@@ -30,12 +30,12 @@ abstract class Node
     private $name;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Node", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="Media", inversedBy="children")
      **/
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="Node", mappedBy="parent", cascade={"all"})
+     * @ORM\OneToMany(targetEntity="Media", mappedBy="parent", cascade={"all"})
      **/
     private $children;
 
@@ -69,12 +69,13 @@ abstract class Node
             $this->created = $this->updated;
         }
     }
+    
 
     /**
      * Set id
      *
      * @param string $id
-     * @return Node
+     * @return Media
      */
     public function setId($id)
     {
@@ -97,7 +98,7 @@ abstract class Node
      * Set name
      *
      * @param string $name
-     * @return Node
+     * @return Media
      */
     public function setName($name)
     {
@@ -120,7 +121,7 @@ abstract class Node
      * Set created
      *
      * @param \DateTime $created
-     * @return Node
+     * @return Media
      */
     public function setCreated($created)
     {
@@ -143,7 +144,7 @@ abstract class Node
      * Set updated
      *
      * @param \DateTime $updated
-     * @return Node
+     * @return Media
      */
     public function setUpdated($updated)
     {
@@ -165,10 +166,10 @@ abstract class Node
     /**
      * Set parent
      *
-     * @param \LightCMS\PageBundle\Entity\Node $parent
-     * @return Node
+     * @param \LightCMS\MediaBundle\Entity\Media $parent
+     * @return Media
      */
-    public function setParent(\LightCMS\PageBundle\Entity\Node $parent = null)
+    public function setParent(\LightCMS\MediaBundle\Entity\Media $parent = null)
     {
         $this->parent = $parent;
 
@@ -178,7 +179,7 @@ abstract class Node
     /**
      * Get parent
      *
-     * @return \LightCMS\PageBundle\Entity\Node 
+     * @return \LightCMS\MediaBundle\Entity\Media 
      */
     public function getParent()
     {
@@ -188,10 +189,10 @@ abstract class Node
     /**
      * Add children
      *
-     * @param \LightCMS\PageBundle\Entity\Node $children
-     * @return Node
+     * @param \LightCMS\MediaBundle\Entity\Media $children
+     * @return Media
      */
-    public function addChild(\LightCMS\PageBundle\Entity\Node $children)
+    public function addChild(\LightCMS\MediaBundle\Entity\Media $children)
     {
         $this->children[] = $children;
 
@@ -201,9 +202,9 @@ abstract class Node
     /**
      * Remove children
      *
-     * @param \LightCMS\PageBundle\Entity\Node $children
+     * @param \LightCMS\MediaBundle\Entity\Media $children
      */
-    public function removeChild(\LightCMS\PageBundle\Entity\Node $children)
+    public function removeChild(\LightCMS\MediaBundle\Entity\Media $children)
     {
         $this->children->removeElement($children);
     }

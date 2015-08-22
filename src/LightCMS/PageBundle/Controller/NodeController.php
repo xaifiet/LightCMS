@@ -71,12 +71,22 @@ class NodeController extends Controller
         ));
     }
 
-    public function treeAction(Request $request)
+    public function dashboardAction(Request $request, $params)
     {
-        $nodes = $this->getDoctrine()->getRepository('LightCMSPageBundle:Node')->findByParent(null);
+        $parent = isset($params['id']) ? $params['id'] : null;
 
-        return $this->render('LightCMSPageBundle:Node:tree.html.twig', array('nodes' => $nodes));
+        $nodes = $this->getDoctrine()->getRepository('LightCMSPageBundle:Node')->findBy(
+            array(
+                'parent' => $parent
+            ),
+            array(
+                'name' => 'ASC'
+            )
+        );
+
+        return $this->render('LightCMSPageBundle:Node:list.html.twig', array('nodes' => $nodes));
     }
+
 }
 
 ?>

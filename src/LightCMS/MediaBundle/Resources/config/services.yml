@@ -1,4 +1,38 @@
+parameters:
+
+    light_cms.inheritance.mediabundle:
+        media:
+            - folder
+            - image
+
+    light_cms.modules.mediabundle:
+        media:
+            menu:
+                Medias:
+                    icon: 'fa fa-picture-o'
+                    route: light_cms_backend_module
+                    params:
+                        module: media
+                        subModule: media
+                        action: dashboard
+            backend:
+                media: LightCMSMediaBundle:Media
+                folder: LightCMSMediaBundle:Folder
+                image: LightCMSMediaBundle:Image
+            frontend: LightCMSMediaBundle:Media:view
+
 services:
-#    light_cms_media.example:
-#        class: LightCMS\MediaBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+
+    light_cms_media.form_type.folder_type:
+        class: LightCMS\MediaBundle\Form\Type\FolderType
+        arguments:
+            - @service_container
+        tags:
+            - { name: form.type, alias: folder }
+
+    light_cms_media.form_type.image_type:
+        class: LightCMS\MediaBundle\Form\Type\ImageType
+        arguments:
+            - @service_container
+        tags:
+            - { name: form.type, alias: image }
