@@ -110,11 +110,8 @@ class VersionController extends Controller
         }
 
         if ($redirect) {
-            return $this->redirect($this->GenerateUrl('light_cms_backend_entity_action_id', array(
-                'entity' => 'version',
-                'action' => 'edit',
-                'id' => $entity->getId()
-            )));
+            $lcmsUrl = $this->get('light_cms_core.service.generate_url');
+            return $this->redirect($lcmsUrl->generateUrl('node', 'version', 'edit', array('id' => $entity->getId())));
         }
         return $this->render('LightCMSPageBundle:Version:edit.html.twig', array(
             'form' => $form->createView(),

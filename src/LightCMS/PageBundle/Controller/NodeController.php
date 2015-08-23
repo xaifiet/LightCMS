@@ -76,15 +76,18 @@ class NodeController extends Controller
         $parent = isset($params['id']) ? $params['id'] : null;
 
         $nodes = $this->getDoctrine()->getRepository('LightCMSPageBundle:Node')->findBy(
-            array(
-                'parent' => $parent
-            ),
-            array(
-                'name' => 'ASC'
-            )
+            array('parent' => $parent),
+            array('name' => 'ASC')
         );
 
-        return $this->render('LightCMSPageBundle:Node:list.html.twig', array('nodes' => $nodes));
+        $entities = $this->getDoctrine()->getRepository('LightCMSPageBundle:Node')->findBy(
+            array('parent' => null),
+            array('name' => 'ASC')
+        );
+        return $this->render('LightCMSPageBundle:Node:list.html.twig', array(
+            'entities' => $entities,
+            'nodes' => $nodes
+        ));
     }
 
 }

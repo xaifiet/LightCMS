@@ -2,7 +2,7 @@
 <html>
     <head>
         <title>Light CMS Backend</title>
-        {% include 'LightCMSCoreBundle:Backend:css.html.twig' %}
+        {% include 'LightCMSCoreBundle:Common:stylesheet.html.twig' with {'display': 'backend'} %}
     </head>
     {% if app.user %}
         <body class="skin-blue sidebar-mini">
@@ -13,12 +13,12 @@
                     {% block body %}{% endblock %}
                 </div>
             </div>
-            {% include 'LightCMSCoreBundle:Backend:javascript.html.twig' %}
+            {% include 'LightCMSCoreBundle:Common:javascript.html.twig' with {'display': 'backend'} %}
         </body>
     {% else %}
         <body class="hold-transition login-page">
             {% block login %}{% endblock %}
-            {% include 'LightCMSCoreBundle:Backend:javascript.html.twig' %}
+            {% include 'LightCMSCoreBundle:Common:javascript.html.twig' with {'display': 'backend'} %}
         </body>
     {% endif %}
 </html>

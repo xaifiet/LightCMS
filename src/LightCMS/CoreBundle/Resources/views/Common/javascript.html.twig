@@ -1,0 +1,14 @@
+{% block javascripts %}
+    {% javascripts
+        '@jquery'
+        '@jqueryui'
+        '@bootstrap_js'
+        '@adminlte_js'
+        '@summernote_js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+    {% for javascript in lcmsjs(display) %}
+        <script type="text/javascript" src="{{ asset(javascript) }}"></script>
+    {% endfor %}
+{% endblock %}

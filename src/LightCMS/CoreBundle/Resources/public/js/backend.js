@@ -164,3 +164,17 @@ filter = function(event, elem, params) {
     }).css('display', '');
 
 };
+
+loadFromElem = function(event, elem, params) {
+    var widget = $('#'+params[0]);
+    var body = $('.box-body', $(widget));
+
+    $(elem).val($(body).html());
+    $(elem).data('target', body);
+};
+
+saveWidget = function(event, elem, params) {
+    var input = $('#test');
+    var body = $(input).data('target');
+    $(body).html($(input).code());
+};

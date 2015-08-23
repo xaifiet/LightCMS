@@ -10,6 +10,20 @@ parameters:
             backend:
                 dashboard: LightCMSCoreBundle:Dashboard
 
+    light_cms.javascript.core_bundle:
+        global:
+            - bundles/lightcmscore/js/bind.jquery.js
+        frontend:
+            - bundles/lightcmscore/js/frontend.js
+        backend:
+            - bundles/lightcmscore/js/backend.js
+
+    light_cms.stylesheet.core_bundle:
+        frontend:
+            - bundles/lightcmscore/css/frontend.css
+        backend:
+            - bundles/lightcmscore/css/backend.css
+
 
 services:
 

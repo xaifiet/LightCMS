@@ -5,7 +5,9 @@ parameters:
             - page
             - site
         widget:
-            - widgetcontent
+            widgetcontent:
+                view: LightCMSBundle:Widget:view.html.twig
+                edit: LightCMSPageBundle:WidgetContent:edit.html.twig
 
     light_cms.modules.pagebundle:
         node:
@@ -22,7 +24,9 @@ parameters:
                 page: LightCMSPageBundle:Page
                 site: LightCMSPageBundle:Site
                 version: LightCMSPageBundle:Version
+                widget: LightCMSPageBundle:Widget
             frontend: LightCMSPageBundle:Node:view
+
 
 services:
 

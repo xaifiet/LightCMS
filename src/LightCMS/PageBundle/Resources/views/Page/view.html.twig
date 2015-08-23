@@ -5,6 +5,9 @@
 {% endblock %}
 
 {% block body %}
-
+    {% include 'LightCMSPageBundle:Site:navigation.html.twig' %}
+    {% for row in page.getPublished().rows %}
+        {% include 'LightCMSPageBundle:Row:view.html.twig' with {'row': row} %}
+    {% endfor %}
 {% endblock %}
 

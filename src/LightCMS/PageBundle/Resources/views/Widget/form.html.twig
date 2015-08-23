@@ -1,5 +1,5 @@
 {%  set size = (form.size.vars.value == '') ? '4' : form.size.vars.value %}
-<div class="col-md-{{ size }} widgetform" id="{{ form.vars.id }}">
+<div class="col-md-{{ size }} widgetform" id="widget-{{ form.vars.id }}">
     {{ form_row(form._type) }}
     {{ form_row(form.position) }}
     {{ form_row(form.size) }}
@@ -19,8 +19,8 @@
                     <li><a href="#" data-bind="@click[setWidgetSize(8,col-md-8)]">2/3 Size</a></li>
                     <li><a href="#" data-bind="@click[setWidgetSize(12,col-md-12)]">Full Size</a></li>
                     <li role="presentation" class="divider"></li>
-                    <li><a href="#" data-toggle="modal" data-target="#{{ form.vars.id }}_modal">Edit Widget</a></li>
-                    <li><a href="#" data-bind="@click[deleteCollectionRow(#{{ form.vars.id }})]">Delete Widget</a></li>
+                    <li><a href="#" data-bind="click[loadModal(#{{ form.vars.id }}-widgetmodal,{{ lcmspath('node', 'widget', 'edit', {'id': 'widget-'~form.vars.id}) }})]">Edit Widget</a></li>
+                    <li><a href="#" data-bind="@click[deleteCollectionRow(#widget-{{ form.vars.id }})]">Delete Widget</a></li>
                 </ul>
             </div>
         </div>
@@ -31,8 +31,13 @@
 
                 View details »
             {% else %}
-                {{ form.content.vars.value }}
+                {{ form.content.vars.value|raw }}
             {% endif %}
+        </div>
+        <div id="{{ form.vars.id }}-widgetmodal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content"></div>
+            </div>
         </div>
     </div>
 </div>

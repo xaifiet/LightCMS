@@ -1,0 +1,16 @@
+<nav class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="#">{{ site.name }}</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                {% for child in site.children %}
+                    {% if child.published != null %}
+                        <li class="active"><a href="{{ path('light_cms_frontend', { 'path': child.url}) }}">{{ child.name }}</a></li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div><!-- /.nav-collapse -->
+    </div><!-- /.container -->
+</nav>

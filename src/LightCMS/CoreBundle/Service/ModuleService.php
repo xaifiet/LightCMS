@@ -65,7 +65,7 @@ class ModuleService
 
     public function getModule()
     {
-        return $this->module;
+        return $this->modules[$this->module];
     }
 
     public function setModule($module)
