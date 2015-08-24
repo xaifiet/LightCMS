@@ -1,20 +1,21 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-        <title>Modal</title>
-    </head>
-    <body>
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title">Widget Edition</h4>
+<div class="col-md-{{ widget.size }}">
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <span class="fa fa-arrows sorthandle"></span>
+            <h3 class="box-title">Widget</h3>
+            <div class="btn-group pull-right" data-keep="yes">
+                <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    <i class="glyphicon glyphicon-cog"></i>
+                    <span class="fa fa-caret-down"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a href="{{ lcmspath('node', 'widgetcontent', 'edit', {'id': widget.id}) }}">Edit Widget</a></li>
+                    <li><a href="{{ lcmspath('node', 'widget', 'edit', {'id': widget.id}) }}">Delete Widget</a></li>
+                </ul>
+            </div>
         </div>
-        <div class="modal-body">
-            {% include 'LightCMSPageBundle:WidgetContent:edit.html.twig' %}
+        <div class="box-body">
+            {{ widget.content|raw }}
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-bind="click{saveWidget(test)}">Save</button>
-            <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        </div>
-    </body>
-</html>
+    </div>
+</div>

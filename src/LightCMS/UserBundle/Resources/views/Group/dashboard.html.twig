@@ -36,8 +36,8 @@
                                     <td>{{ group.id }}</td>
                                     <td>{{ group.name }}</td>
                                     <td>
-                                        <a class="btn-sm btn-info" href="{{ lcmspath('user', 'group', 'edit', {'id': group.id }) }}"><i class="fa fa-pencil-square-o"></i></a>
-                                        <a class="btn-sm btn-danger" href="{{ lcmspath('user', 'group', 'delete', {'id': group.id }) }}"><i class="fa fa-trash"></i></a>
+                                        <a class="btn-sm btn-info" href="{{ lcmspath('group', 'group', 'edit', {'id': group.id }) }}"><i class="fa fa-pencil-square-o"></i></a>
+                                        <a class="btn-sm btn-danger" href="{{ lcmspath('group', 'group', 'delete', {'id': group.id }) }}"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                             {% endfor %}

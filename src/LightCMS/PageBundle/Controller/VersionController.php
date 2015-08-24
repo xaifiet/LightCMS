@@ -79,43 +79,9 @@ class VersionController extends Controller
             return null;
         }
 
-        $form = $this->createForm('version', $entity, array(
-            'action' => $request->getUri(),
-            'method' => 'POST'
-        ));
-
-        $form->handleRequest($request);
-
-        $redirect = false;
-
-        if ($form->isValid()) {
-
-
-            foreach ($entity->getRows() as $row) {
-                $row->setVersion($entity);
-                foreach ($row->getWidgets() as $widget) {
-                    if (is_null($widget->getSize())) {
-                        $widget->setSize(4);
-                    }
-                    $widget->setRow($row);
-                }
-            }
-
-            if ($form->get('submit')->isClicked()) {
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
-                $redirect = true;
-            }
-
-        }
-
-        if ($redirect) {
-            $lcmsUrl = $this->get('light_cms_core.service.generate_url');
-            return $this->redirect($lcmsUrl->generateUrl('node', 'version', 'edit', array('id' => $entity->getId())));
-        }
         return $this->render('LightCMSPageBundle:Version:edit.html.twig', array(
-            'form' => $form->createView(),
-            'entity' => $entity));
+            'entity' => $entity
+        ));
     }
 
 

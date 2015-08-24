@@ -17,7 +17,17 @@ class WidgetController extends Controller
         ));
     }
 
+    public function rowAction(Request $request, $params)
+    {
+        $entity = $this->getDoctrine()->getRepository('LightCMSPageBundle:Widget')->find($params['id']);
 
+        $entities = $entity->getRow()->getVersion()->getRows();
+
+        return $this->render('LightCMSPageBundle:Widget:row_entity.html.twig', array(
+            'entities' => $entities,
+            'id' => $params['id']
+        ));
+    }
 }
 
 ?>

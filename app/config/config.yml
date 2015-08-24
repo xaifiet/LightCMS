@@ -60,6 +60,12 @@ assetic:
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/dist/css/bootstrap-theme.css
             filters: [cssrewrite]
 
+        bootstrap_css_map:
+            inputs:
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/dist/css/bootstrap.css.map
+                - %kernel.root_dir%/../vendor/twitter/bootstrap/dist/css/bootstrap-theme.css.map
+            output: "css/bootstrap.css.map"
+
         bootstrap_glyphicons_ttf:
             inputs:
                 - %kernel.root_dir%/../vendor/twitter/bootstrap/dist/fonts/glyphicons-halflings-regular.ttf
@@ -84,7 +90,11 @@ assetic:
         fontawesome:
             inputs:
                 - '%kernel.root_dir%/../vendor/components/font-awesome/css/font-awesome.css'
-        fontawesome-webfont:
+        fontawesome-woff:
+            inputs:
+                - %kernel.root_dir%/../vendor/components/font-awesome/fonts/fontawesome-webfont.woff
+            output: "fonts/fontawesome-webfont.woff"
+        fontawesome-woff2:
             inputs:
                 - %kernel.root_dir%/../vendor/components/font-awesome/fonts/fontawesome-webfont.woff2
             output: "fonts/fontawesome-webfont.woff2"

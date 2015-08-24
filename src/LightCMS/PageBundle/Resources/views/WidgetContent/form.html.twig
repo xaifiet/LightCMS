@@ -1,0 +1,40 @@
+{% extends 'LightCMSCoreBundle:Backend:layout.html.twig' %}
+
+{% form_theme form 'LightCMSCoreBundle:Form:theme.html.twig' %}
+
+{% block body %}
+    {{ form_start(form) }}
+        <section class="content-header">
+            <h1>
+                Content Widget Edition
+                <div class="pull-right">
+                    <div class="btn-group" style="margin-right:20px">
+                        {{ form_row(form.submit) }}
+                    </div>
+                    <div class="btn-group" style="margin-right:20px">
+                        <a class="btn btn-default" href="{{ lcmspath('node', 'version', 'edit', {'id': entity.row.version.id}) }}">Back to version</a>
+                    </div>
+                </div>
+            </h1>
+        </section>
+        <section class="content">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Widget information</h3>
+                </div>
+                <div class="box-body">
+                    {{ form_row(form.row) }}
+                </div>
+            </div>
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Widget content</h3>
+                </div>
+                <div class="box-body">
+                    {{ form_row(form.content) }}
+                </div>
+            </div>
+    </section>
+    {{ form_end(form) }}
+{% endblock %}
+

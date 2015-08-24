@@ -1,5 +1,4 @@
-<div class="box box-primary" id="{{ form.vars.id }}">
-    {{ form_row(form.position) }}
+<div class="box box-primary">
     <div class="box-header with-border">
         <span class="fa fa-arrows sorthandle"></span>
         <h3 class="box-title">Row</h3>
@@ -9,18 +8,16 @@
                 <span class="fa fa-caret-down"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-                {% for prototype in form.widgets.vars.prototypes %}
-                    <li><a href="#" data-prototype="{{ form_widget(prototype)|escape }}" data-bind="@click[addPrototype({{ form.widgets.vars.id }})]">Name</a></li>
-                {% endfor %}
+                <li><a href="{{ lcmspath('node', 'widgetcontent', 'create', {'row_id': row.id}) }}">Content Widget</a></li>
                 <li role="presentation" class="divider"></li>
-                <li><a href="#" data-toggle="modal" data-target="#{{ form.vars.id }}_modal">Edit Row</a></li>
-                <li><a href="#" data-bind="@click[deleteCollectionRow(#{{ form.vars.id }})]">Delete Row</a></li>
+                <li><a href="{{ lcmspath('node', 'row', 'edit', {'id': row.id}) }}" >Edit Row</a></li>
+                <li><a href="{{ lcmspath('node', 'row', 'delete', {'id': row.id}) }}">Delete Row</a></li>
             </ul>
         </div>
     </div>
     <div class="box-body">
-        {% for child in form.children %}
-            {{ form_widget(child) }}
+        {% for widget in row.widgets %}
+            {% include 'LightCMSPageBundle:Widget:edit.html.twig' with {'widget': widget} %}
         {% endfor %}
     </div>
 </div>

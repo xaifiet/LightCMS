@@ -48,29 +48,9 @@ class PageController extends Controller
 
         if ($form->isValid()) {
 
-            foreach ($entity->getVersions() as $version) {
-                $version->setPage($entity);
-                foreach ($version->getRows() as $row) {
-                    $row->setVersion($version);
-                    foreach ($row->getWidgets() as $widget) {
-                        if (is_null($widget->getSize())) {
-                            $widget->setSize(4);
-                        }
-                        $widget->setRow($row);
-                    }
-                }
-            }
-
             if ($form->get('submit')->isClicked()) {
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($entity);
-                if ($action == 'create') {
-                    $version = new Version();
-                    $entity->addVersion($version);
-                    $version->setPage($entity);
-                    $version->setNumber(1);
-                    $em->persist($version);
-                }
                 $em->flush();
                 $redirect = true;
             }
@@ -79,12 +59,21 @@ class PageController extends Controller
 
         if ($redirect) {
             $lcmsUrl = $this->get('light_cms_core.service.generate_url');
-            return $this->redirect($lcmsUrl->generateUrl('node', 'page', 'edit', array('id' => $entity->getId())));
+            return $this->redirect($lcmsUrl->generateUrl('node', 'windgetcontent', 'edit', array(
+                'id' => $entity->getId()
+            )));
         }
+
+        $entities = $this->getDoctrine()->getRepository('LightCMSPageBundle:Node')->findBy(
+            array('parent' => null),
+            array('name' => 'ASC')
+        );
+
         return $this->render('LightCMSPageBundle:Page:edit.html.twig', array(
             'form' => $form->createView(),
-            'entity' => $entity,
-            'action' => $action));
+            'entities' => $entities,
+            'entity' => $entity
+        ));
     }
 
     public function parentEntityAction(Request $request, $params)

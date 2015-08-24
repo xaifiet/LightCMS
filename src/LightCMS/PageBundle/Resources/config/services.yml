@@ -25,6 +25,7 @@ parameters:
                 site: LightCMSPageBundle:Site
                 version: LightCMSPageBundle:Version
                 widget: LightCMSPageBundle:Widget
+                widgetcontent: LightCMSPageBundle:WidgetContent
             frontend: LightCMSPageBundle:Node:view
 
 
@@ -70,6 +71,8 @@ services:
 
     light_cms_page.form_type.widget_type:
         class: LightCMS\PageBundle\Form\Type\WidgetType
+        arguments:
+            - @service_container
         tags:
             - { name: form.type, alias: widget }
 

@@ -10,16 +10,19 @@ parameters:
                         module: user
                         subModule: user
                         action: dashboard
+            backend:
+                user: LightCMSUserBundle:User
+
+        group:
+            menu:
                 Groups:
                     icon: 'fa fa-users'
                     route: light_cms_backend_module
                     params:
-                        module: user
+                        module: group
                         subModule: group
                         action: dashboard
-
             backend:
-                user: LightCMSUserBundle:User
                 group: LightCMSUserBundle:Group
 
 services:

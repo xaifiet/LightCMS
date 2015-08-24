@@ -30,6 +30,13 @@ class WidgetContentType extends AbstractType
             'required' => false,
             'attr' => array(
                 'data-bind' => 'ready[summernoteInit()]')));
+
+        // Adding the submit button
+        $builder->add('submit', 'submit', array(
+            'attr' => array(
+                'class' => 'btn btn-success'
+            )
+        ));
     }
 
     /**

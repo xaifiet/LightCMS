@@ -1,29 +1,22 @@
 {% extends 'LightCMSCoreBundle:Backend:layout.html.twig' %}
 
-{% form_theme form with [ 'LightCMSPageBundle:Form:theme.html.twig', 'LightCMSCoreBundle:Form:theme.html.twig' ] %}
-
 {% block body %}
 {% spaceless %}
-    {{ form_start(form) }}
-
     <section class="content-header">
         <h1>
-            {{ entity.page.name }} - Version {{ entity.number }}{#<small>{{ entity.id }}</small>#}
+            {{ entity.page.name }} - Version {{ entity.number }}
 
             <div class="pull-right">
-                <div class="btn-group" style="margin-right:20px">
-                    {{ form_widget(form.submit) }}
-                </div>
-                {% if form.publish is defined %}
+                {% if entity.page.published != entity %}
                     <div class="btn-group" style="margin-right:20px">
-                        {{ form_widget(form.publish) }}
+                        {{ lcmspath('node', 'version', 'publih', {'id': entity.getId()}) }}
                     </div>
                 {% endif %}
                 <div class="btn-group" style="margin-right:20px">
-                    <a class="btn btn-info" href="{{ lcmspath('node', 'version', 'createfromversion', {'id': entity.getId()}) }}">Duplicate</a>
+                    <a class="btn btn-info" href="{{ lcmspath('node', 'version', 'duplicate', {'id': entity.getId()}) }}">Duplicate</a>
                 </div>
                 <div class="btn-group" style="margin-right:20px">
-                    <a class="btn btn-info" href="#" data-bind="click[addPrototype({{ form.rows.vars.id }})]" data-prototype="{{ form_widget(form.rows.vars.prototype)|escape }}">Add Row</a>
+                    <a class="btn btn-info" href="{{ lcmspath('node', 'row', 'create', {'version_id': entity.getId()}) }}">Add Row</a>
                 </div>
                 <div class="btn-group">
                     <a class="btn btn-default" href="{{ lcmspath('node', 'page', 'edit', {'id': entity.getPage().getId()}) }}">Back to Page</a>
@@ -31,12 +24,11 @@
             </div>
         </h1>
     </section>
-
     <section class="content">
-        {{ form_row(form.rows) }}
+        {% for row in entity.rows %}
+            {% include 'LightCMSPageBundle:Row:edit.html.twig' with {'row': row} %}
+        {% endfor %}
     </section>
-
-    {{ form_end(form) }}
 {% endspaceless %}
 {% endblock %}
 
