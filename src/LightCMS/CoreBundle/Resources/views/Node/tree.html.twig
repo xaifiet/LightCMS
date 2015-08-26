@@ -13,7 +13,7 @@
         <a href="{{ lcmspath('node', entity.getInheritanceType(), 'edit', {'id': entity.id}) }}">{{ entity.name }}</a>
         {% if entity.children|length > 0 %}
             <ul style="display: none;">
-                {% include 'LightCMSPageBundle:Node:tree.html.twig' with {'entities': entity.children} %}
+                {% include 'LightCMSCoreBundle:Node:tree.html.twig' with {'entities': entity.children} %}
             </ul>
         {% endif %}
     </li>

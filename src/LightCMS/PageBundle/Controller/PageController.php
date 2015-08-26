@@ -64,7 +64,7 @@ class PageController extends Controller
             )));
         }
 
-        $entities = $this->getDoctrine()->getRepository('LightCMSPageBundle:Node')->findBy(
+        $entities = $this->getDoctrine()->getRepository('LightCMSCoreBundle:Node')->findBy(
             array('parent' => null),
             array('name' => 'ASC')
         );
@@ -78,7 +78,7 @@ class PageController extends Controller
 
     public function parentEntityAction(Request $request, $params)
     {
-        $entities = $this->getDoctrine()->getRepository('LightCMSPageBundle:Node')->findBy(array('parent' => null));
+        $entities = $this->getDoctrine()->getRepository('LightCMSCoreBundle:Node')->findBy(array('parent' => null));
 
         return $this->render('LightCMSPageBundle:Page:parent_entity.html.twig', array(
             'entities' => $entities,

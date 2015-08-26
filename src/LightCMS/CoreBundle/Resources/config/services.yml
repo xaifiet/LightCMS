@@ -9,6 +9,18 @@ parameters:
                     params: []
             backend:
                 dashboard: LightCMSCoreBundle:Dashboard
+        node:
+            menu:
+                Nodes:
+                    icon: 'fa fa-sitemap'
+                    route: light_cms_backend_module
+                    params:
+                        module: node
+                        subModule: node
+                        action: dashboard
+            backend:
+                node: LightCMSCoreBundle:Node
+            frontend: LightCMSCoreBundle:Node:view
 
     light_cms.javascript.core_bundle:
         global:
@@ -60,6 +72,11 @@ services:
             - @doctrine
         tags:
             - { name: form.type, alias: modal_entity }
+
+    light_cms_page.form_type.node_type:
+        class: LightCMS\CoreBundle\Form\Type\NodeType
+        tags:
+            - { name: form.type, alias: node }
 
     light_cms_core.twig.lcms_extension:
         class: LightCMS\CoreBundle\Twig\LightCMSExtension

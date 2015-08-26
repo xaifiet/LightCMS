@@ -30,7 +30,7 @@ class MediaType extends AbstractType
 
         $groupNode->add('parent', 'entity', array(
             'label' => 'page.form.parent.label',
-            'class' => 'LightCMS\PageBundle\Entity\Node',
+            'class' => 'LightCMS\CoreBundle\Entity\Node',
             'choice_label' => 'name',
             'attr' => array(
                 'class' => 'form-control')
@@ -66,7 +66,7 @@ class MediaType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'LightCMS\PageBundle\Entity\Node',
+            'data_class' => 'LightCMS\CoreBundle\Entity\Node',
             'cascade_validation' => true
         ));
     }

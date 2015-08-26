@@ -1,32 +1,60 @@
 parameters:
 
     light_cms.inheritance.pagebundle:
-        node:
-            - page
-            - site
+        page:
+            content:
+                name: Content Page
+                icon: 'fa fa-file-code-o'
+                entity: LightCMS\PageBundle\Entity\PageContent
+                controllers:
+                    view: LightCMSPagebundle:PageContent:view
+                    create: LightCMSPagebundle:PageContent:create
+                    edit: LightCMSPagebundle:PageContent:edit
+                    delete: LightCMSPagebundle:PageContent:delete
+                templates:
+                    view: LigheCMSPageBundle:PageContent:view.html.twig
+            site:
+                name: Site
+                icon: 'fa fa-globe'
+                entity: LightCMS\PageBundle\Entity\Site
+                controllers:
+                    view: LightCMSPagebundle:Site:view
+                    create: LightCMSPagebundle:Site:create
+                    edit: LightCMSPagebundle:Site:edit
+                    delete: LightCMSPagebundle:Site:delete
+                templates:
+                    view: LigheCMSPageBundle:Site:view.html.twig
+        row:
+            widget:
+                name: Widget Row
+                entity: LightCMS\PageBundle\Entity\RowWidget
+                controllers:
+                    view: LightCMSPagebundle:RowWidget:view
+                    create: LightCMSPagebundle:RowWidget:create
+                    edit: LightCMSPagebundle:RowWidget:edit
+                    delete: LightCMSPagebundle:RowWidget:delete
+                templates:
+                    view: LigheCMSPageBundle:RowWidget:view.html.twig
         widget:
-            widgetcontent:
-                view: LightCMSBundle:Widget:view.html.twig
-                edit: LightCMSPageBundle:WidgetContent:edit.html.twig
+            content:
+                name: Content Widget
+                entity: LightCMS\PageBundle\Entity\WidgetContent
+                controllers:
+                    view: LightCMSPagebundle:WidgetContent:view
+                    create: LightCMSPagebundle:WidgetContent:create
+                    edit: LightCMSPagebundle:WidgetContent:edit
+                    delete: LightCMSPagebundle:WidgetContent:delete
+                templates:
+                    view: LigheCMSPageBundle:WidgetContent:view.html.twig
 
     light_cms.modules.pagebundle:
         node:
-            menu:
-                Nodes:
-                    icon: 'fa fa-sitemap'
-                    route: light_cms_backend_module
-                    params:
-                        module: node
-                        subModule: node
-                        action: dashboard
             backend:
-                node: LightCMSPageBundle:Node
                 page: LightCMSPageBundle:Page
                 site: LightCMSPageBundle:Site
                 version: LightCMSPageBundle:Version
                 widget: LightCMSPageBundle:Widget
                 widgetcontent: LightCMSPageBundle:WidgetContent
-            frontend: LightCMSPageBundle:Node:view
 
 
 services:
@@ -36,10 +64,6 @@ services:
 #        arguments:
 #            - @service_container
 
-    light_cms_page.form_type.node_type:
-        class: LightCMS\PageBundle\Form\Type\NodeType
-        tags:
-            - { name: form.type, alias: node }
 
     light_cms_page.form_type.site_type:
         class: LightCMS\PageBundle\Form\Type\SiteType

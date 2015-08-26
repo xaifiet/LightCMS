@@ -1,6 +1,6 @@
 <?php
 
-namespace LightCMS\PageBundle\Controller;
+namespace LightCMS\CoreBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -75,16 +75,16 @@ class NodeController extends Controller
     {
         $parent = isset($params['id']) ? $params['id'] : null;
 
-        $nodes = $this->getDoctrine()->getRepository('LightCMSPageBundle:Node')->findBy(
+        $nodes = $this->getDoctrine()->getRepository('LightCMSCoreBundle:Node')->findBy(
             array('parent' => $parent),
             array('name' => 'ASC')
         );
 
-        $entities = $this->getDoctrine()->getRepository('LightCMSPageBundle:Node')->findBy(
+        $entities = $this->getDoctrine()->getRepository('LightCMSCoreBundle:Node')->findBy(
             array('parent' => null),
             array('name' => 'ASC')
         );
-        return $this->render('LightCMSPageBundle:Node:list.html.twig', array(
+        return $this->render('LightCMSCoreBundle:Node:list.html.twig', array(
             'entities' => $entities,
             'nodes' => $nodes
         ));

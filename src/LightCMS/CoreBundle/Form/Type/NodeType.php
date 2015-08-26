@@ -1,6 +1,6 @@
 <?php
 
-namespace LightCMS\PageBundle\Form\Type;
+namespace LightCMS\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -22,28 +22,16 @@ class NodeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $groupNode = $builder->add('node_group', 'fieldgroup', array(
-            'mapped' => false,
-            'label' => 'Node Informations',
-            'inherit_data' => true
-        ))->get('node_group');
-
-        $groupNode->add('parent', 'entity', array(
+        $builder->add('parent', 'entity', array(
             'label' => 'page.form.parent.label',
-            'class' => 'LightCMS\PageBundle\Entity\Node',
+            'class' => 'LightCMS\CoreBundle\Entity\Node',
             'choice_label' => 'name',
             'attr' => array(
                 'class' => 'form-control')
         ));
 
-        $groupSubmit = $builder->add('submit_group', 'fieldgroup', array(
-            'mapped' => false,
-            'label' => 'Actions',
-            'inherit_data' => true
-        ))->get('submit_group');
-
         // Adding the submit button
-        $groupSubmit->add('submit', 'submit');
+        $builder->add('submit', 'submit');
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options)
@@ -66,7 +54,7 @@ class NodeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'LightCMS\PageBundle\Entity\Node',
+            'data_class' => 'LightCMS\CoreBundle\Entity\Node',
             'cascade_validation' => true
         ));
     }

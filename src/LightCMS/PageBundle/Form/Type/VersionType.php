@@ -42,7 +42,6 @@ class VersionType extends AbstractType
             'by_reference' => false,
             'prototype' => true,
             'label' => false)));
-//            ->addModelTransformer(new RowsToScalarClassTransformer($this->entityManager, $options['data'])));
 
         $builder->add('submit', 'submit', array(
             'attr' => array(

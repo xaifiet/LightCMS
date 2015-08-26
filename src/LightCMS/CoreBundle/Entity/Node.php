@@ -1,6 +1,6 @@
 <?php
 
-namespace LightCMS\PageBundle\Entity;
+namespace LightCMS\CoreBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -165,10 +165,10 @@ abstract class Node
     /**
      * Set parent
      *
-     * @param \LightCMS\PageBundle\Entity\Node $parent
+     * @param \LightCMS\CoreBundle\Entity\Node $parent
      * @return Node
      */
-    public function setParent(\LightCMS\PageBundle\Entity\Node $parent = null)
+    public function setParent(\LightCMS\CoreBundle\Entity\Node $parent = null)
     {
         $this->parent = $parent;
 
@@ -178,7 +178,7 @@ abstract class Node
     /**
      * Get parent
      *
-     * @return \LightCMS\PageBundle\Entity\Node 
+     * @return \LightCMS\CoreBundle\Entity\Node
      */
     public function getParent()
     {
@@ -188,10 +188,10 @@ abstract class Node
     /**
      * Add children
      *
-     * @param \LightCMS\PageBundle\Entity\Node $children
+     * @param \LightCMS\CoreBundle\Entity\Node $children
      * @return Node
      */
-    public function addChild(\LightCMS\PageBundle\Entity\Node $children)
+    public function addChild(\LightCMS\CoreBundle\Entity\Node $children)
     {
         $this->children[] = $children;
 
@@ -201,9 +201,9 @@ abstract class Node
     /**
      * Remove children
      *
-     * @param \LightCMS\PageBundle\Entity\Node $children
+     * @param \LightCMS\CoreBundle\Entity\Node $children
      */
-    public function removeChild(\LightCMS\PageBundle\Entity\Node $children)
+    public function removeChild(\LightCMS\CoreBundle\Entity\Node $children)
     {
         $this->children->removeElement($children);
     }

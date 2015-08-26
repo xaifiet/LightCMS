@@ -22,15 +22,29 @@
         </section>
 
         <section class="content">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Site informations</h3>
+            <div class="col-md-3">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Tree</h3>
+                    </div>
+                    <div class="box-body no-padding">
+                        <ul class="treeview">
+                            {% include 'LightCMSCoreBundle:Node:tree.html.twig' with {'entities': entities} %}
+                        </ul>
+                    </div>
                 </div>
-                <div class="box-body">
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.host) }}
-                    {{ form_row(form.priority) }}
-                    {{ form_row(form.home) }}
+            </div>
+            <div class="col-xs-9">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Site informations</h3>
+                    </div>
+                    <div class="box-body">
+                        {{ form_row(form.name) }}
+                        {{ form_row(form.host) }}
+                        {{ form_row(form.priority) }}
+                        {{ form_row(form.home) }}
+                    </div>
                 </div>
             </div>
         </section>

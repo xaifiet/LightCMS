@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity
  * @ORM\Table(name="lcms_sites")
  */
-class Site extends Node
+class Site extends \LightCMS\CoreBundle\Entity\Node
 {
 
     /**

@@ -1,0 +1,35 @@
+{% extends 'LightCMSCoreBundle:Backend:layout.html.twig' %}
+
+{% block body %}
+    <section class="content-header">
+        <h1>Nodes List
+            <div class="pull-right">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        Add Node
+                        <span class="fa fa-caret-down"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="{{ lcmspath('node', 'site', 'create', {}) }}">Site</a></li>
+                        <li><a href="{{ lcmspath('node', 'page', 'create', {}) }}">Image</a></li>
+                    </ul>
+                </div>
+            </div>
+        </h1>
+    </section>
+    <section class="content">
+        <div class="col-md-4">
+            <div class="box box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Tree</h3>
+                </div>
+                <div class="box-body no-padding">
+                    <ul class="treeview">
+                        {% include 'LightCMSCoreBundle:Node:tree.html.twig' with {'entities': entities} %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    {#{% render entityController with {'entity': entity} %}#}
+    </section>
+{% endblock %}

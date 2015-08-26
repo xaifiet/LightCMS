@@ -51,19 +51,11 @@ class PageType extends AbstractType
 
         $builder->add('parent', 'modal_entity', array(
             'label' => 'page.form.parent.label',
-            'entity_class' => 'LightCMS\PageBundle\Entity\Node',
+            'entity_class' => 'LightCMS\CoreBundle\Entity\Node',
             'entity_label' => array('name'),
-            'entity_repository' => 'LightCMSPageBundle:Node',
+            'entity_repository' => 'LightCMSCoreBundle:Node',
             'modal_uri' => $modalUrl
         ));
-
-//        $builder->add('parent', 'entity', array(
-//            'label' => 'page.form.parent.label',
-//            'class' => 'LightCMS\PageBundle\Entity\Node',
-//            'choice_label' => 'name',
-//            'attr' => array(
-//                'class' => 'form-control')
-//        ));
 
         // Adding the submit button
         $builder->add('submit', 'submit', array(

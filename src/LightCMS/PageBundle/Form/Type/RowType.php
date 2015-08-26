@@ -42,17 +42,6 @@ class RowType extends AbstractType
             'label' => false,
             'attr' => array('class' => 'rowposition')));
 
-        $builder->add('widgets', 'infinite_form_polycollection', array(
-            'attr' => array(
-                'data-bind' => 'ready[sortable(.sorthandle)]',
-                'data-positions' => '.widgetposition'
-            ),
-            'types' => array(
-                'widgetcontent',
-            ),
-            'allow_add' => true,
-            'allow_delete' => true
-        ));
 
     }
 

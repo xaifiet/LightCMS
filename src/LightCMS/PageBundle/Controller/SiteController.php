@@ -56,8 +56,14 @@ class SiteController extends Controller
             return $this->redirect($lcmsUrl->generateUrl('node', 'site', $action, array('id' => $entity->getId())));
         }
 
+        $entities = $this->getDoctrine()->getRepository('LightCMSCoreBundle:Node')->findBy(
+            array('parent' => null),
+            array('name' => 'ASC')
+        );
+
         return $this->render('LightCMSPageBundle:Site:edit.html.twig', array(
             'form' => $form->createView(),
+            'entities' => $entities,
             'entity' => $entity));
     }
 
