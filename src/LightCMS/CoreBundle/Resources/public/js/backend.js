@@ -178,3 +178,21 @@ saveWidget = function(event, elem, params) {
     var body = $(input).data('target');
     $(body).html($(input).code());
 };
+
+expandParentRecursive = function(elem) {
+
+    if ($(elem).treegrid('isNode')) {
+        if ($(elem).treegrid('getDepth') > 0) {
+            var parent = $(elem).treegrid('getParentNode');
+            $(parent).treegrid('expand');
+            expandParentRecursive(parent);
+        }
+    }
+}
+
+treegrid = function(event, elem, params) {
+    $(elem).treegrid({
+        initialState: 'collapsed'
+    });
+    expandParentRecursive($('.tree-activate', elem));
+}

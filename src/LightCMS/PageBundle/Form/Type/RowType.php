@@ -33,15 +33,17 @@ class RowType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add('_type', 'hidden', array(
-            'data'   => $this->getName(),
-            'mapped' => false
+        $builder->add('name', 'text', array(
+            'label' => 'row.form.name.label',
+            'attr' => array(
+                'class' => 'form-control')));
+
+        // Adding the submit button
+        $builder->add('submit', 'submit', array(
+            'attr' => array(
+                'class' => 'btn btn-success'
+            )
         ));
-
-        $builder->add('position', 'hidden', array(
-            'label' => false,
-            'attr' => array('class' => 'rowposition')));
-
 
     }
 

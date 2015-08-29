@@ -25,9 +25,9 @@
         "twitter/bootstrap": "^3.3",
         "summernote/summernote": "^0.6.9",
         "almasaeed2010/adminlte": "^2.2",
-        "vakata/jstree": "^3.1",
         "components/font-awesome": "^4.3",
-        "components/jqueryui": "^1.11"
+        "components/jqueryui": "^1.11",
+        "maxazan/jquery-treegrid": "^0.3.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

@@ -33,3 +33,11 @@ ul.treeview .treetoggle {
     text-align: center;
     width: 20px;
 }
+
+tr.tree-activate {
+    background-color: antiquewhite;
+}
+
+span.tree-space {
+    margin-left: 10px;
+}

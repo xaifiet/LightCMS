@@ -36,9 +36,9 @@ class CoreController extends Controller
             return $this->redirect($this->generateUrl('light_cms_backend_user_login'));
         }
 
-        $module = is_null($module) ? 'lcms' : $module;
-        $subModule = is_null($subModule) ? 'dashboard' : $subModule;
-        $action = is_null($action) ? 'view' : $action;
+        $module = is_null($module) ? 'node' : $module;
+        $subModule = is_null($subModule) ? 'node' : $subModule;
+        $action = is_null($action) ? 'list' : $action;
 
         $moduleService = $this->get('light_cms_core.service.module_service');
 

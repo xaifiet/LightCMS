@@ -90,6 +90,16 @@ class NodeController extends Controller
         ));
     }
 
+    /*
+     * Backend Part
+     */
+
+
+    public function listAction(Request $request, $params)
+    {
+        return $this->render('LightCMSCoreBundle:Node:list.html.twig');
+    }
+
 }
 
 ?>

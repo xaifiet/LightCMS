@@ -1,72 +1,42 @@
-{% extends 'LightCMSCoreBundle:Backend:layout.html.twig' %}
+{% extends 'LightCMSCoreBundle:Node:edit.html.twig' %}
 
-{% form_theme form 'LightCMSCoreBundle:Form:theme.html.twig' %}
+{% block submit %}
 
-{% block body %}
-    {{ form_start(form) }}
-
-    <section class="content-header">
-        <h1>
-            {% if entity.getCreated() %}
-                {{ entity.getName() }} <small>{{ entity.getId() }}</small>
-            {% else %}
-                Create Page
-            {% endif %}
-
-            <div class="pull-right">
-                <div class="btn-group" style="margin-right:20px">
-                    {{ form_row(form.submit) }}
-                </div>
-                {% if form.unpublish is defined %}
-                    <div class="btn-group" style="margin-right:20px">
-                        {{ form_row(form.unpublish) }}
-                    </div>
-                {% endif %}
-                {% if entity.getCreated() %}
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                            Show Version
-                            <span class="fa fa-caret-down"></span>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            {% for version in entity.getVersions() %}
-                                <li><a href="{{ lcmspath('node', 'version', 'edit', {'id': version.getId()}) }}">Version {{ version.number }}</a></li>
-                            {% endfor %}
-                            <li><a href="{{ lcmspath('node', 'version', 'createfrompage', {'id': entity.getId()}) }}">add Version</a></li>
-                        </ul>
-                    </div>
-                {% endif %}
-            </div>
-        </h1>
-    </section>
-
-    <section class="content">
-        <div class="col-md-3">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Tree</h3>
-                </div>
-                <div class="box-body no-padding">
-                    <ul class="treeview">
-                        {% include 'LightCMSCoreBundle:Node:tree.html.twig' with {'entities': entities} %}
-                    </ul>
-                </div>
-            </div>
+    <div class="btn-group" style="margin-right:20px">
+        {{ form_row(form.submit) }}
+    </div>
+    {% if form.unpublish is defined %}
+        <div class="btn-group" style="margin-right:20px">
+            {{ form_row(form.unpublish) }}
         </div>
-        <div class="col-xs-9">
-            <div class="box box-primary">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Page informations</h3>
-                </div>
-                <div class="box-body">
-                    {{ form_row(form.name) }}
-                    {{ form_row(form.url) }}
-                    {{ form_row(form.parent) }}
-                </div>
-            </div>
+    {% endif %}
+    {% if node.getCreated() %}
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                Show Version
+                <span class="fa fa-caret-down"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                {% for version in node.getVersions() %}
+                    <li><a href="{{ lcmspath('node', 'version', 'edit', {'id': version.getId()}) }}">Version {{ version.number }}</a></li>
+                {% endfor %}
+                <li><a href="{{ lcmspath('node', 'version', 'createfrompage', {'id': node.getId()}) }}">add Version</a></li>
+            </ul>
         </div>
-    </section>
+    {% endif %}
 
-    {{ form_end(form) }}
+{% endblock %}
+
+{% block form %}
+    <div class="box box-primary">
+        <div class="box-header with-border">
+            <h3 class="box-title">Page informations</h3>
+        </div>
+        <div class="box-body">
+            {{ form_row(form.name) }}
+            {{ form_row(form.url) }}
+            {{ form_row(form.parent) }}
+        </div>
+    </div>
 {% endblock %}
 

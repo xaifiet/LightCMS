@@ -1,0 +1,23 @@
+<div class="box box-primary">
+    <div class="box-header with-border">
+        <span class="fa fa-arrows sorthandle"></span>
+        <h3 class="box-title">{{ row.name }}</h3>
+        <div class="btn-group pull-right" data-keep="yes">
+            <button type="button" class="btn btn-xs btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <i class="glyphicon glyphicon-cog"></i>
+                <span class="fa fa-caret-down"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="{{ lcmspath('node', 'widgetcontent', 'create', {'row_id': row.id}) }}">Content Widget</a></li>
+                <li role="presentation" class="divider"></li>
+                <li><a href="{{ lcmspath('node', 'row', 'edit', {'id': row.id}) }}" >Edit Row</a></li>
+                <li><a href="{{ lcmspath('node', 'row', 'delete', {'id': row.id}) }}">Delete Row</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="box-body">
+        {% for widget in row.widgets %}
+            {% include 'LightCMSPageBundle:Widget:edit.html.twig' with {'widget': widget} %}
+        {% endfor %}
+    </div>
+</div>

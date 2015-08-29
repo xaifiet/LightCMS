@@ -25,6 +25,8 @@ class LightCMSExtension extends \Twig_Extension
             new \Twig_SimpleFunction('lcmspath', array($this, 'pathFunction')),
             new \Twig_SimpleFunction('lcmsjs', array($this, 'getJavascriptFunction')),
             new \Twig_SimpleFunction('lcmscss', array($this, 'getStylesheetFunction')),
+            new \Twig_SimpleFunction('getController', array($this, 'getController')),
+            new \Twig_SimpleFunction('getNodeTree', array($this, 'getNodeTree')),
         );
     }
 
@@ -62,6 +64,46 @@ class LightCMSExtension extends \Twig_Extension
 
         return $lcmsUrl->generateUrl($module, $subModule, $action, $params);
     }
+
+    public function getController($module, $subModule, $view)
+    {
+        $parameterService = $this->container->get('light_cms_core.service.parameters_service');
+
+        $parameters = $parameterService->getParameters('light_cms.inheritance');
+
+        if (isset($parameters[$module][$subModule]['controllers'][$view])) {
+            return $parameters[$module][$subModule]['controllers'][$view];
+        }
+
+        return null;
+    }
+
+    protected function getChildrenNodes(&$nodes, $parentId, $list, $entity)
+    {
+
+        foreach ($list as $item) {
+            $itemParentId = is_null($item->getParent()) ? null : $item->getParent()->getId();
+            if ($itemParentId === $parentId) {
+                $nodes[] = $item;
+                $this->getChildrenNodes($nodes, $item->getId(), $list, $entity);
+            }
+        }
+        return $nodes;
+    }
+
+
+    public function getNodeTree($entity = null) {
+
+        $entityManager = $this->container->get('doctrine.orm.entity_manager');
+
+        $list = $entityManager->getRepository('LightCMSCoreBundle:Node')->findBy(array(), array('name' => 'ASC'));
+
+        $nodes = array();
+        $this->getChildrenNodes($nodes, null, $list, $entity);
+
+        return $nodes;
+    }
+
 
     public function getName()
     {

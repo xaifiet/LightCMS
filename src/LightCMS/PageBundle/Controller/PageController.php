@@ -6,7 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
 use LightCMS\PageBundle\Entity\Page;
-use LightCMS\PageBundle\Entity\Version;
 
 class PageController extends Controller
 {
@@ -59,30 +58,47 @@ class PageController extends Controller
 
         if ($redirect) {
             $lcmsUrl = $this->get('light_cms_core.service.generate_url');
-            return $this->redirect($lcmsUrl->generateUrl('node', 'windgetcontent', 'edit', array(
+            return $this->redirect($lcmsUrl->generateUrl('node', 'page', 'edit', array(
                 'id' => $entity->getId()
             )));
         }
 
-        $entities = $this->getDoctrine()->getRepository('LightCMSCoreBundle:Node')->findBy(
-            array('parent' => null),
-            array('name' => 'ASC')
-        );
-
         return $this->render('LightCMSPageBundle:Page:edit.html.twig', array(
             'form' => $form->createView(),
-            'entities' => $entities,
-            'entity' => $entity
+            'node' => $entity
         ));
+    }
+
+    protected function getChildrenNodes(&$nodes, $parentId, $list, $entity_id)
+    {
+        foreach ($list as $item) {
+            if ($item->getId() == $entity_id) {
+                continue;
+            }
+            $itemParentId = is_null($item->getParent()) ? null : $item->getParent()->getId();
+            if ($itemParentId === $parentId) {
+                $nodes[] = $item;
+                $this->getChildrenNodes($nodes, $item->getId(), $list, $entity_id);
+            }
+        }
+        return $nodes;
     }
 
     public function parentEntityAction(Request $request, $params)
     {
-        $entities = $this->getDoctrine()->getRepository('LightCMSCoreBundle:Node')->findBy(array('parent' => null));
+        $list = $this->getDoctrine()->getRepository('LightCMSCoreBundle:Node')->findBy(
+            array(),
+            array('name' => 'ASC'));
+
+        $nodes = array();
+        $this->getChildrenNodes($nodes, null, $list, $params['id']);
+
+        $node = $this->getDoctrine()->getRepository('LightCMSCoreBundle:Node')->find($params['id']);
+        $parent = is_null($node) ? null : $node->getParent();
 
         return $this->render('LightCMSPageBundle:Page:parent_entity.html.twig', array(
-            'entities' => $entities,
-            'id' => $params['id']
+            'nodes' => $nodes,
+            'parent' => $parent
         ));
     }
 

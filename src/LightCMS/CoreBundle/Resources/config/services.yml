@@ -1,14 +1,6 @@
 parameters:
 
     light_cms.modules.core_bundle:
-        lcms:
-            menu:
-                Dashboard:
-                    icon: 'glyphicon glyphicon-dashboard'
-                    route: light_cms_backend
-                    params: []
-            backend:
-                dashboard: LightCMSCoreBundle:Dashboard
         node:
             menu:
                 Nodes:
@@ -17,7 +9,7 @@ parameters:
                     params:
                         module: node
                         subModule: node
-                        action: dashboard
+                        action: list
             backend:
                 node: LightCMSCoreBundle:Node
             frontend: LightCMSCoreBundle:Node:view

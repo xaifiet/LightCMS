@@ -1,29 +1,37 @@
 parameters:
 
     light_cms.inheritance.pagebundle:
-        page:
-            content:
+        node:
+            page:
+                type: page
                 name: Content Page
                 icon: 'fa fa-file-code-o'
-                entity: LightCMS\PageBundle\Entity\PageContent
+                entity: LightCMS\PageBundle\Entity\Page
+                repository: LightCMSPageBundle:Page
+                form: page
                 controllers:
-                    view: LightCMSPagebundle:PageContent:view
-                    create: LightCMSPagebundle:PageContent:create
-                    edit: LightCMSPagebundle:PageContent:edit
-                    delete: LightCMSPagebundle:PageContent:delete
+                    view: LightCMSPageBundle:Page:view
+                    create: LightCMSPageBundle:Page:create
+                    edit: LightCMSPageBundle:Page:edit
+                    delete: LightCMSPageBundle:Page:delete
                 templates:
-                    view: LigheCMSPageBundle:PageContent:view.html.twig
+                    view: LigheCMSPageBundle:Page:view.html.twig
+                    edit: LightCMSPageBundle:Page:edit.html.twig
             site:
+                type: site
                 name: Site
                 icon: 'fa fa-globe'
                 entity: LightCMS\PageBundle\Entity\Site
+                repository: LightCMSPageBundle:Site
+                form: site
                 controllers:
-                    view: LightCMSPagebundle:Site:view
-                    create: LightCMSPagebundle:Site:create
-                    edit: LightCMSPagebundle:Site:edit
-                    delete: LightCMSPagebundle:Site:delete
+                    view: LightCMSPageBundle:Site:view
+                    create: LightCMSPageBundle:Site:create
+                    edit: LightCMSPageBundle:Site:edit
+                    delete: LightCMSPageBundle:Site:delete
                 templates:
                     view: LigheCMSPageBundle:Site:view.html.twig
+                    edit: LigheCMSPageBundle:Site:edit.html.twig
         row:
             widget:
                 name: Widget Row
@@ -53,6 +61,7 @@ parameters:
                 page: LightCMSPageBundle:Page
                 site: LightCMSPageBundle:Site
                 version: LightCMSPageBundle:Version
+                row: LightCMSPageBundle:Row
                 widget: LightCMSPageBundle:Widget
                 widgetcontent: LightCMSPageBundle:WidgetContent
 
