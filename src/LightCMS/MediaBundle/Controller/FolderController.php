@@ -50,8 +50,7 @@ class FolderController extends Controller
 
         return $this->render('LightCMSMediaBundle:Folder:edit.html.twig', array(
             'form' => $form->createView(),
-            'entity' => $entity,
-            'action' => $action));
+            'media' => $entity));
     }
 
 }

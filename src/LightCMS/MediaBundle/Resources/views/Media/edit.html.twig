@@ -4,17 +4,17 @@
     {{ form_start(form) }}
 
     <section class="content-header">
-        <h1>{% if node.created != null %}{{ node.name }}{% else %}Create {{ node.getInheritanceType() }}{% endif %}
+        <h1>{% if media.created != null %}{{ media.name }}{% else %}Create {{ media.getInheritanceType() }}{% endif %}
             <div class="pull-right">
                 <div class="btn-group">
-                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false" style="margin-right: 20px">
-                        Add Node
+                    <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                        Add Media
                         <span class="fa fa-caret-down"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        {% for type,entity in getTypes('node') %}
+                        {% for type,entity in getTypes('media') %}
                             <li>
-                                <a href="{{ lcmspath('node', type, 'create', {}) }}">{{ entity.name }}</a>
+                                <a href="{{ lcmspath('media', type, 'create', {}) }}">{{ entity.name }}</a>
                             </li>
                         {% endfor %}
                     </ul>
@@ -34,11 +34,11 @@
                         </tr>
                         </thead>
                         <tbody>
-                        {% for treenode in getModuleTree('node') %}
-                            <tr class="treegrid-{{ treenode.id }}{% if treenode.parent != null %} treegrid-parent-{{ treenode.parent.id }}{% endif %}{% if node is defined and treenode == node %} tree-activate{% endif %}" style="display: none">
+                        {% for treemedia in getModuleTree('media') %}
+                            <tr class="treegrid-{{ treemedia.id }}{% if treemedia.parent != null %} treegrid-parent-{{ treemedia.parent.id }}{% endif %}{% if media is defined and treemedia == media %} tree-activate{% endif %}" style="display: none">
                                 <td>
-                                    <i class="{{ getIcon('node', treenode.getInheritanceType()) }}"></i>
-                                    <span class="tree-space"><a href="{{ lcmspath('node', treenode.getInheritanceType(), 'edit', {'id': treenode.id}) }}">{{ treenode.name }}</a></span>
+                                    <i class="{{ getIcon('media', treemedia.getInheritanceType()) }}"></i>
+                                    <span class="tree-space"><a href="{{ lcmspath('media', treemedia.getInheritanceType(), 'edit', {'id': treemedia.id}) }}">{{ treemedia.name }}</a></span>
                                 </td>
                             </tr>
                         {% endfor %}

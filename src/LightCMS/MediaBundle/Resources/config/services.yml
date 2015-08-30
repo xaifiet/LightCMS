@@ -2,11 +2,43 @@ parameters:
 
     light_cms.inheritance.mediabundle:
         media:
-            - folder
-            - image
+            folder:
+                type: folder
+                name: Folder
+                icon: 'fa fa-folder'
+                entity: LightCMS\MediaBundle\Entity\Folder
+                repository: LightCMSMediaBundle:Folder
+                form: folder
+                controllers:
+                    view: LightCMSMediaBundle:Folder:view
+                    create: LightCMSMediaBundle:Folder:create
+                    edit: LightCMSMediaBundle:Folder:edit
+                    delete: LightCMSMediaBundle:Folder:delete
+                templates:
+                    view: LightCMSMediaBundle:Folder:view.html.twig
+                    edit: LightCMSMediaBundle:Folder:edit.html.twig
+            image:
+                type: image
+                name: Image
+                icon: 'fa fa-picture-o'
+                entity: LightCMS\MediaBundle\Entity\Image
+                repository: LightCMSMediaBundle:Image
+                form: site
+                controllers:
+                    view: LightCMSMediaBundle:Image:view
+                    create: LightCMSMediaBundle:Image:create
+                    edit: LightCMSMediaBundle:Image:edit
+                    delete: LightCMSMediaBundle:Image:delete
+                templates:
+                    view: LightCMSMediaBundle:Image:view.html.twig
+                    edit: LightCMSMediaBundle:Image:edit.html.twig
 
     light_cms.modules.mediabundle:
         media:
+            repository: LightCMSMediaBundle:Media
+            orderby:
+                name: ASC
+            parent: parent
             menu:
                 Medias:
                     icon: 'fa fa-picture-o'
@@ -36,3 +68,10 @@ services:
             - @service_container
         tags:
             - { name: form.type, alias: image }
+
+    light_cms_media.twig.lcms_media_extension:
+        class: LightCMS\MediaBundle\Twig\LightCMSMediaExtension
+        arguments:
+            - @service_container
+        tags:
+            - { name: twig.extension }

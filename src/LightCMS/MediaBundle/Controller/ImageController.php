@@ -50,8 +50,7 @@ class ImageController extends Controller
 
         return $this->render('LightCMSMediaBundle:Image:edit.html.twig', array(
             'form' => $form->createView(),
-            'entity' => $entity,
-            'action' => $action));
+            'media' => $entity));
     }
 
 }

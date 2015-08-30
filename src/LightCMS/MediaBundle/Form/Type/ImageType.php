@@ -54,7 +54,10 @@ class ImageType extends AbstractType
                 'class' => 'form-control')));
 
         $builder->add('description', 'textarea', array(
-            'label' => 'image.form.description.label'));
+            'label' => 'image.form.description.label',
+            'required' => false,
+            'attr' => array(
+                'data-bind' => 'ready[summernoteInit()]')));
 
         $lcmsUrl = $this->container->get('light_cms_core.service.generate_url');
         $modalUrl = $lcmsUrl->generateUrl('media', 'media', 'parent', array('id' => $options['data']->getId()));

@@ -10,8 +10,11 @@
                         <span class="fa fa-caret-down"></span>
                     </button>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="{{ lcmspath('node', 'site', 'create', {}) }}">Site</a></li>
-                        <li><a href="{{ lcmspath('node', 'page', 'create', {}) }}">Image</a></li>
+                        {% for type,entity in getTypes('node') %}
+                            <li>
+                                <a href="{{ lcmspath('node', type, 'create', {}) }}">{{ entity.name }}</a>
+                            </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -30,9 +33,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            {% for treenode in getNodeTree() %}
+                            {% for treenode in getModuleTree('node') %}
                                 <tr class="treegrid-{{ treenode.id }}{% if treenode.parent != null %} treegrid-parent-{{ treenode.parent.id }}{% endif %}" style="display: none">
                                     <td>
+                                        <i class="{{ getIcon('node', treenode.getInheritanceType()) }}"></i>
                                         <span class="tree-space"><a href="{{ lcmspath('node', treenode.getInheritanceType(), 'edit', {'id': treenode.id}) }}">{{ treenode.name }}</a></span>
                                     </td>
                                     <td style="width: 100px">{{ treenode.created|date('Y-m-d') }}</td>

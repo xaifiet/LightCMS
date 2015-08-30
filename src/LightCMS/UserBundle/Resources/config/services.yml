@@ -1,7 +1,29 @@
 parameters:
 
+    light_cms.inheritance.mediabundle:
+        user:
+            user:
+                type: user
+                name: User
+                icon: 'fa fa-user'
+                entity: LightCMS\UserBundle\Entity\User
+                repository: LightCMSUserBundle:User
+                form: user
+        group:
+            group:
+                type: group
+                name: Group
+                icon: 'fa fa-users'
+                entity: LightCMS\UserBundle\Entity\Group
+                repository: LightCMSUserBundle:Group
+                form: group
+
     light_cms.modules.userbundle:
         user:
+            repository: LightCMSUserBundle:User
+            orderby:
+                lastname: ASC
+                firstname: ASC
             menu:
                 Users:
                     icon: 'fa fa-user'
@@ -9,11 +31,14 @@ parameters:
                     params:
                         module: user
                         subModule: user
-                        action: dashboard
+                        action: list
             backend:
                 user: LightCMSUserBundle:User
 
         group:
+            repository: LightCMSUserBundle:Group
+            orderby:
+                name: ASC
             menu:
                 Groups:
                     icon: 'fa fa-users'
@@ -21,7 +46,7 @@ parameters:
                     params:
                         module: group
                         subModule: group
-                        action: dashboard
+                        action: list
             backend:
                 group: LightCMSUserBundle:Group
 

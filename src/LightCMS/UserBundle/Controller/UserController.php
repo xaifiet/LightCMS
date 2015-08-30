@@ -10,14 +10,14 @@ use LightCMS\UserBundle\Entity\User;
 class UserController extends Controller
 {
 
-    public function dashboardAction(Request $request, $params)
+    public function listAction(Request $request, $params)
     {
         $users = $this->getDoctrine()->getRepository('LightCMSUserBundle:User')->findBy(array(), array(
             'lastname' => 'ASC',
             'firstname' => 'ASC'
         ));
 
-        return $this->render('LightCMSUserBundle:User:dashboard.html.twig', array('users' => $users));
+        return $this->render('LightCMSUserBundle:User:list.html.twig', array('users' => $users));
     }
 
     public function createAction(Request $request, $params)
@@ -60,8 +60,7 @@ class UserController extends Controller
 
         return $this->render('LightCMSUserBundle:User:edit.html.twig', array(
             'form' => $form->createView(),
-            'entity' => $entity,
-            'action' => $action));
+            'user' => $entity));
     }
 
 }

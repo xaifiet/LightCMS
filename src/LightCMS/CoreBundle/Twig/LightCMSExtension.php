@@ -26,7 +26,9 @@ class LightCMSExtension extends \Twig_Extension
             new \Twig_SimpleFunction('lcmsjs', array($this, 'getJavascriptFunction')),
             new \Twig_SimpleFunction('lcmscss', array($this, 'getStylesheetFunction')),
             new \Twig_SimpleFunction('getController', array($this, 'getController')),
-            new \Twig_SimpleFunction('getNodeTree', array($this, 'getNodeTree')),
+            new \Twig_SimpleFunction('getModuleTree', array($this, 'getModuleTree')),
+            new \Twig_SimpleFunction('getIcon', array($this, 'getIcon')),
+            new \Twig_SimpleFunction('getTypes', array($this, 'getTypes')),
         );
     }
 
@@ -91,19 +93,53 @@ class LightCMSExtension extends \Twig_Extension
         return $nodes;
     }
 
+    public function getModuleTree($module, $entity = null) {
 
-    public function getNodeTree($entity = null) {
+        $parameterService = $this->container->get('light_cms_core.service.parameters_service');
+
+        $modules = $parameterService->getParameters('light_cms.modules');
+        if (!isset($modules[$module]['repository'])) {
+            return array();
+        }
+        $orderby = isset($modules[$module]['orderby']) ? $modules[$module]['orderby'] : array();
 
         $entityManager = $this->container->get('doctrine.orm.entity_manager');
 
-        $list = $entityManager->getRepository('LightCMSCoreBundle:Node')->findBy(array(), array('name' => 'ASC'));
+        $list = $entityManager->getRepository($modules[$module]['repository'])->findBy(array(), $orderby);
 
         $nodes = array();
-        $this->getChildrenNodes($nodes, null, $list, $entity);
+        if (isset($modules[$module]['parent'])) {
+            $this->getChildrenNodes($nodes, null, $list, $entity);
+        } else {
+            $nodes = $list;
+        }
 
         return $nodes;
     }
 
+    public function getIcon($module, $entity)
+    {
+        $parameterService = $this->container->get('light_cms_core.service.parameters_service');
+
+        $modules = $parameterService->getParameters('light_cms.inheritance');
+        if (isset($modules[$module][$entity]['icon'])) {
+            return $modules[$module][$entity]['icon'];
+        }
+        return null;
+    }
+
+    public function getTypes($module)
+    {
+        $parameterService = $this->container->get('light_cms_core.service.parameters_service');
+
+        $modules = $parameterService->getParameters('light_cms.inheritance');
+
+        if (isset($modules[$module])) {
+            return $modules[$module];
+        }
+        return array();
+
+    }
 
     public function getName()
     {

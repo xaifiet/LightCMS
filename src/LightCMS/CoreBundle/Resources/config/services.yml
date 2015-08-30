@@ -2,6 +2,10 @@ parameters:
 
     light_cms.modules.core_bundle:
         node:
+            repository: LightCMSCoreBundle:Node
+            orderby:
+                name: ASC
+            parent: parent
             menu:
                 Nodes:
                     icon: 'fa fa-sitemap'

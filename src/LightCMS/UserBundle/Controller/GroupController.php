@@ -10,13 +10,13 @@ use LightCMS\UserBundle\Entity\Group;
 class GroupController extends Controller
 {
 
-    public function dashboardAction(Request $request, $params)
+    public function listAction(Request $request, $params)
     {
         $groups = $this->getDoctrine()->getRepository('LightCMSUserBundle:Group')->findBy(array(), array(
             'name' => 'ASC'
         ));
 
-        return $this->render('LightCMSUserBundle:Group:dashboard.html.twig', array('groups' => $groups));
+        return $this->render('LightCMSUserBundle:Group:list.html.twig', array('groups' => $groups));
     }
 
     public function createAction(Request $request, $params)
@@ -59,8 +59,7 @@ class GroupController extends Controller
 
         return $this->render('LightCMSUserBundle:Group:edit.html.twig', array(
             'form' => $form->createView(),
-            'entity' => $entity,
-            'action' => $action));
+            'group' => $entity));
     }
 
 }
