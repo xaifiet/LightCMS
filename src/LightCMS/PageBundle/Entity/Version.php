@@ -15,9 +15,8 @@ class Version
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="string", length=32)
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="integer", unique=true)
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -44,7 +43,6 @@ class Version
      */
     public function __construct()
     {
-        $this->id = md5(uniqid(null, true));
         $this->rows = new ArrayCollection();
     }
 
@@ -54,6 +52,7 @@ class Version
     public function __clone() {
         $this->id = md5(uniqid(null, true));
     }
+
 
     /**
      * Get id
@@ -86,29 +85,6 @@ class Version
     public function getNumber()
     {
         return $this->number;
-    }
-
-    /**
-     * Set published
-     *
-     * @param boolean $published
-     * @return Version
-     */
-    public function setPublished($published)
-    {
-        $this->published = $published;
-
-        return $this;
-    }
-
-    /**
-     * Get published
-     *
-     * @return boolean 
-     */
-    public function getPublished()
-    {
-        return $this->published;
     }
 
     /**
@@ -165,18 +141,5 @@ class Version
     public function getRows()
     {
         return $this->rows;
-    }
-
-    /**
-     * Set id
-     *
-     * @param string $id
-     * @return Version
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 }

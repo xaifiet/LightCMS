@@ -51,12 +51,11 @@ class InitCommand extends ContainerAwareCommand
         $em->flush();*/
 
 
-            /*
         $output->writeln('Creating administrator user');
         $admin = new User();
-        $encoder = $this->getContainer()->get('security.encoder_factory')->getEncoder($admin);
-        $admin->setPassword($encoder->encodePassword('admin', $admin->getSalt()));
-            $admin->setEmail('admin@localhost.com');
+//        $encoder = $this->getContainer()->get('security.encoder_factory')->getEncoder($admin);
+//        $admin->setPassword($encoder->encodePassword('admin', $admin->getSalt()));
+        $admin->setEmail('admin@lcms.com');
         $admin->setFirstname('admin');
         $admin->setLastname('USER');
         $admin->setPlainPassword('admin');
@@ -65,7 +64,6 @@ class InitCommand extends ContainerAwareCommand
         $admin->setIsActive(true);
         $em->persist($admin);
         $em->flush();
-            */
 
         /*
                 $output->writeln('Creating Login Site');

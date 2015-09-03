@@ -15,9 +15,8 @@ class Row
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="string", length=32)
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="integer", unique=true)
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -50,28 +49,14 @@ class Row
      * @access public
      */
     public function __construct() {
-        $this->id = md5(uniqid(null, true));
         $this->widgets = new ArrayCollection();
     }
 
 
     /**
-     * Set id
-     *
-     * @param string $id
-     * @return Row
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get id
      *
-     * @return string 
+     * @return integer 
      */
     public function getId()
     {
@@ -94,7 +79,7 @@ class Row
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {

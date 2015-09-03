@@ -17,9 +17,8 @@ abstract class Node
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="string", length=32)
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="integer", unique=true)
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -55,7 +54,6 @@ abstract class Node
      * @access public
      */
     public function __construct() {
-        $this->id = md5(uniqid(null, true));
         $this->children = new ArrayCollection();
     }
 
@@ -70,23 +68,11 @@ abstract class Node
         }
     }
 
-    /**
-     * Set id
-     *
-     * @param string $id
-     * @return Node
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     /**
      * Get id
      *
-     * @return string 
+     * @return integer 
      */
     public function getId()
     {
@@ -178,7 +164,7 @@ abstract class Node
     /**
      * Get parent
      *
-     * @return \LightCMS\CoreBundle\Entity\Node
+     * @return \LightCMS\CoreBundle\Entity\Node 
      */
     public function getParent()
     {

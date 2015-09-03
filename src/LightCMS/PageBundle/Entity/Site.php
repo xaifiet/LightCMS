@@ -25,12 +25,6 @@ class Site extends \LightCMS\CoreBundle\Entity\Node
     private $priority;
 
     /**
-     * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
-     */
-    private $theme;
-
-    /**
      * @ORM\OneToOne(targetEntity="Page", cascade={"all"})
      * @ORM\JoinColumn(nullable=true)
      **/
@@ -40,6 +34,7 @@ class Site extends \LightCMS\CoreBundle\Entity\Node
     {
         return 'site';
     }
+
 
     /**
      * Set host
@@ -85,29 +80,6 @@ class Site extends \LightCMS\CoreBundle\Entity\Node
     public function getPriority()
     {
         return $this->priority;
-    }
-
-    /**
-     * Set theme
-     *
-     * @param string $theme
-     * @return Site
-     */
-    public function setTheme($theme)
-    {
-        $this->theme = $theme;
-
-        return $this;
-    }
-
-    /**
-     * Get theme
-     *
-     * @return string 
-     */
-    public function getTheme()
-    {
-        return $this->theme;
     }
 
     /**

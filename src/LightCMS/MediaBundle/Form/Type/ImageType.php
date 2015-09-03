@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\DependencyInjection\Container;
-
+use Symfony\Component\Validator\Constraints\File;
 
 class ImageType extends AbstractType
 {
@@ -43,15 +43,10 @@ class ImageType extends AbstractType
             'attr' => array(
                 'class' => 'form-control')));
 
-        $builder->add('file', 'text', array(
+        $builder->add('original', 'file_image', array(
             'label' => 'image.form.file.label',
-            'attr' => array(
-                'class' => 'form-control')));
-
-        $builder->add('filename', 'text', array(
-            'label' => 'image.form.filename.label',
-            'attr' => array(
-                'class' => 'form-control')));
+            'required' => true
+        ));
 
         $builder->add('description', 'textarea', array(
             'label' => 'image.form.description.label',

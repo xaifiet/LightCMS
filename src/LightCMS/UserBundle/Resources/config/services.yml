@@ -1,6 +1,6 @@
 parameters:
 
-    light_cms.inheritance.mediabundle:
+    light_cms.inheritance.userbundle:
         user:
             user:
                 type: user

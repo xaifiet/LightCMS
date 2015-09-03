@@ -56,12 +56,7 @@ class SiteType extends AbstractType
                 'class' => 'form-control'),
             'scale' => 0));
 
-        $builder->add('theme', 'text', array(
-            'label' => 'site.form.theme.label',
-            'attr' => array(
-                'class' => 'form-control')));
-
-        if (isset($options['data']) and !is_null($options['data']->getCreated())) {
+        if (isset($options['data']) and !is_null($options['data']->getId())) {
 
             $lcmsUrl = $this->container->get('light_cms_core.service.generate_url');
             $modalUrl = $lcmsUrl->generateUrl('node', 'site', 'homeEntity', array('id' => $options['data']->getId()));

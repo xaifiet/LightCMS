@@ -25,6 +25,7 @@ class WidgetContent extends Widget
         $this->content = '';
     }
 
+
     /**
      * Set content
      *
@@ -47,5 +48,4 @@ class WidgetContent extends Widget
     {
         return $this->content;
     }
-
 }

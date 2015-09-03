@@ -22,13 +22,7 @@ class MediaType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $groupNode = $builder->add('node_group', 'fieldgroup', array(
-            'mapped' => false,
-            'label' => 'Node Informations',
-            'inherit_data' => true
-        ))->get('node_group');
-
-        $groupNode->add('parent', 'entity', array(
+        $builder->add('parent', 'entity', array(
             'label' => 'page.form.parent.label',
             'class' => 'LightCMS\CoreBundle\Entity\Node',
             'choice_label' => 'name',
@@ -36,14 +30,8 @@ class MediaType extends AbstractType
                 'class' => 'form-control')
         ));
 
-        $groupSubmit = $builder->add('submit_group', 'fieldgroup', array(
-            'mapped' => false,
-            'label' => 'Actions',
-            'inherit_data' => true
-        ))->get('submit_group');
-
         // Adding the submit button
-        $groupSubmit->add('submit', 'submit');
+        $builder->add('submit', 'submit');
     }
 
     public function finishView(FormView $view, FormInterface $form, array $options)

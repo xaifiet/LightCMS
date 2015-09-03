@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="lcms_media_folder")
+ * @ORM\Table(name="lcms_media_folders")
  */
 class Folder extends Media
 {

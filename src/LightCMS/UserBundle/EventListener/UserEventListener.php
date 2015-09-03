@@ -7,7 +7,7 @@ use Doctrine\ORM\Event\LifecycleEventArgs;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-use LightCMS\USerBundle\Entity\User;
+use LightCMS\UserBundle\Entity\User;
 
 class UserEventListener
 {

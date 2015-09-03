@@ -42,6 +42,9 @@ class ImageController extends Controller
 
             if ($form->get('submit')->isClicked()) {
                 $em = $this->getDoctrine()->getManager();
+
+                $file = $this->getUploadFile($form);
+
                 $em->persist($entity);
                 $em->flush();
             }
@@ -52,6 +55,13 @@ class ImageController extends Controller
             'form' => $form->createView(),
             'media' => $entity));
     }
+
+    protected function getUploadFile($form)
+    {
+
+
+    }
+
 
 }
 

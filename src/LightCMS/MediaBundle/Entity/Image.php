@@ -8,7 +8,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="lcms_media_image")
+ * @ORM\Table(name="lcms_media_images")
  */
 class Image extends Media
 {
@@ -17,19 +17,18 @@ class Image extends Media
      * @ORM\Column(type="string", length=100)
      * @Assert\NotBlank()
      */
-    private $file;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
-     */
-    private $filename;
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
-     */
     private $title;
+
+    /**
+     * @ORM\OneToOne(targetEntity="\LightCMS\CoreBundle\Entity\FileImage", cascade={"all"})
+     **/
+    private $original;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="\LightCMS\CoreBundle\Entity\FileImage", cascade={"all"})
+     * @ORM\JoinTable(name="lcms_media_images_scales")
+     **/
+    private $scales;
 
     /**
      * @ORM\Column(type="text")
@@ -42,50 +41,13 @@ class Image extends Media
     }
 
     /**
-     * Set file
-     *
-     * @param string $file
-     * @return Image
+     * Constructor
      */
-    public function setFile($file)
+    public function __construct()
     {
-        $this->file = $file;
-
-        return $this;
+        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
     }
-
-    /**
-     * Get file
-     *
-     * @return string 
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * Set filename
-     *
-     * @param string $filename
-     * @return Image
-     */
-    public function setFilename($filename)
-    {
-        $this->filename = $filename;
-
-        return $this;
-    }
-
-    /**
-     * Get filename
-     *
-     * @return string 
-     */
-    public function getFilename()
-    {
-        return $this->filename;
-    }
+    
 
     /**
      * Set title
@@ -131,5 +93,61 @@ class Image extends Media
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set original
+     *
+     * @param \LightCMS\CoreBundle\Entity\FileImage $original
+     * @return Image
+     */
+    public function setOriginal(\LightCMS\CoreBundle\Entity\FileImage $original = null)
+    {
+        $this->original = $original;
+
+        return $this;
+    }
+
+    /**
+     * Get original
+     *
+     * @return \LightCMS\CoreBundle\Entity\FileImage 
+     */
+    public function getOriginal()
+    {
+        return $this->original;
+    }
+
+    /**
+     * Add scales
+     *
+     * @param \LightCMS\CoreBundle\Entity\FileImage $scales
+     * @return Image
+     */
+    public function addScale(\LightCMS\CoreBundle\Entity\FileImage $scales)
+    {
+        $this->scales[] = $scales;
+
+        return $this;
+    }
+
+    /**
+     * Remove scales
+     *
+     * @param \LightCMS\CoreBundle\Entity\FileImage $scales
+     */
+    public function removeScale(\LightCMS\CoreBundle\Entity\FileImage $scales)
+    {
+        $this->scales->removeElement($scales);
+    }
+
+    /**
+     * Get scales
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getScales()
+    {
+        return $this->scales;
     }
 }

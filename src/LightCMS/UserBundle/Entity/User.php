@@ -94,6 +94,29 @@ class User implements UserInterface
         $this->updated = new \DateTime();
     }
 
+    /**
+     * Set plainPassword
+     *
+     * @param string $plainPassword
+     * @return User
+     */
+    public function setPlainPassword($plainPassword)
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get plainPassword
+     *
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->plainPassword;
+    }
+
     protected function generatePassword()
     {
         $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
@@ -128,10 +151,11 @@ class User implements UserInterface
         $this->plainPassword = null;
     }
 
+
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -154,7 +178,7 @@ class User implements UserInterface
     /**
      * Get email
      *
-     * @return string
+     * @return string 
      */
     public function getEmail()
     {
@@ -177,7 +201,7 @@ class User implements UserInterface
     /**
      * Get salt
      *
-     * @return string
+     * @return string 
      */
     public function getSalt()
     {
@@ -200,7 +224,7 @@ class User implements UserInterface
     /**
      * Get firstname
      *
-     * @return string
+     * @return string 
      */
     public function getFirstname()
     {
@@ -223,7 +247,7 @@ class User implements UserInterface
     /**
      * Get lastname
      *
-     * @return string
+     * @return string 
      */
     public function getLastname()
     {
@@ -246,34 +270,11 @@ class User implements UserInterface
     /**
      * Get password
      *
-     * @return string
+     * @return string 
      */
     public function getPassword()
     {
         return $this->password;
-    }
-
-    /**
-     * Set plainPassword
-     *
-     * @param string $password
-     * @return User
-     */
-    public function setPlainPassword($plainPassword)
-    {
-        $this->plainPassword = $plainPassword;
-
-        return $this;
-    }
-
-    /**
-     * Get plainPassword
-     *
-     * @return string
-     */
-    public function getPlainPassword()
-    {
-        return $this->plainPassword;
     }
 
     /**
@@ -292,7 +293,7 @@ class User implements UserInterface
     /**
      * Get isPasswordExpired
      *
-     * @return boolean
+     * @return boolean 
      */
     public function getIsPasswordExpired()
     {
@@ -315,7 +316,7 @@ class User implements UserInterface
     /**
      * Get role
      *
-     * @return string
+     * @return string 
      */
     public function getRole()
     {
@@ -338,7 +339,7 @@ class User implements UserInterface
     /**
      * Get isActive
      *
-     * @return boolean
+     * @return boolean 
      */
     public function getIsActive()
     {
@@ -361,7 +362,7 @@ class User implements UserInterface
     /**
      * Get created
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreated()
     {
@@ -384,7 +385,7 @@ class User implements UserInterface
     /**
      * Get updated
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getUpdated()
     {
@@ -417,7 +418,7 @@ class User implements UserInterface
     /**
      * Get groups
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getGroups()
     {

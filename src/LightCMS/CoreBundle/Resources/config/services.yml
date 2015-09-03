@@ -35,6 +35,25 @@ parameters:
 
 services:
 
+    light_cms_core.event_listener.file_event_listener:
+        class: LightCMS\CoreBundle\EventListener\FileEventListener
+        arguments:
+            - @service_container
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+            - { name: doctrine.event_listener, event: postPersist }
+            - { name: doctrine.event_listener, event: postUpdate }
+            - { name: doctrine.event_listener, event: postRemove }
+
+    light_cms_core.event_listener.file_image_event_listener:
+        class: LightCMS\CoreBundle\EventListener\FileImageEventListener
+        arguments:
+            - @service_container
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+
     light_cms_core.service.parameters_service:
         class: LightCMS\CoreBundle\Service\ParametersService
         arguments:
@@ -68,6 +87,20 @@ services:
             - @doctrine
         tags:
             - { name: form.type, alias: modal_entity }
+
+    light_cms_page.form_type.file_upload_type:
+        class: LightCMS\CoreBundle\Form\Type\FileType
+        arguments:
+            - @doctrine
+        tags:
+            - { name: form.type, alias: file_upload }
+
+    light_cms_page.form_type.file_image_type:
+        class: LightCMS\CoreBundle\Form\Type\FileImageType
+        arguments:
+            - @doctrine
+        tags:
+            - { name: form.type, alias: file_image }
 
     light_cms_page.form_type.node_type:
         class: LightCMS\CoreBundle\Form\Type\NodeType

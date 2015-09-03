@@ -17,9 +17,8 @@ abstract class Media
 {
     /**
      * @ORM\Id
-     * @ORM\Column(type="string", length=32)
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="integer", unique=true)
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -55,7 +54,6 @@ abstract class Media
      * @access public
      */
     public function __construct() {
-        $this->id = md5(uniqid(null, true));
         $this->children = new ArrayCollection();
     }
 
@@ -69,25 +67,12 @@ abstract class Media
             $this->created = $this->updated;
         }
     }
-    
 
-    /**
-     * Set id
-     *
-     * @param string $id
-     * @return Media
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     /**
      * Get id
      *
-     * @return string 
+     * @return integer 
      */
     public function getId()
     {

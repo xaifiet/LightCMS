@@ -44,6 +44,7 @@ class Page extends \LightCMS\CoreBundle\Entity\Node
         return 'page';
     }
 
+
     /**
      * Set url
      *

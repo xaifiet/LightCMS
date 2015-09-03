@@ -18,9 +18,8 @@ class Widget
 
     /**
      * @ORM\Id
-     * @ORM\Column(type="string", length=32)
-     * @ORM\GeneratedValue(strategy="NONE")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="integer", unique=true)
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
@@ -41,28 +40,14 @@ class Widget
 
     public function __construct()
     {
-        $this->id = md5(uniqid(null, true));
         $this->size = 4;
     }
 
 
     /**
-     * Set id
-     *
-     * @param string $id
-     * @return Widget
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
      * Get id
      *
-     * @return string 
+     * @return integer 
      */
     public function getId()
     {
