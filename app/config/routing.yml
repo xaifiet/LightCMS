@@ -1,3 +1,7 @@
+light_cms_site:
+    resource: "@LightCMSSiteBundle/Resources/config/routing.yml"
+    prefix:   /
+
 light_cms_user:
     resource: "@LightCMSUserBundle/Resources/config/routing.yml"
     prefix:   /

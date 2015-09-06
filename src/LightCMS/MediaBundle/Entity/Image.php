@@ -4,7 +4,6 @@ namespace LightCMS\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -45,6 +44,7 @@ class Image extends Media
      */
     public function __construct()
     {
+        parent::__construct();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
     }
     

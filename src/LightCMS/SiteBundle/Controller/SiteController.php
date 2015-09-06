@@ -1,11 +1,11 @@
 <?php
 
-namespace LightCMS\PageBundle\Controller;
+namespace LightCMS\SiteBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
-use LightCMS\PageBundle\Entity\Site;
+use LightCMS\SiteBundle\Entity\Site;
 
 class SiteController extends Controller
 {
@@ -20,7 +20,7 @@ class SiteController extends Controller
 
     public function editAction(Request $request, $params)
     {
-        $entity = $this->getDoctrine()->getRepository('LightCMSPageBundle:Site')->find($params['id']);
+        $entity = $this->getDoctrine()->getRepository('LightCMSSiteBundle:Site')->find($params['id']);
 
         return $this->formAction($request, $entity, 'edit');
     }
@@ -54,16 +54,16 @@ class SiteController extends Controller
             return $this->redirect($lcmsUrl->generateUrl('node', 'site', 'edit', array('id' => $entity->getId())));
         }
 
-        return $this->render('LightCMSPageBundle:Site:edit.html.twig', array(
+        return $this->render('LightCMSSiteBundle:Site:edit.html.twig', array(
             'form' => $form->createView(),
             'node' => $entity));
     }
 
     public function homeEntityAction(Request $request, $params)
     {
-        $entity = $this->getDoctrine()->getRepository('LightCMSPageBundle:Site')->find($params['id']);
+        $entity = $this->getDoctrine()->getRepository('LightCMSSiteBundle:Site')->find($params['id']);
 
-        return $this->render('LightCMSPageBundle:Site:home_entity.html.twig', array(
+        return $this->render('LightCMSSiteBundle:Site:home_entity.html.twig', array(
             'entity' => $entity));
     }
 

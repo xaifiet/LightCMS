@@ -68,10 +68,3 @@ services:
             - @service_container
         tags:
             - { name: form.type, alias: image }
-
-    light_cms_media.twig.lcms_media_extension:
-        class: LightCMS\MediaBundle\Twig\LightCMSMediaExtension
-        arguments:
-            - @service_container
-        tags:
-            - { name: twig.extension }

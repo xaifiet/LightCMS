@@ -5,12 +5,8 @@ namespace LightCMS\PageBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 
 use Doctrine\ORM\EntityManager;
-
-use LightCMS\PageBundle\Form\DataTransformer\WidgetsToScalarClassTransformer;
 
 /**
  * Class PageType

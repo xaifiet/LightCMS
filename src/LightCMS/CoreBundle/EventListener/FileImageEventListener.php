@@ -2,7 +2,6 @@
 
 namespace LightCMS\CoreBundle\EventListener;
 
-use Doctrine\ORM\Event\PreUpdateEventArgs;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -32,12 +31,12 @@ class FileImageEventListener
     protected function updateFile(FileImage $file)
     {
         if (null !== $file->file) {
-            list($width, $height, $type, $attr) = getimagesize($file->file->getRealPath());
+            $size = getimagesize($file->file->getRealPath());
 
-            $file->setHeight($height);
-            $file->setWidth($width);
+            $file->setHeight($size[1]);
+            $file->setWidth($size[0]);
             if (empty($file->getSize())) {
-                $file->setSize($width . 'x' . $height);
+                $file->setSize($size[0] . 'x' . $size[1]);
             }
         }
     }

@@ -81,7 +81,6 @@ class PageController extends Controller
                 $this->getChildrenNodes($nodes, $item->getId(), $list, $entity_id);
             }
         }
-        return $nodes;
     }
 
     public function parentEntityAction(Request $request, $params)

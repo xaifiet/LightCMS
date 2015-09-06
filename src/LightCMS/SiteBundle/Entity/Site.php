@@ -1,10 +1,9 @@
 <?php
 
-namespace LightCMS\PageBundle\Entity;
+namespace LightCMS\SiteBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
@@ -25,7 +24,7 @@ class Site extends \LightCMS\CoreBundle\Entity\Node
     private $priority;
 
     /**
-     * @ORM\OneToOne(targetEntity="Page", cascade={"all"})
+     * @ORM\OneToOne(targetEntity="\LightCMS\PageBundle\Entity\Page", cascade={"all"})
      * @ORM\JoinColumn(nullable=true)
      **/
     private $home;

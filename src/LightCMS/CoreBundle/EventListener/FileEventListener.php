@@ -48,7 +48,7 @@ class FileEventListener
 
     protected function removeFile(File $file)
     {
-        rrmdir($this->getFileDirectory($file));
+        $this->rrmdir($this->getFileDirectory($file));
     }
 
     protected function rrmdir($dir)
@@ -57,7 +57,11 @@ class FileEventListener
             $objects = scandir($dir);
             foreach ($objects as $object) {
                 if ($object != "." && $object != "..") {
-                    if (filetype($dir."/".$object) == "dir") rrmdir($dir."/".$object); else unlink($dir."/".$object);
+                    if (filetype($dir."/".$object) == "dir") {
+                        $this->rrmdir($dir . "/" . $object);
+                    } else {
+                        unlink($dir."/".$object);
+                    }
                 }
             }
             reset($objects);

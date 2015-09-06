@@ -8,14 +8,14 @@
 
             <div class="pull-right">
                 {% if entity.page.published != entity %}
-                    <div class="btn-group" style="margin-right:20px">
+                    <div class="btn-group" style="margin-right:20px;">
                         {{ lcmspath('node', 'version', 'publih', {'id': entity.getId()}) }}
                     </div>
                 {% endif %}
-                <div class="btn-group" style="margin-right:20px">
+                <div class="btn-group" style="margin-right:20px;">
                     <a class="btn btn-info" href="{{ lcmspath('node', 'version', 'duplicate', {'id': entity.getId()}) }}">Duplicate</a>
                 </div>
-                <div class="btn-group" style="margin-right:20px">
+                <div class="btn-group" style="margin-right:20px;">
                     <a class="btn btn-info" href="{{ lcmspath('node', 'row', 'create', {'version': entity.getId()}) }}">Add Row</a>
                 </div>
                 <div class="btn-group">

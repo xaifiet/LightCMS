@@ -1,3 +1,1 @@
-light_cms_user_login:
-    path:     /hello/{name}
-    defaults: { _controller: LightCMSUserBundle:Login:index }
+

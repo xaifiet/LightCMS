@@ -7,28 +7,37 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="lcms_widget_content")
+ * @ORM\Table(name="lcms_pages_header")
  */
-class WidgetContent extends Widget
+class PageHeader extends Page
 {
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank()
      */
     private $content;
 
+
+    /**
+     * Constructor
+     */
     public function __construct()
     {
         parent::__construct();
-        $this->content = '';
+    }
+
+    public function getInheritanceType()
+    {
+        return 'pagecontent';
     }
 
 
     /**
-     * Set content
+     * Set Content
      *
      * @param string $content
-     * @return WidgetContent
+     * @return Page
      */
     public function setContent($content)
     {
@@ -46,4 +55,5 @@ class WidgetContent extends Widget
     {
         return $this->content;
     }
+
 }

@@ -8,8 +8,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 use Doctrine\ORM\EntityManager;
 
-use LightCMS\PageBundle\Form\DataTransformer\RowsToScalarClassTransformer;
-
 /**
  * Class PageType
  * @package LightCMS\NodeBundle\Form\Type

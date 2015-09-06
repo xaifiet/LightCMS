@@ -24,15 +24,38 @@ class MediaController extends Controller
         return $this->render('LightCMSMediaBundle:Media:list.html.twig', array('medias' => $medias));
     }
 
+    protected function getChildrenNodes(&$medias, $parentId, $list, $entity_id)
+    {
+        foreach ($list as $item) {
+            if ($item->getId() == $entity_id) {
+                continue;
+            }
+            $itemParentId = is_null($item->getParent()) ? null : $item->getParent()->getId();
+            if ($itemParentId === $parentId) {
+                $medias[] = $item;
+                $this->getChildrenNodes($medias, $item->getId(), $list, $entity_id);
+            }
+        }
+    }
+
     public function parentAction(Request $request, $params)
     {
-        $entities = $this->getDoctrine()->getRepository('LightCMSMediaBundle:Media')->findBy(array('parent' => null));
+        $list = $this->getDoctrine()->getRepository('LightCMSMediaBundle:Media')->findBy(
+            array(),
+            array('name' => 'ASC'));
+
+        $medias = array();
+        $this->getChildrenNodes($medias, null, $list, $params['id']);
+
+        $media = $this->getDoctrine()->getRepository('LightCMSMediaBundle:Media')->find($params['id']);
+        $parent = is_null($media) ? null : $media->getParent();
 
         return $this->render('LightCMSMediaBundle:Media:parent.html.twig', array(
-            'entities' => $entities,
-            'id' => $params['id']
+            'medias' => $medias,
+            'parent' => $parent
         ));
     }
+
 }
 
 ?>

@@ -9,6 +9,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="lcms_pages")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="pagetype", type="string")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Page extends \LightCMS\CoreBundle\Entity\Node
 {

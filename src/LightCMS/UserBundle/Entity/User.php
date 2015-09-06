@@ -4,10 +4,8 @@ namespace LightCMS\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
-use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * @ORM\Entity()
@@ -120,6 +118,7 @@ class User implements UserInterface
     protected function generatePassword()
     {
         $alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+        $pass = '';
         for ($i = 0; $i < 12; $i++) {
             $n = rand(0, count($alphabet)-1);
             $pass[$i] = $alphabet[$n];

@@ -17,8 +17,8 @@
                         {% endfor %}
                     </ul>
                 </div>
-                <div class="btn-group" style="margin-right:20px">
-                    <div class="pull-right" style="width: 300px">
+                <div class="btn-group" style="margin-right:20px;">
+                    <div class="pull-right" style="width: 300px;">
                         <div class="input-group">
                             <span class="input-group-addon">Filter</span>
                             <input id="filter" type="text" class="form-control" placeholder="Type here..." data-bind="ready{setFocus()}|keyup{filter()}">
@@ -36,19 +36,19 @@
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th style="width: 100px">Created</th>
-                            <th style="width: 100px">Updated</th>
+                            <th style="width: 100px;">Created</th>
+                            <th style="width: 100px;">Updated</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for treemedia in getModuleTree('media') %}
-                            <tr class="treegrid-{{ treemedia.id }}{% if treemedia.parent != null %} treegrid-parent-{{ treemedia.parent.id }}{% endif %}" style="display: none">
+                            <tr class="treegrid-{{ treemedia.id }}{% if treemedia.parent != null %} treegrid-parent-{{ treemedia.parent.id }}{% endif %}" style="display: none;">
                                 <td>
                                     <i class="{{ getIcon('media', treemedia.getInheritanceType()) }}"></i>
                                     <span class="tree-space"><a href="{{ lcmspath('media', treemedia.getInheritanceType(), 'edit', {'id': treemedia.id}) }}">{{ treemedia.name }}</a></span>
                                 </td>
-                                <td style="width: 100px">{{ treemedia.created|date('Y-m-d') }}</td>
-                                <td style="width: 100px">{{ treemedia.updated|date('Y-m-d') }}</td>
+                                <td style="width: 100px;">{{ treemedia.created|date('Y-m-d') }}</td>
+                                <td style="width: 100px;">{{ treemedia.updated|date('Y-m-d') }}</td>
                             </tr>
                         {% endfor %}
                         </tbody>

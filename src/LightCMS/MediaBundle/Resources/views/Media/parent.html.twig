@@ -10,9 +10,18 @@
             <h4 class="modal-title">Parent Selection</h4>
         </div>
         <div class="modal-body">
-            <ul class="treeview">
-                {% include 'LightCMSMediaBundle:Media:parent_row.html.twig' %}
-            </ul>
+            <table class="table table-bordered" data-bind="ready{treegrid()}">
+                <tbody>
+                {% for treemedia in medias %}
+                    <tr class="treegrid-{{ treemedia.id }}{% if treemedia.parent != null %} treegrid-parent-{{ treemedia.parent.id }}{% endif %}{% if parent is defined and parent == treemedia %} tree-activate{% endif %}" style="display: none;">
+                        <td>
+                            <i class="{{ getIcon('media', treemedia.getInheritanceType()) }}"></i>
+                            <span class="tree-space"><a href="#" data-bind="click[changeModalEntity({{ treemedia.id }},{{ treemedia.name }})]">{{ treemedia.name }}</a></span>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
