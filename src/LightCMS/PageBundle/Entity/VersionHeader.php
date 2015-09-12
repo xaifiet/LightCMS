@@ -13,6 +13,12 @@ class VersionHeader extends \LightCMS\PageBundle\Entity\Version
 {
 
     /**
+     * @ORM\Column(type="string", length=50)
+     * @Assert\NotBlank()
+     */
+    private $title;
+
+    /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
@@ -32,6 +38,33 @@ class VersionHeader extends \LightCMS\PageBundle\Entity\Version
         return 'header';
     }
 
+    public function getController()
+    {
+        return 'LightCMSPageBundle:VersionHeader';
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Page
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
 
     /**
      * Set Content
@@ -49,7 +82,7 @@ class VersionHeader extends \LightCMS\PageBundle\Entity\Version
     /**
      * Get content
      *
-     * @return string 
+     * @return string
      */
     public function getContent()
     {

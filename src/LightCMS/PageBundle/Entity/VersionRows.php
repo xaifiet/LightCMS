@@ -33,6 +33,10 @@ class VersionRows extends \LightCMS\PageBundle\Entity\Version
         return 'pagerows';
     }
 
+    public function getController()
+    {
+        return 'LightCMSPageBundle:VersionRows';
+    }
 
     /**
      * Add versions

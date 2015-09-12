@@ -5,14 +5,28 @@ namespace LightCMS\PageBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use LightCMS\SiteBundle\Entity\Site;
+use LightCMS\PageBundle\Entity\Page;
 use LightCMS\PageBundle\Entity\Version;
 
 class VersionController extends Controller
 {
 
-    public function viewAction($param)
+    public function viewAction(Request $request, Site $site, $breadcrumb, Page $page)
     {
+        $version = $page->getPublished();
 
+        if (is_null($version)) {
+            throw $this->createNotFoundException('Page does not exist');
+        }
+
+        return $this->forward($version->getController().':view', array(
+            'request' => $request,
+            'site' => $site,
+            'breadcrumb' => $breadcrumb,
+            'page' => $breadcrumb[count($breadcrumb)-1],
+            'version' => $version
+        ));
     }
 
     public function createfromPageAction(Request $request, $params)
@@ -75,11 +89,8 @@ class VersionController extends Controller
     {
         $entity = $this->getDoctrine()->getRepository('LightCMSPageBundle:Version')->find($params['id']);
 
-        if (is_null($entity)) {
-            return null;
-        }
-
-        return $this->render('LightCMSPageBundle:Version:edit.html.twig', array(
+        return $this->forward($entity->getController().':edit', array(
+            'request' => $request,
             'entity' => $entity
         ));
     }

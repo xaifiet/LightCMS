@@ -1,0 +1,3 @@
+light_cms_site_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: LightCMSSiteBundle:Default:index }

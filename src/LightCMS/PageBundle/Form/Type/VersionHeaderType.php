@@ -32,6 +32,11 @@ class VersionHeaderType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
+        $builder->add('title', 'text', array(
+            'label' => 'versionheader.form.title.label',
+            'attr' => array(
+                'class' => 'form-control')));
+
         $builder->add('content', 'textarea', array(
             'label' => 'page.form.header.label',
             'required' => false,

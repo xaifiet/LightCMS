@@ -1,0 +1,24 @@
+parameters:
+
+    light_cms.inheritance.sitebundle:
+        node:
+            site:
+                type: site
+                name: Site
+                icon: 'fa fa-globe'
+                entity: LightCMS\SiteBundle\Entity\Site
+                repository: LightCMSSiteBundle:Site
+
+    light_cms.modules.sitebundle:
+        node:
+            backend:
+                site: LightCMSSiteBundle:Site
+
+services:
+
+    light_cms_site.form_type.site_type:
+        class: LightCMS\SiteBundle\Form\Type\SiteType
+        arguments:
+            - @service_container
+        tags:
+            - { name: form.type, alias: site }

@@ -5,14 +5,23 @@ namespace LightCMS\PageBundle\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+use LightCMS\SiteBundle\Entity\Site;
+use LightCMS\PageBundle\Entity\Page;
 use LightCMS\PageBundle\Entity\VersionHeader;
 
 class VersionHeaderController extends Controller
 {
 
-    public function viewAction($param)
+    public function viewAction(Request $request, Site $site, $breadcrumb, Page $page, VersionHeader $version)
     {
 
+
+        return $this->render('LightCMSPageBundle:VersionHeader:view.html.twig', array(
+            'site' => $site,
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'version' => $version
+        ));
     }
 
     public function createAction(Request $request, $params)
@@ -25,10 +34,8 @@ class VersionHeaderController extends Controller
     }
 
 
-    public function editAction(Request $request, $params)
+    public function editAction(Request $request, $entity)
     {
-        $entity = $this->getDoctrine()->getRepository('LightCMSPageBundle:VersionHeader')->find($params['id']);
-
         return $this->formAction($request, $entity, 'edit');
     }
 
@@ -60,7 +67,7 @@ class VersionHeaderController extends Controller
 
         if ($redirect) {
             $lcmsUrl = $this->get('light_cms_core.service.generate_url');
-            return $this->redirect($lcmsUrl->generateUrl('node', 'versionheader', 'edit', array(
+            return $this->redirect($lcmsUrl->generateUrl('node', 'version', 'edit', array(
                 'id' => $entity->getId()
             )));
         }

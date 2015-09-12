@@ -10,23 +10,30 @@ use LightCMS\PageBundle\Entity\VersionRows;
 class VersionRowsController extends Controller
 {
 
-    public function viewAction($param)
+    public function viewAction(Request $request, Site $site, $breadcrumb, Page $page, VersionHeader $version)
     {
 
+
+        return $this->render('LightCMSPageBundle:VersionRows:view.html.twig', array(
+            'site' => $site,
+            'breadcrumb' => $breadcrumb,
+            'page' => $page,
+            'version' => $version
+        ));
     }
 
     public function createAction(Request $request, $params)
     {
+        $page = $this->getDoctrine()->getRepository('LightCMSPageBundle:Page')->find($params['id']);
         $entity = new VersionRows();
+        $entity->setPage($page);
 
         return $this->formAction($request, $entity, 'create');
     }
 
 
-    public function editAction(Request $request, $params)
+    public function editAction(Request $request, $entity)
     {
-        $entity = $this->getDoctrine()->getRepository('LightCMSPageBundle:VersionRows')->find($params['id']);
-
         return $this->formAction($request, $entity, 'edit');
     }
 
@@ -58,14 +65,15 @@ class VersionRowsController extends Controller
 
         if ($redirect) {
             $lcmsUrl = $this->get('light_cms_core.service.generate_url');
-            return $this->redirect($lcmsUrl->generateUrl('node', 'versionrows', 'edit', array(
+            return $this->redirect($lcmsUrl->generateUrl('node', 'version', 'edit', array(
                 'id' => $entity->getId()
             )));
         }
 
         return $this->render('LightCMSPageBundle:VersionRows:edit.html.twig', array(
             'form' => $form->createView(),
-            'entity' => $entity
+            'entity' => $entity,
+            'node' => $entity->getPage()
         ));
     }
 

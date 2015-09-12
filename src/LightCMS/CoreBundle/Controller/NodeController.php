@@ -52,6 +52,11 @@ class NodeController extends Controller
 
     public function viewAction(Request $request, $path)
     {
+        return $this->forward('LightCMSPageBundle:Page:view', array(
+            'request' => $request,
+            'path' => $path
+        ));
+
         $site = $this->getSite($request);
 
         if (count($path) > 0) {

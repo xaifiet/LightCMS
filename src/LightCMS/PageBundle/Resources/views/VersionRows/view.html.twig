@@ -1,0 +1,14 @@
+{% extends 'LightCMSCoreBundle:Frontend:layout.html.twig' %}
+
+{% block title %}
+    {{ page.name }}
+{% endblock %}
+
+{% block body %}
+    {% include 'LightCMSPageBundle:Site:navigation.html.twig' %}
+
+    {% for row in version.rows %}
+        {% include 'LightCMSPageBundle:Row:view.html.twig' with {'row': row} %}
+    {% endfor %}
+{% endblock %}
+
