@@ -1,0 +1,34 @@
+{% extends 'LightCMSCoreBundle:Backend:layout.html.twig' %}
+
+{% block body %}
+{% spaceless %}
+    <section class="content-header">
+        <h1>
+            {{ entity.page.name }} - Version {{ entity.number }}
+
+            <div class="pull-right">
+                {% if entity.page.published != entity %}
+                    <div class="btn-group" style="margin-right:20px;">
+                        {{ lcmspath('node', 'version', 'publih', {'id': entity.getId()}) }}
+                    </div>
+                {% endif %}
+                <div class="btn-group" style="margin-right:20px;">
+                    <a class="btn btn-info" href="{{ lcmspath('node', 'version', 'duplicate', {'id': entity.getId()}) }}">Duplicate</a>
+                </div>
+                <div class="btn-group" style="margin-right:20px;">
+                    <a class="btn btn-info" href="{{ lcmspath('node', 'row', 'create', {'version': entity.getId()}) }}">Add Row</a>
+                </div>
+                <div class="btn-group">
+                    <a class="btn btn-default" href="{{ lcmspath('node', 'page', 'edit', {'id': entity.getPage().getId()}) }}">Back to Page</a>
+                </div>
+            </div>
+        </h1>
+    </section>
+    <section class="content">
+        {% for row in entity.rows %}
+            {% include 'LightCMSPageBundle:Row:backend.html.twig' with {'row': row} %}
+        {% endfor %}
+    </section>
+{% endspaceless %}
+{% endblock %}
+

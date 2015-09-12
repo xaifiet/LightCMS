@@ -8,21 +8,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="lcms_pages")
+ * @ORM\Table(name="lcms_versions_rows")
  */
-class Page extends \LightCMS\CoreBundle\Entity\Node
+class VersionRows extends \LightCMS\PageBundle\Entity\Version
 {
-
-    /**
-     * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
-     */
-    private $url;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Version")
-     **/
-    private $published;
 
     /**
      * @ORM\OneToMany(targetEntity="Version", mappedBy="page", cascade={"all"}, orphanRemoval=true)
@@ -41,55 +30,9 @@ class Page extends \LightCMS\CoreBundle\Entity\Node
 
     public function getInheritanceType()
     {
-        return 'page';
+        return 'pagerows';
     }
 
-
-    /**
-     * Set url
-     *
-     * @param string $url
-     * @return Page
-     */
-    public function setUrl($url)
-    {
-        $this->url = $url;
-
-        return $this;
-    }
-
-    /**
-     * Get url
-     *
-     * @return string 
-     */
-    public function getUrl()
-    {
-        return $this->url;
-    }
-
-    /**
-     * Set published
-     *
-     * @param \LightCMS\PageBundle\Entity\Version $published
-     * @return Page
-     */
-    public function setPublished(\LightCMS\PageBundle\Entity\Version $published = null)
-    {
-        $this->published = $published;
-
-        return $this;
-    }
-
-    /**
-     * Get published
-     *
-     * @return \LightCMS\PageBundle\Entity\Version 
-     */
-    public function getPublished()
-    {
-        return $this->published;
-    }
 
     /**
      * Add versions
@@ -117,7 +60,7 @@ class Page extends \LightCMS\CoreBundle\Entity\Node
     /**
      * Get versions
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \Doctrine\Common\Collections\Collection 
      */
     public function getVersions()
     {

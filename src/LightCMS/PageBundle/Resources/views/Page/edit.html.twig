@@ -13,6 +13,19 @@
     {% if node.getCreated() %}
         <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                Add Version
+                <span class="fa fa-caret-down"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+                {% for type,entity in getTypes('version') %}
+                    <li>
+                        <a href="{{ lcmspath('node', entity.type, 'create', {'id': node.id}) }}">{{ entity.name }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                 Show Version
                 <span class="fa fa-caret-down"></span>
             </button>
@@ -20,7 +33,6 @@
                 {% for version in node.getVersions() %}
                     <li><a href="{{ lcmspath('node', 'version', 'edit', {'id': version.getId()}) }}">Version {{ version.number }}</a></li>
                 {% endfor %}
-                <li><a href="{{ lcmspath('node', 'version', 'createfrompage', {'id': node.getId()}) }}">add Version</a></li>
             </ul>
         </div>
     {% endif %}

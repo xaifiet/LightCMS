@@ -7,9 +7,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="lcms_pages_header")
+ * @ORM\Table(name="lcms_versions_header")
  */
-class PageHeader extends Page
+class VersionHeader extends \LightCMS\PageBundle\Entity\Version
 {
 
     /**
@@ -29,7 +29,7 @@ class PageHeader extends Page
 
     public function getInheritanceType()
     {
-        return 'pagecontent';
+        return 'header';
     }
 
 

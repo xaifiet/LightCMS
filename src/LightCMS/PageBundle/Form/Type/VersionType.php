@@ -29,32 +29,20 @@ class VersionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add($builder->create('rows', 'collection', array(
-            'attr' => array(
-                'data-bind' => 'ready[sortable(.sorthandle)]',
-                'data-positions' => '.rowposition'
-            ),
-            'type' => 'row',
-            'allow_add' => true,
-            'allow_delete' => true,
-            'by_reference' => false,
-            'prototype' => true,
-            'label' => false)));
-
         $builder->add('submit', 'submit', array(
             'attr' => array(
                 'class' => 'btn btn-success'
             )
         ));
 
-        if ($options['data']->getPage()->getPublished() != $options['data']) {
-            $builder->add('publish', 'submit', array(
-                'attr' => array(
-                    'class' => 'btn btn-success'
-                ),
-                'label' => 'Publish'
-            ));
-        }
+//        if ($options['data']->getPage()->getPublished() != $options['data']) {
+//            $builder->add('publish', 'submit', array(
+//                'attr' => array(
+//                    'class' => 'btn btn-success'
+//                ),
+//                'label' => 'Publish'
+//            ));
+//        }
 
     }
 

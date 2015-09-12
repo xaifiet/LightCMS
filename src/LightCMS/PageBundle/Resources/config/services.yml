@@ -17,6 +17,22 @@ parameters:
                 templates:
                     view: LigheCMSPageBundle:Page:view.html.twig
                     edit: LightCMSPageBundle:Page:edit.html.twig
+        version:
+            header:
+                type: versionheader
+                name: Header Version
+                icon: 'fa fa-file-code-o'
+                entity: LightCMS\PageBundle\Entity\VersionHeader
+                repository: LightCMSPageBundle:VersionHeader
+                form: versionheader
+            rows:
+                type: versionrows
+                name: Rows Version
+                icon: 'fa fa-file-code-o'
+                entity: LightCMS\PageBundle\Entity\VersionRows
+                repository: LightCMSPageBundle:VersionRows
+                form: versionrows
+
         row:
             widget:
                 name: Widget Row
@@ -45,6 +61,8 @@ parameters:
             backend:
                 page: LightCMSPageBundle:Page
                 version: LightCMSPageBundle:Version
+                versionheader: LightCMSPageBundle:VersionHeader
+                versionrows: LightCMSPageBundle:VersionRows
                 row: LightCMSPageBundle:Row
                 widget: LightCMSPageBundle:Widget
                 widgetcontent: LightCMSPageBundle:WidgetContent
@@ -58,6 +76,20 @@ services:
             - @service_container
         tags:
             - { name: form.type, alias: page }
+
+    light_cms_page.form_type.version_header_type:
+        class: LightCMS\PageBundle\Form\Type\VersionHeaderType
+        arguments:
+            - @service_container
+        tags:
+            - { name: form.type, alias: versionheader }
+
+    light_cms_page.form_type.version_rows_type:
+        class: LightCMS\PageBundle\Form\Type\VersionRowsType
+        arguments:
+            - @service_container
+        tags:
+            - { name: form.type, alias: versionrows }
 
     light_cms_page.form_type.version_type:
         class: LightCMS\PageBundle\Form\Type\VersionType

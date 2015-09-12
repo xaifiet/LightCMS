@@ -21,7 +21,7 @@ class Row
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Version", inversedBy="rows")
+     * @ORM\ManyToOne(targetEntity="VersionRows", inversedBy="rows")
      * @ORM\JoinColumn(nullable=false)
      **/
     private $version;
@@ -112,10 +112,10 @@ class Row
     /**
      * Set version
      *
-     * @param \LightCMS\PageBundle\Entity\Version $version
+     * @param \LightCMS\PageBundle\Entity\VersionRows $version
      * @return Row
      */
-    public function setVersion(\LightCMS\PageBundle\Entity\Version $version)
+    public function setVersion(\LightCMS\PageBundle\Entity\VersionRows $version)
     {
         $this->version = $version;
 
@@ -125,7 +125,7 @@ class Row
     /**
      * Get version
      *
-     * @return \LightCMS\PageBundle\Entity\Version 
+     * @return \LightCMS\PageBundle\Entity\VersionRows
      */
     public function getVersion()
     {

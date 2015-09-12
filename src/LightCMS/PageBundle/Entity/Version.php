@@ -9,6 +9,9 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity
  * @ORM\Table(name="lcms_versions")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="type", type="string")
+ * @ORM\HasLifecycleCallbacks()
  */
 class Version
 {
@@ -22,7 +25,6 @@ class Version
 
     /**
      * @ORM\Column(type="integer")
-     * @Assert\NotBlank()
      */
     private $number;
 
@@ -50,9 +52,24 @@ class Version
      * Clone
      */
     public function __clone() {
-        $this->id = md5(uniqid(null, true));
+        $this->id = null;
     }
 
+    /**
+     * @ORM\PrePersist
+     */
+    public function setDateValue()
+    {
+        if (!is_null($this->number) or is_null($this->page)) {
+            return;
+        }
+        $this->number = 1;
+        foreach ($this->page->getVersions() as $version) {
+            if ($version->getNumber() > $this->number) {
+                $this->number = $version->getNumber() + 1;
+            }
+        }
+    }
 
     /**
      * Get id
@@ -103,7 +120,7 @@ class Version
     /**
      * Get page
      *
-     * @return \LightCMS\PageBundle\Entity\Page 
+     * @return \LightCMS\PageBundle\Entity\Page
      */
     public function getPage()
     {

@@ -11,7 +11,7 @@ class NodeController extends Controller
     protected function getSite(Request $request)
     {
         // Getting all available sites by priority
-        $sites = $this->getDoctrine()->getRepository('LightCMSPageBundle:Site')->findBy(
+        $sites = $this->getDoctrine()->getRepository('LightCMSSiteBundle:Site')->findBy(
             array(),
             array('priority' => 'ASC')
         );
