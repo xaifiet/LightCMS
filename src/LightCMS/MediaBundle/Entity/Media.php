@@ -24,9 +24,13 @@ abstract class Media
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
      */
     private $name;
+
+    /**
+     * @ORM\OneToOne(targetEntity="\LightCMS\CoreBundle\Entity\File", cascade={"all"})
+     **/
+    private $file;
 
     /**
      * @ORM\ManyToOne(targetEntity="Media", inversedBy="children")
@@ -100,6 +104,29 @@ abstract class Media
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set file
+     *
+     * @param \LightCMS\CoreBundle\Entity\File $file
+     * @return Media
+     */
+    public function setFile(\LightCMS\CoreBundle\Entity\File $file = null)
+    {
+        $this->file = $file;
+
+        return $this;
+    }
+
+    /**
+     * Get file
+     *
+     * @return \LightCMS\CoreBundle\Entity\File
+     */
+    public function getFile()
+    {
+        return $this->file;
     }
 
     /**

@@ -50,6 +50,14 @@
                 </div>
             </div>
             {% block form %}{% endblock %}
+            <div class="box box-primary">
+                <div class="box-body">
+                    {% for child in media.children %}
+                        <div>{{ child.name }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+
         </div>
     </section>
 

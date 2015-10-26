@@ -34,15 +34,17 @@ class ImageType extends AbstractType
 
         $builder->add('name', 'text', array(
             'label' => 'image.form.name.label',
+            'required' => false,
             'attr' => array(
                 'class' => 'form-control')));
 
         $builder->add('title', 'text', array(
             'label' => 'image.form.title.label',
+            'required' => false,
             'attr' => array(
                 'class' => 'form-control')));
 
-        $builder->add('original', 'file_image', array(
+        $builder->add('file', 'file_image', array(
             'label' => 'image.form.file.label',
             'required' => true
         ));

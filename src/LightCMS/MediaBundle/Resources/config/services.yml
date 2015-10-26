@@ -55,6 +55,14 @@ parameters:
 
 services:
 
+    light_cms_media.event_listener.media_event_listener:
+        class: LightCMS\MediaBundle\EventListener\MediaEventListener
+        arguments:
+            - @service_container
+        tags:
+            - { name: doctrine.event_listener, event: prePersist }
+            - { name: doctrine.event_listener, event: preUpdate }
+
     light_cms_media.form_type.folder_type:
         class: LightCMS\MediaBundle\Form\Type\FolderType
         arguments:

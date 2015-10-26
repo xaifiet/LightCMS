@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit backupGlobals="false"
+         backupStaticAttributes="false"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="false"
+        >
+    <testsuites>
+        <testsuite name="LightCMS Core Bundle">
+            <directory suffix="Test.php">./src/LightCMS/CoreBundle</directory>
+        </testsuite>
+        <testsuite name="LightCMS Media Bundle">
+            <directory suffix="Test.php">./src/LightCMS/MediaBundle</directory>
+        </testsuite>
+        <testsuite name="LightCMS Page Bundle">
+            <directory suffix="Test.php">./src/LightCMS/PageBundle</directory>
+        </testsuite>
+        <testsuite name="LightCMS Site Bundle">
+            <directory suffix="Test.php">./src/LightCMS/SiteBundle</directory>
+        </testsuite>
+        <testsuite name="LightCMS User Bundle">
+            <directory suffix="Test.php">./src/LightCMS/UserBundle</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

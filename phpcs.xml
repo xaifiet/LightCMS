@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<ruleset name="LCMS">
+
+    <description>Codestyle ruleset for Light CMS</description>
+
+    <rule ref="PSR2"/>
+
+    <file>src</file>
+
+    <arg name="encoding" value="UTF-8"/>
+    <arg name="extensions" value="php"/>
+
+    <exclude-pattern>AppBundle/*</exclude-pattern>
+    <exclude-pattern>*/Tests/*</exclude-pattern>
+
+</ruleset>

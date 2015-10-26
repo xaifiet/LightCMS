@@ -14,14 +14,13 @@ class Image extends Media
 
     /**
      * @ORM\Column(type="string", length=100)
-     * @Assert\NotBlank()
      */
     private $title;
 
-    /**
-     * @ORM\OneToOne(targetEntity="\LightCMS\CoreBundle\Entity\FileImage", cascade={"all"})
-     **/
-    private $original;
+//    /**
+//     * @ORM\OneToOne(targetEntity="\LightCMS\CoreBundle\Entity\FileImage", cascade={"all"})
+//     **/
+//    private $file;
 
     /**
      * @ORM\ManyToMany(targetEntity="\LightCMS\CoreBundle\Entity\FileImage", cascade={"all"})
@@ -95,28 +94,28 @@ class Image extends Media
         return $this->description;
     }
 
-    /**
-     * Set original
-     *
-     * @param \LightCMS\CoreBundle\Entity\FileImage $original
-     * @return Image
-     */
-    public function setOriginal(\LightCMS\CoreBundle\Entity\FileImage $original = null)
-    {
-        $this->original = $original;
-
-        return $this;
-    }
-
-    /**
-     * Get original
-     *
-     * @return \LightCMS\CoreBundle\Entity\FileImage 
-     */
-    public function getOriginal()
-    {
-        return $this->original;
-    }
+//    /**
+//     * Set file
+//     *
+//     * @param \LightCMS\CoreBundle\Entity\FileImage $file
+//     * @return Image
+//     */
+//    public function setFile(\LightCMS\CoreBundle\Entity\FileImage $file = null)
+//    {
+//        $this->file = $file;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * Get file
+//     *
+//     * @return \LightCMS\CoreBundle\Entity\FileImage
+//     */
+//    public function getFile()
+//    {
+//        return $this->file;
+//    }
 
     /**
      * Add scales
